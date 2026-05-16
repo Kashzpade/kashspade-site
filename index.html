@@ -76,25 +76,33 @@ const SUPABASE_KEY = "sb_publishable_yS1OzZaeE8KWx0nmmXX2IQ_qzeRzP8U";
 // ================= CART =================
 let cart = [];
 
-// ================= LOAD PRODUCTS =================
+// ================= LOAD DATA =================
 async function loadProducts(){
-  const res = await fetch(SUPABASE_URL + "/rest/v1/products?select=*", {
-    headers:{
-      apikey: SUPABASE_KEY,
-      Authorization: "Bearer " + SUPABASE_KEY
-    }
-  });
+  try {
+    const res = await fetch(SUPABASE_URL + "/rest/v1/products?select=*", {
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: "Bearer " + SUPABASE_KEY
+      }
+    });
 
-  const data = await res.json();
-  render(data);
+    const data = await res.json();
+
+    console.log("SUPABASE DATA:", data);
+
+    renderProducts(data);
+
+  } catch (err) {
+    console.error("FETCH ERROR:", err);
+  }
 }
 
-// ================= RENDER =================
-function render(data){
+// ================= RENDER PRODUCTS =================
+function renderProducts(data){
   const el = document.getElementById("products");
 
   if(!data || data.length === 0){
-    el.innerHTML = "<p>No products</p>";
+    el.innerHTML = "<p>No products found</p>";
     return;
   }
 
@@ -102,18 +110,19 @@ function render(data){
     <div class="card">
       <h3>${p.name}</h3>
       <p>Rp ${p.price}</p>
-      <button onclick="add('${p.name}', ${p.price})">Add</button>
+      <button onclick="addCart('${p.name}', ${p.price})">
+        Add to Cart
+      </button>
     </div>
   `).join("");
 }
 
-// ================= ADD TO CART =================
-function add(name, price){
+// ================= CART =================
+function addCart(name, price){
   cart.push({name, price});
   renderCart();
 }
 
-// ================= CART UI =================
 function renderCart(){
   document.getElementById("cart").innerHTML =
     cart.map(i => `<div>${i.name} - Rp ${i.price}</div>`).join("");
