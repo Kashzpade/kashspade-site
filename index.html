@@ -1,54 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Spade Website</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      color: white;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<title>KashStore</title>
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0a0f1c;
+  color:white;
+}
 
-    .container {
-      margin-top: 120px;
-    }
+header{
+  padding:20px;
+  background:#111a2e;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 
-    h1 {
-      font-size: 50px;
-      color: #38bdf8;
-    }
+h1{color:#38bdf8;}
 
-    p {
-      font-size: 20px;
-      opacity: 0.8;
-    }
+.container{
+  padding:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+}
 
-    .btn {
-      margin-top: 20px;
-      padding: 12px 25px;
-      background: #38bdf8;
-      border: none;
-      border-radius: 8px;
-      color: black;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.card{
+  background:#111a2e;
+  padding:15px;
+  border-radius:10px;
+  border:1px solid #1f2a44;
+}
 
-    .btn:hover {
-      background: #0ea5e9;
-    }
-  </style>
+button{
+  padding:10px;
+  width:100%;
+  margin-top:10px;
+  background:#38bdf8;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+button:hover{background:#0ea5e9;}
+
+.cart{
+  position:fixed;
+  right:0;
+  top:0;
+  width:300px;
+  height:100%;
+  background:#0f172a;
+  padding:20px;
+  border-left:1px solid #1f2a44;
+}
+
+.item{margin-bottom:10px;}
+
+.checkout{
+  margin-top:20px;
+  background:green;
+}
+</style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>Spade Hosting</h1>
-    <p>Website ini berjalan dari PC sendiri 🚀</p>
-    <button class="btn">Explore</button>
+<header>
+  <h1>KashStore</h1>
+  <div>🛒 Cart</div>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h3>VIP Rank</h3>
+    <p>Rp 10.000</p>
+    <button onclick="add('VIP Rank')">Add to Cart</button>
   </div>
+
+  <div class="card">
+    <h3>Legend Rank</h3>
+    <p>Rp 25.000</p>
+    <button onclick="add('Legend Rank')">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <h3>Mythic Rank</h3>
+    <p>Rp 50.000</p>
+    <button onclick="add('Mythic Rank')">Add to Cart</button>
+  </div>
+
+</div>
+
+<div class="cart">
+  <h3>Your Cart</h3>
+  <div id="cart"></div>
+
+  <button class="checkout" onclick="checkout()">
+    Checkout via DANA
+  </button>
+</div>
+
+<script>
+let cart=[];
+
+function add(item){
+  cart.push(item);
+  render();
+}
+
+function render(){
+  document.getElementById("cart").innerHTML =
+    cart.map(i=>`<div class='item'>${i}</div>`).join("");
+}
+
+function checkout(){
+  alert("Bayar via DANA: 08XXXXXXXXXX\nKirim bukti ke WhatsApp!");
+}
+</script>
 
 </body>
 </html>
