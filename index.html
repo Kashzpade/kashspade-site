@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>KashStore</title>
+
 <style>
 body{
   margin:0;
@@ -24,7 +25,7 @@ h1{color:#38bdf8;}
 .container{
   padding:20px;
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:20px;
 }
 
@@ -45,7 +46,9 @@ button{
   cursor:pointer;
 }
 
-button:hover{background:#0ea5e9;}
+button:hover{
+  background:#0ea5e9;
+}
 
 .cart{
   position:fixed;
@@ -58,13 +61,11 @@ button:hover{background:#0ea5e9;}
   border-left:1px solid #1f2a44;
 }
 
-.item{margin-bottom:10px;}
-
-.checkout{
-  margin-top:20px;
-  background:green;
+.item{
+  margin-bottom:10px;
 }
 </style>
+
 </head>
 <body>
 
@@ -73,53 +74,83 @@ button:hover{background:#0ea5e9;}
   <div>🛒 Cart</div>
 </header>
 
-<div class="container">
-
-  <div class="card">
-    <h3>VIP Rank</h3>
-    <p>Rp 10.000</p>
-    <button onclick="add('VIP Rank')">Add to Cart</button>
-  </div>
-
-  <div class="card">
-    <h3>Legend Rank</h3>
-    <p>Rp 25.000</p>
-    <button onclick="add('Legend Rank')">Add to Cart</button>
-  </div>
-
-  <div class="card">
-    <h3>Mythic Rank</h3>
-    <p>Rp 50.000</p>
-    <button onclick="add('Mythic Rank')">Add to Cart</button>
-  </div>
-
-</div>
+<div class="container" id="products"></div>
 
 <div class="cart">
   <h3>Your Cart</h3>
   <div id="cart"></div>
 
-  <button class="checkout" onclick="checkout()">
+  <button onclick="checkout()" style="margin-top:20px;background:green;">
     Checkout via DANA
   </button>
 </div>
 
 <script>
-let cart=[];
 
-function add(item){
-  cart.push(item);
-  render();
+let cart = [];
+
+// 🔑 SUPABASE CONFIG (ISI INI)
+const SUPABASE_URL = "ISI_URL_LU";
+const SUPABASE_KEY = "ISI_ANON_KEY_LU";
+
+// 🧲 LOAD PRODUCTS DARI SUPABASE
+async function loadProducts(){
+  const res = await fetch(SUPABASE_URL + "/rest/v1/products", {
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: "Bearer " + SUPABASE_KEY
+    }
+  });
+
+  const data = await res.json();
+  renderProducts(data);
 }
 
-function render(){
+// 🎨 TAMPILKAN PRODUCT
+function renderProducts(data){
+  const container = document.getElementById("products");
+
+  container.innerHTML = data.map(p => `
+    <div class="card">
+      <h3>${p.name}</h3>
+      <p>Rp ${p.price}</p>
+      <button onclick="addCart('${p.name}', ${p.price})">
+        Add to Cart
+      </button>
+    </div>
+  `).join("");
+}
+
+// 🛒 ADD TO CART
+function addCart(name, price){
+  cart.push({name, price});
+  renderCart();
+}
+
+// 🧾 RENDER CART
+function renderCart(){
   document.getElementById("cart").innerHTML =
-    cart.map(i=>`<div class='item'>${i}</div>`).join("");
+    cart.map(i => `<div class="item">${i.name} - Rp ${i.price}</div>`).join("");
 }
 
+// 💳 CHECKOUT (MANUAL DANA)
 function checkout(){
-  alert("Bayar via DANA: 08XXXXXXXXXX\nKirim bukti ke WhatsApp!");
+  if(cart.length === 0){
+    alert("Cart masih kosong!");
+    return;
+  }
+
+  let total = cart.reduce((a,b)=>a+b.price,0);
+
+  alert(
+    "TOTAL: Rp " + total +
+    "\n\nBayar via DANA ke: 08XXXXXXXXXX" +
+    "\nSetelah bayar, kirim bukti ke WhatsApp"
+  );
 }
+
+loadProducts();
+
 </script>
 
 </body>
