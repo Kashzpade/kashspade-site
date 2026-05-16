@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>KashStore</title>
@@ -7,48 +7,106 @@
 <style>
 body{
   margin:0;
-  font-family:Arial;
-  background:#0a0f1c;
+  font-family:Arial, sans-serif;
+  background:#0b1220;
   color:white;
 }
 
+/* HEADER */
 header{
-  padding:20px;
+  padding:18px 30px;
   background:#111a2e;
   display:flex;
   justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #1f2a44;
 }
 
+.logo{
+  font-size:20px;
+  font-weight:bold;
+  color:#38bdf8;
+}
+
+/* MAIN GRID */
 .container{
-  padding:20px;
+  padding:30px;
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:15px;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
 }
 
+/* PRODUCT CARD */
 .card{
   background:#111a2e;
+  border:1px solid #1f2a44;
+  border-radius:14px;
   padding:15px;
-  border-radius:10px;
+  transition:0.2s;
 }
 
+.card:hover{
+  transform:translateY(-4px);
+  border-color:#38bdf8;
+}
+
+.card h3{
+  margin:0;
+}
+
+.price{
+  color:#38bdf8;
+  margin-top:5px;
+  font-weight:bold;
+}
+
+/* BUTTON */
 button{
   width:100%;
-  margin-top:10px;
+  margin-top:12px;
   padding:10px;
-  background:#38bdf8;
   border:none;
+  border-radius:10px;
+  background:#38bdf8;
   cursor:pointer;
+  font-weight:bold;
+  color:#000;
 }
 
+button:hover{
+  background:#0ea5e9;
+}
+
+/* CART */
 .cart{
   position:fixed;
   right:0;
   top:0;
-  width:250px;
+  width:280px;
   height:100%;
   background:#0f172a;
-  padding:15px;
+  border-left:1px solid #1f2a44;
+  padding:20px;
+  overflow:auto;
+}
+
+.cart h3{
+  margin-top:0;
+  color:#38bdf8;
+}
+
+.item{
+  background:#111a2e;
+  padding:10px;
+  margin-bottom:10px;
+  border-radius:8px;
+  border:1px solid #1f2a44;
+}
+
+.checkout{
+  margin-top:20px;
+  background:#22c55e;
+  color:black;
 }
 </style>
 
@@ -57,14 +115,19 @@ button{
 <body>
 
 <header>
-  <h1>KashStore</h1>
+  <div class="logo">KashStore</div>
+  <div>🛒 Store</div>
 </header>
 
 <div class="container" id="products"></div>
 
 <div class="cart">
-  <h3>Cart</h3>
+  <h3>Your Cart</h3>
   <div id="cart"></div>
+
+  <button class="checkout" onclick="checkout()">
+    Checkout
+  </button>
 </div>
 
 <script>
@@ -76,25 +139,17 @@ const SUPABASE_KEY = "sb_publishable_yS1OzZaeE8KWx0nmmXX2IQ_qzeRzP8U";
 // ================= CART =================
 let cart = [];
 
-// ================= LOAD DATA =================
+// ================= LOAD PRODUCTS =================
 async function loadProducts(){
-  try {
-    const res = await fetch(SUPABASE_URL + "/rest/v1/products?select=*", {
-      headers: {
-        apikey: SUPABASE_KEY,
-        Authorization: "Bearer " + SUPABASE_KEY
-      }
-    });
+  const res = await fetch(SUPABASE_URL + "/rest/v1/products?select=*", {
+    headers:{
+      apikey: SUPABASE_KEY,
+      Authorization: "Bearer " + SUPABASE_KEY
+    }
+  });
 
-    const data = await res.json();
-
-    console.log("SUPABASE DATA:", data);
-
-    renderProducts(data);
-
-  } catch (err) {
-    console.error("FETCH ERROR:", err);
-  }
+  const data = await res.json();
+  renderProducts(data);
 }
 
 // ================= RENDER PRODUCTS =================
@@ -109,7 +164,7 @@ function renderProducts(data){
   el.innerHTML = data.map(p => `
     <div class="card">
       <h3>${p.name}</h3>
-      <p>Rp ${p.price}</p>
+      <div class="price">Rp ${p.price}</div>
       <button onclick="addCart('${p.name}', ${p.price})">
         Add to Cart
       </button>
@@ -125,10 +180,45 @@ function addCart(name, price){
 
 function renderCart(){
   document.getElementById("cart").innerHTML =
-    cart.map(i => `<div>${i.name} - Rp ${i.price}</div>`).join("");
+    cart.map(i => `
+      <div class="item">
+        ${i.name} - Rp ${i.price}
+      </div>
+    `).join("");
 }
 
-// ================= START =================
+// ================= CHECKOUT =================
+async function checkout(){
+  if(cart.length === 0){
+    alert("Cart kosong!");
+    return;
+  }
+
+  let total = cart.reduce((a,b)=>a+b.price,0);
+
+  await fetch(SUPABASE_URL + "/rest/v1/orders", {
+    method:"POST",
+    headers:{
+      apikey: SUPABASE_KEY,
+      Authorization: "Bearer " + SUPABASE_KEY,
+      "Content-Type":"application/json",
+      Prefer:"return=representation"
+    },
+    body: JSON.stringify({
+      email:"guest",
+      items: JSON.stringify(cart),
+      total: total,
+      status:"pending"
+    })
+  });
+
+  alert("Order berhasil! Total Rp " + total);
+
+  cart = [];
+  renderCart();
+}
+
+// START
 loadProducts();
 
 </script>
