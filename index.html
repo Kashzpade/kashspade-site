@@ -20,7 +20,9 @@ header{
   align-items:center;
 }
 
-h1{color:#38bdf8;}
+h1{
+  color:#38bdf8;
+}
 
 .container{
   padding:20px;
@@ -87,20 +89,24 @@ button:hover{
 
 <script>
 
+// 🧠 CART SYSTEM
 let cart = [];
 
 // 🔑 SUPABASE CONFIG (ISI INI)
-const SUPABASE_URL = "ISI_URL_LU";
-const SUPABASE_KEY = "ISI_ANON_KEY_LU";
+const SUPABASE_URL = "https://tffyptzlonnalscrrcqc.supabase.co";
+const SUPABASE_KEY = "ISI_PUBLISHABLE_KEY_LU";
 
-// 🧲 LOAD PRODUCTS DARI SUPABASE
+// 🚀 AMBIL PRODUCTS DARI SUPABASE
 async function loadProducts(){
-  const res = await fetch(SUPABASE_URL + "/rest/v1/products", {
-    headers: {
-      apikey: SUPABASE_KEY,
-      Authorization: "Bearer " + SUPABASE_KEY
+  const res = await fetch(
+    SUPABASE_URL + "/rest/v1/products?select=*",
+    {
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: "Bearer " + SUPABASE_KEY
+      }
     }
-  });
+  );
 
   const data = await res.json();
   renderProducts(data);
@@ -127,16 +133,16 @@ function addCart(name, price){
   renderCart();
 }
 
-// 🧾 RENDER CART
+// 📦 RENDER CART
 function renderCart(){
   document.getElementById("cart").innerHTML =
     cart.map(i => `<div class="item">${i.name} - Rp ${i.price}</div>`).join("");
 }
 
-// 💳 CHECKOUT (MANUAL DANA)
+// 💳 CHECKOUT (MANUAL DANA DULU)
 function checkout(){
   if(cart.length === 0){
-    alert("Cart masih kosong!");
+    alert("Cart kosong!");
     return;
   }
 
@@ -144,11 +150,12 @@ function checkout(){
 
   alert(
     "TOTAL: Rp " + total +
-    "\n\nBayar via DANA ke: 08XXXXXXXXXX" +
-    "\nSetelah bayar, kirim bukti ke WhatsApp"
+    "\n\nBayar ke DANA: 08XXXXXXXXXX" +
+    "\nKirim bukti ke WhatsApp"
   );
 }
 
+// START
 loadProducts();
 
 </script>
