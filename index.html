@@ -16,46 +16,61 @@
 }
 
 body {
-  background: #050505;
+  background: #020617;
   color: #eaeaea;
   overflow: hidden;
 }
 
-/* subtle luxury background */
+/* BLUE LUXURY BACKGROUND */
 .bg {
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at 30% 20%, #1a1a1a 0%, transparent 40%),
-              radial-gradient(circle at 70% 80%, #111 0%, transparent 40%),
-              #050505;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(0,140,255,0.25), transparent 45%),
+    radial-gradient(circle at 80% 80%, rgba(0,90,255,0.18), transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(0,180,255,0.08), #020617);
+  animation: drift 12s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.06); }
 }
 
 /* INTRO */
 .intro {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.95);
+  background: rgba(0,0,0,0.92);
+  backdrop-filter: blur(10px);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 999;
-  flex-direction: column;
-  gap: 20px;
 }
 
-.circle {
+.text {
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: #6aaeff;
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+.btn {
   width: 78px;
   height: 78px;
   border-radius: 50%;
-  border: 1px solid #2a2a2a;
-  background: transparent;
+  border: 1px solid rgba(0,140,255,0.4);
+  background: rgba(0,140,255,0.05);
   cursor: pointer;
   transition: 0.3s;
 }
 
-.circle:hover {
-  transform: scale(1.08);
-  background: #fff;
+.btn:hover {
+  background: rgba(0,140,255,0.2);
+  transform: scale(1.1);
 }
 
 /* MAIN */
@@ -68,24 +83,25 @@ body {
 }
 
 .container {
-  max-width: 780px;
+  max-width: 800px;
   margin: auto;
-  padding: 140px 20px;
+  padding: 130px 20px;
   text-align: center;
 }
 
 /* LOGO */
 .logo {
-  font-size: 64px;
+  font-size: 70px;
   font-weight: 600;
-  letter-spacing: 10px;
-  margin-bottom: 10px;
+  letter-spacing: 12px;
+  color: #dbeafe;
 }
 
 .sub {
-  color: #777;
-  font-size: 13px;
-  letter-spacing: 2px;
+  font-size: 12px;
+  color: #6b8bbd;
+  letter-spacing: 3px;
+  margin-top: 6px;
 }
 
 /* SECTION */
@@ -94,67 +110,54 @@ body {
   text-align: left;
 }
 
-/* TITLE */
 .title {
   font-size: 10px;
-  letter-spacing: 3px;
-  color: #666;
-  margin-bottom: 25px;
-  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: #4d6fa8;
+  margin-bottom: 20px;
 }
 
-/* CARD (luxury minimal) */
+/* CARD */
 .card {
-  padding: 18px 20px;
+  padding: 16px 18px;
   border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.06);
-  background: rgba(255,255,255,0.02);
-  margin-bottom: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(0,140,255,0.15);
+  margin-bottom: 10px;
   transition: 0.25s;
 }
 
 .card:hover {
   transform: translateX(6px);
-  border-color: rgba(255,255,255,0.12);
+  border-color: rgba(0,140,255,0.4);
 }
 
 .name {
   font-size: 15px;
-  font-weight: 500;
-  letter-spacing: 0.3px;
+  color: #e5f0ff;
 }
 
 /* LINKS */
 .links {
   margin-top: 80px;
-}
-
-.linkbox {
-  padding: 16px 20px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.06);
-  background: rgba(255,255,255,0.02);
-  margin-bottom: 12px;
   text-align: left;
 }
 
+.linkbox {
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(0,140,255,0.15);
+  margin-bottom: 10px;
+}
+
 a {
-  color: #aaa;
+  color: #8ab4ff;
   text-decoration: none;
 }
 
 a:hover {
-  color: #fff;
-}
-
-/* fade in effect */
-.fade {
-  animation: fadeIn 1.2s ease forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  color: #ffffff;
 }
 
 /* MUSIC */
@@ -169,20 +172,21 @@ audio { display:none; }
 
 <!-- INTRO -->
 <div class="intro" id="intro">
-  <button class="circle" onclick="enter()"></button>
+  <div class="text">CLICK TO ENTER NS</div>
+  <button class="btn" onclick="enter()"></button>
 </div>
 
 <!-- MAIN -->
 <div class="main" id="main">
 
-<div class="container fade">
+<div class="container">
 
   <div class="logo">NS</div>
   <div class="sub">Nggak Sehat</div>
 
   <!-- MEMBERS -->
   <div class="section">
-    <div class="title">Members</div>
+    <div class="title">MEMBERS</div>
 
     <div class="card"><div class="name">KevinSpade</div></div>
     <div class="card"><div class="name">Fizz</div></div>
@@ -195,10 +199,10 @@ audio { display:none; }
   <!-- LINKS -->
   <div class="links">
 
-    <div class="title">Links</div>
+    <div class="title">LINKS</div>
 
     <div class="linkbox">
-      Discord → <a href="https://discord.gg/zEq6t4y73N" target="_blank">join server</a>
+      Discord → <a href="https://discord.gg/zEq6t4y73N" target="_blank">join</a>
     </div>
 
     <div class="linkbox">
@@ -225,7 +229,7 @@ function enter() {
   main.style.transform = "translateY(0)";
 
   const music = document.getElementById("bgMusic");
-  music.volume = 0.18;
+  music.volume = 0.15;
   music.play().catch(()=>{});
 }
 </script>
