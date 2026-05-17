@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NS SHIRT</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NS STORE AAA++</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
@@ -15,61 +15,62 @@
   font-family: Inter;
 }
 
-body {
-  background: linear-gradient(135deg, #07122b, #0a58ff);
-  color: white;
+/* CLEAN SCROLL */
+html, body {
   overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+body::-webkit-scrollbar {
+  display: none;
 }
 
-/* LAYOUT */
+/* LUXURY BACKGROUND */
+body {
+  background: radial-gradient(circle at top left, #3aa0ff20, transparent 40%),
+              radial-gradient(circle at bottom right, #ffffff10, transparent 50%),
+              linear-gradient(135deg, #050b1f, #0a58ff);
+  color: white;
+}
+
+/* CONTAINER */
 .container {
   max-width: 1100px;
   margin: auto;
-  padding: 60px 20px;
+  padding: 70px 20px;
 }
 
 /* HEADER */
 .title {
-  font-size: 52px;
-  letter-spacing: 5px;
+  font-size: 56px;
+  letter-spacing: 6px;
+  font-weight: 600;
 }
 
 .sub {
-  opacity: 0.7;
   font-size: 12px;
-  margin-bottom: 40px;
+  opacity: 0.6;
+  margin-bottom: 50px;
 }
 
-/* DROP AREA */
-.drop {
+/* GRID */
+.grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  gap: 60px;
   align-items: center;
 }
 
-/* IMAGE */
-.img-wrap {
-  perspective: 1000px;
-  display: flex;
-  justify-content: center;
-}
-
-.img-wrap img {
-  width: 320px;
-  border-radius: 14px;
-  transition: transform 0.1s ease;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-}
-
-/* INFO BOX */
+/* CARD */
 .card {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
-  padding: 20px;
-  border-radius: 14px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 22px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
 }
 
+/* PRICE */
 .price {
   margin-top: 10px;
   font-size: 14px;
@@ -78,40 +79,57 @@ body {
 
 .sold {
   text-decoration: line-through;
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 /* BUTTONS */
 .row {
   display: flex;
   gap: 10px;
-  margin-top: 15px;
+  margin-top: 18px;
 }
 
 .btn {
   padding: 10px 14px;
   border-radius: 10px;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.25s;
+  font-size: 12px;
 }
 
 .btn:hover {
   transform: translateY(-2px);
+  background: rgba(255,255,255,0.15);
 }
 
-/* LINKS */
-.links {
-  margin-top: 50px;
+/* IMAGE */
+.img-wrap {
+  perspective: 1200px;
+  display: flex;
+  justify-content: center;
+}
+
+.img-wrap img {
+  width: 340px;
+  border-radius: 16px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+  transition: transform 0.15s ease;
+  cursor: zoom-in;
+}
+
+/* FOOTER LINKS */
+.footer {
+  margin-top: 60px;
   display: flex;
   gap: 20px;
   font-size: 12px;
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 a {
-  color: #7fb3ff;
+  color: #8ec5ff;
   text-decoration: none;
 }
 </style>
@@ -121,40 +139,36 @@ a {
 
 <div class="container">
 
-  <!-- TITLE -->
-  <div class="title">NS SHIRT</div>
-  <div class="sub">website by: Kashspade</div>
+  <!-- HEADER -->
+  <div class="title">NS STORE</div>
+  <div class="sub">WEBSITE BY: KASHSPADE</div>
 
-  <!-- DROP -->
-  <div class="drop">
+  <!-- MAIN -->
+  <div class="grid">
 
-    <!-- INFO -->
+    <!-- LEFT -->
     <div class="card">
-      <h2>LIMITED DROP</h2>
+      <h3>LIMITED DROP</h3>
 
-      <div class="price">
-        NS SHIRT
-      </div>
-
-      <div class="price sold">
-        PRICE: $29.99 — SOLD OUT
-      </div>
+      <div class="price">NS SHIRT</div>
+      <div class="price sold">PRICE: $29.99 — SOLD OUT</div>
 
       <div class="row">
         <div class="btn">BUY</div>
-        <div class="btn" onclick="toggleMute()">MUTE</div>
+        <div class="btn" onclick="toggleSound()">MUTE</div>
       </div>
+
     </div>
 
-    <!-- IMAGE -->
+    <!-- RIGHT IMAGE -->
     <div class="img-wrap">
       <img src="/image/shirt.png" id="shirt">
     </div>
 
   </div>
 
-  <!-- LINKS -->
-  <div class="links">
+  <!-- FOOTER -->
+  <div class="footer">
     <a href="https://discord.gg/zEq6t4y73N">Discord Kashspade</a>
     <a href="https://www.youtube.com/@kashspade">Youtube Kashspade</a>
   </div>
@@ -168,13 +182,16 @@ a {
 
 <script>
 
-/* 🎵 MUSIC */
 const music = document.getElementById("bgMusic");
-music.volume = 0.4;
-music.play().catch(()=>{});
+music.volume = 0.35;
 
-/* MUTE */
-function toggleMute(){
+/* autoplay safe */
+document.addEventListener("click", () => {
+  music.play().catch(()=>{});
+}, { once: true });
+
+/* mute toggle */
+function toggleSound(){
   if(music.paused){
     music.play();
   } else {
@@ -182,14 +199,24 @@ function toggleMute(){
   }
 }
 
-/* 🧠 3D IMAGE ROTATE */
+/* 🧠 SMOOTH 3D TILT */
 const img = document.getElementById("shirt");
 
 document.addEventListener("mousemove", (e) => {
-  let x = (window.innerWidth/2 - e.clientX) / 30;
-  let y = (window.innerHeight/2 - e.clientY) / 30;
+  let x = (window.innerWidth/2 - e.clientX) / 40;
+  let y = (window.innerHeight/2 - e.clientY) / 40;
 
   img.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+});
+
+/* 🔍 CLICK ZOOM */
+let zoom = false;
+
+img.addEventListener("click", () => {
+  zoom = !zoom;
+  if(zoom){
+    img.style.transform = "scale(1.6) rotateX(0deg) rotateY(0deg)";
+  }
 });
 
 </script>
