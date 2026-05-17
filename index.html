@@ -19,10 +19,11 @@ body {
   background: linear-gradient(135deg, #0a58ff, #eaf3ff);
   min-height: 100vh;
   color: #0b1220;
-  overflow: hidden;
+  overflow-y: auto; /* 🔥 FIX SCROLL */
+  overflow-x: hidden;
 }
 
-/* background glow */
+/* background */
 .bg {
   position: fixed;
   inset: 0;
@@ -30,9 +31,10 @@ body {
     radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 50%),
     radial-gradient(circle at 70% 70%, rgba(0,100,255,0.2), transparent 55%);
   filter: blur(20px);
+  z-index: -1;
 }
 
-/* INTRO */
+/* intro */
 .intro {
   position: fixed;
   inset: 0;
@@ -45,21 +47,15 @@ body {
 }
 
 .btn {
-  width: 82px;
-  height: 82px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   border: 1px solid rgba(0,0,0,0.15);
   background: rgba(255,255,255,0.4);
   cursor: pointer;
-  transition: 0.3s;
 }
 
-.btn:hover {
-  transform: scale(1.1);
-  background: rgba(255,255,255,0.7);
-}
-
-/* MAIN */
+/* main */
 .main {
   opacity: 0;
   transform: translateY(15px);
@@ -73,7 +69,7 @@ body {
   text-align: center;
 }
 
-/* logo */
+/* header */
 .logo {
   font-size: 64px;
   font-weight: 600;
@@ -86,23 +82,13 @@ body {
   color: rgba(0,0,0,0.6);
 }
 
-/* RAINBOW SIGNATURE */
 .signature {
   margin-top: 8px;
   font-size: 11px;
   letter-spacing: 3px;
   font-weight: 500;
 
-  background: linear-gradient(
-    90deg,
-    #ff4d4d,
-    #ffb84d,
-    #fff94d,
-    #4dff88,
-    #4dd2ff,
-    #b84dff
-  );
-
+  background: linear-gradient(90deg,#ff4d4d,#ffb84d,#fff94d,#4dff88,#4dd2ff,#b84dff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -127,13 +113,6 @@ body {
   background: rgba(255,255,255,0.45);
   border: 1px solid rgba(0,0,0,0.08);
   margin-bottom: 10px;
-  backdrop-filter: blur(8px);
-  transition: 0.2s;
-}
-
-.card:hover {
-  transform: translateX(5px);
-  background: rgba(255,255,255,0.65);
 }
 
 .name {
@@ -141,12 +120,13 @@ body {
   font-weight: 500;
 }
 
-/* links */
-.links {
-  margin-top: 80px;
-  text-align: left;
+/* footer section */
+.bottom {
+  margin-top: 100px;
+  padding-bottom: 120px;
 }
 
+/* links */
 .linkbox {
   padding: 14px 16px;
   border-radius: 12px;
@@ -159,13 +139,6 @@ a {
   color: #0a4cff;
   text-decoration: none;
 }
-
-a:hover {
-  text-decoration: underline;
-}
-
-/* audio */
-audio { display:none; }
 
 </style>
 </head>
@@ -188,7 +161,7 @@ audio { display:none; }
   <div class="sub">Nggak Sehat</div>
   <div class="signature">WEBSITE BY: KASHSPADE</div>
 
-  <!-- MEMBERS -->
+  <!-- MEMBERS MAIN -->
   <div class="section">
     <div class="title">MEMBERS</div>
 
@@ -197,6 +170,13 @@ audio { display:none; }
     <div class="card"><div class="name">Akuanta</div></div>
     <div class="card"><div class="name">HailSiguma</div></div>
     <div class="card"><div class="name">Kenzoo</div></div>
+
+  </div>
+
+  <!-- MEMBERS SECOND (SEPARATE) -->
+  <div class="section">
+    <div class="title">OTHER MEMBERS</div>
+
     <div class="card"><div class="name">RANDOM KID</div></div>
     <div class="card"><div class="name">hanjie707</div></div>
     <div class="card"><div class="name">paris</div></div>
@@ -205,16 +185,19 @@ audio { display:none; }
   </div>
 
   <!-- LINKS -->
-  <div class="links">
+  <div class="bottom">
 
-    <div class="title">LINKS</div>
+    <div class="section">
+      <div class="title">LINKS</div>
 
-    <div class="linkbox">
-      Discord → <a href="https://discord.gg/zEq6t4y73N" target="_blank">join</a>
-    </div>
+      <div class="linkbox">
+        Discord → <a href="https://discord.gg/zEq6t4y73N" target="_blank">join</a>
+      </div>
 
-    <div class="linkbox">
-      YouTube → <a href="https://www.youtube.com/@kashspade" target="_blank">kashspade</a>
+      <div class="linkbox">
+        YouTube → <a href="https://www.youtube.com/@kashspade" target="_blank">kashspade</a>
+      </div>
+
     </div>
 
   </div>
@@ -223,11 +206,6 @@ audio { display:none; }
 
 </div>
 
-<!-- MUSIC -->
-<audio id="bgMusic" loop>
-  <source src="/music/bg.mp3" type="audio/mpeg">
-</audio>
-
 <script>
 function enter() {
   document.getElementById("intro").style.display = "none";
@@ -235,10 +213,6 @@ function enter() {
   const main = document.getElementById("main");
   main.style.opacity = "1";
   main.style.transform = "translateY(0)";
-
-  const music = document.getElementById("bgMusic");
-  music.volume = 0.15;
-  music.play().catch(()=>{});
 }
 </script>
 
