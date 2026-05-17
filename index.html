@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>NS GOD MODE</title>
+<title>NS GOD MODE FINAL</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
@@ -15,10 +15,20 @@
   font-family: Inter;
 }
 
+/* ❌ HIDE SCROLLBAR BUT STILL SCROLLABLE */
+html, body {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+body::-webkit-scrollbar {
+  width: 0;
+}
+
 /* BACKGROUND */
 body {
   background: linear-gradient(135deg, #07122b, #0a58ff);
-  overflow: hidden;
   color: white;
 }
 
@@ -33,7 +43,7 @@ body {
 .money span {
   position: absolute;
   opacity: 0.05;
-  font-size: 28px;
+  font-size: 26px;
   animation: float 12s linear infinite;
 }
 
@@ -42,7 +52,7 @@ body {
   to { transform: translateY(-10vh); }
 }
 
-/* LOCK SCREEN */
+/* LOCK */
 .lock {
   position: fixed;
   inset: 0;
@@ -64,7 +74,6 @@ body {
 .lock h1 {
   font-size: 16px;
   margin-bottom: 20px;
-  text-align: center;
 }
 
 /* RGB BAR */
@@ -97,7 +106,7 @@ body {
   pointer-events: auto;
 }
 
-/* LAYOUT */
+/* CONTAINER */
 .container {
   max-width: 1100px;
   margin: auto;
@@ -106,54 +115,75 @@ body {
 
 /* TITLE */
 .title {
-  font-size: 60px;
-  letter-spacing: 6px;
+  font-size: 58px;
+  letter-spacing: 5px;
 }
 
 .sub {
   font-size: 12px;
   opacity: 0.7;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
-/* SECTIONS */
+/* CARD */
 .section {
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
 .section h2 {
   font-size: 10px;
-  letter-spacing: 3px;
   opacity: 0.6;
-  margin-bottom: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
 }
 
 .card {
   padding: 12px 14px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
   border-radius: 12px;
+  background: rgba(255,255,255,0.08);
   margin-bottom: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
-/* SHIRT */
-.shirt {
-  width: 220px;
+/* BUY + SOUND */
+.buy-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin-top: 10px;
-  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
 }
 
-/* LINKS */
-a {
-  color: #7fb3ff;
-  text-decoration: none;
+.buy {
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+.sound {
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* GAME TAG */
+.game {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  font-size: 10px;
+  opacity: 0.5;
 }
 </style>
 </head>
 
 <body>
 
-<!-- MONEY BG -->
+<!-- MONEY -->
 <div class="money" id="money"></div>
 
 <!-- AUDIO -->
@@ -163,82 +193,75 @@ a {
 
 <!-- LOCK -->
 <div class="lock" id="lock">
-  <h1 id="text">Click the bar if you believe in NS</h1>
+  <h1 id="text">Click the bar if you love NS</h1>
   <div class="bar" onclick="unlock()"></div>
 </div>
 
 <!-- MAIN -->
 <div class="main" id="main">
 
-  <div class="container">
+<div class="container">
 
-    <div class="title">NS SHIRT</div>
-    <div class="sub">WEBSITE BY: KASHSPADE</div>
+  <div class="title">NS SHIRT</div>
+  <div class="sub">WEBSITE BY: KASHSPADE</div>
 
-    <!-- SHIRT PRODUCT -->
-    <div class="section">
-      <h2>LIMITED DROP</h2>
-      <div class="card">
-        NS Shirt - $29.99 (SOLD OUT)
-        <br>
-        <img src="/image/shirt.png" class="shirt"/>
+  <!-- LIMITED -->
+  <div class="section">
+    <h2>LIMITED DROP</h2>
+    <div class="card">
+      NS Shirt — $29.99
+      <div class="buy-row">
+        <div class="buy">BUY</div>
+        <div class="sound" onclick="toggleSound()">mute</div>
       </div>
     </div>
-
-    <!-- LINKS -->
-    <div class="section">
-      <h2>LINKS</h2>
-      <div class="card">
-        Discord → <a href="https://discord.gg/zEq6t4y73N">Discord Kashspade</a>
-      </div>
-      <div class="card">
-        YouTube → <a href="https://www.youtube.com/@kashspade">Youtube Kashspade</a>
-      </div>
-    </div>
-
-    <!-- MEMBERS -->
-    <div class="section">
-      <h2>MEMBERS</h2>
-      <div class="card">KevinSpade</div>
-      <div class="card">Fizz</div>
-      <div class="card">Akuanta</div>
-      <div class="card">HailSiguma</div>
-      <div class="card">Kenzoo</div>
-    </div>
-
-    <!-- OTHER -->
-    <div class="section">
-      <h2>OTHER MEMBERS</h2>
-      <div class="card">RANDOM KID</div>
-      <div class="card">hanjie707</div>
-      <div class="card">paris</div>
-      <div class="card">truechit</div>
-    </div>
-
   </div>
+
+  <!-- MEMBER -->
+  <div class="section">
+    <h2>MEMBER</h2>
+    <div class="card">KevinSpade</div>
+    <div class="card">Fizz</div>
+    <div class="card">Akuanta</div>
+    <div class="card">HailSiguma</div>
+    <div class="card">Kenzoo</div>
+  </div>
+
+  <!-- RANDOM KID -->
+  <div class="section">
+    <h2>RANDOM KID</h2>
+    <div class="card">Paris</div>
+    <div class="card">hanjie707</div>
+    <div class="card">TrueChit</div>
+  </div>
+
 </div>
+</div>
+
+<!-- GAME TAG -->
+<div class="game">game: NS ONLINE</div>
 
 <script>
 
-/* MONEY GHOST */
+/* MONEY */
 const money = document.getElementById("money");
 const em = ["💸","💰","🪙"];
 
-for (let i=0;i<35;i++){
+for(let i=0;i<35;i++){
   let s=document.createElement("span");
   s.innerText = em[Math.floor(Math.random()*em.length)];
   s.style.left = Math.random()*100+"vw";
   s.style.top = Math.random()*100+"vh";
-  s.style.fontSize = (20+Math.random()*30)+"px";
   s.style.animationDuration = (8+Math.random()*10)+"s";
   money.appendChild(s);
 }
 
-/* AUDIO + UNLOCK */
+/* AUDIO */
 const music = document.getElementById("bgMusic");
+let playing = false;
 
 function unlock(){
-  document.getElementById("text").innerText = "NS SYSTEM ONLINE";
+  document.getElementById("text").innerText = "ACCESS GRANTED — NS ONLINE";
 
   setTimeout(()=>{
     document.getElementById("lock").classList.add("hidden");
@@ -246,9 +269,20 @@ function unlock(){
 
     music.volume = 0.4;
     music.play().catch(()=>{});
+    playing = true;
   },600);
 }
 
+/* MUTE */
+function toggleSound(){
+  if(!playing) return;
+
+  if(music.paused){
+    music.play();
+  } else {
+    music.pause();
+  }
+}
 </script>
 
 </body>
