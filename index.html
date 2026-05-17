@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>NS-SPADE FINAL</title>
+<title>NS GOD MODE</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
@@ -13,11 +13,12 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Inter;
+  scroll-behavior: smooth;
 }
 
-/* HIDE SCROLLBAR (TAPI MASIH BISA SCROLL) */
-body {
-  background: linear-gradient(135deg, #0a58ff, #eaf3ff);
+/* 🔥 FULL HIDE SCROLLBAR (ALL BROWSER FIX) */
+html, body {
+  height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
 
@@ -26,10 +27,17 @@ body {
 }
 
 body::-webkit-scrollbar {
-  display: none;             /* Chrome/Safari */
+  width: 0px;
+  height: 0px;
 }
 
-/* BG */
+/* BACKGROUND */
+body {
+  background: linear-gradient(135deg, #0a58ff, #eaf3ff);
+  color: #0b1220;
+}
+
+/* BG GLOW */
 .bg {
   position: fixed;
   inset: 0;
@@ -49,7 +57,7 @@ body::-webkit-scrollbar {
   color: rgba(0,0,0,0.6);
 }
 
-/* HERO */
+/* LAYOUT */
 .container {
   max-width: 1100px;
   margin: auto;
@@ -60,9 +68,9 @@ body::-webkit-scrollbar {
   align-items: center;
 }
 
-/* TEXT */
+/* TITLE */
 .title {
-  font-size: 74px;
+  font-size: 72px;
   font-weight: 600;
   letter-spacing: 8px;
 }
@@ -83,9 +91,10 @@ body::-webkit-scrollbar {
   100% { background-position: 100%; }
 }
 
-.price {
-  margin-top: 20px;
-  font-size: 28px;
+/* COUNTDOWN */
+.countdown {
+  margin-top: 18px;
+  font-size: 20px;
   font-weight: 600;
 }
 
@@ -105,11 +114,11 @@ body::-webkit-scrollbar {
   background: white;
 }
 
-/* SHIRT 3D */
+/* SHIRT */
 .shirt-wrap {
+  perspective: 1000px;
   display: flex;
   justify-content: center;
-  perspective: 1000px;
 }
 
 .shirt {
@@ -118,10 +127,10 @@ body::-webkit-scrollbar {
   transition: transform 0.1s;
 }
 
-/* SECTION */
+/* SECTIONS */
 .section {
   max-width: 900px;
-  margin: 100px auto;
+  margin: 90px auto;
   padding: 0 20px;
 }
 
@@ -140,20 +149,18 @@ body::-webkit-scrollbar {
   border: 1px solid rgba(0,0,0,0.08);
 }
 
+/* LINKS */
+a {
+  color: #0a4cff;
+  text-decoration: none;
+}
+
 /* FOOTER */
 footer {
   text-align: center;
   font-size: 11px;
   color: rgba(0,0,0,0.4);
   margin: 80px 0;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-  .container {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
 }
 </style>
 </head>
@@ -165,7 +172,7 @@ footer {
 <!-- NAV -->
 <div class="nav">
   <div>NS-SPADE</div>
-  <div>FINAL BOSS DROP</div>
+  <div>INFINITY DROP</div>
 </div>
 
 <!-- HERO -->
@@ -175,7 +182,7 @@ footer {
     <div class="title">NS SHIRT</div>
     <div class="rgb">WEBSITE BY: KASHSPADE</div>
 
-    <div class="price">$29.99</div>
+    <div class="countdown" id="countdown"></div>
 
     <button class="btn">SOLD OUT</button>
   </div>
@@ -186,7 +193,20 @@ footer {
 
 </div>
 
-<!-- MEMBER -->
+<!-- LINKS -->
+<div class="section">
+  <div class="section-title">LINKS</div>
+
+  <div class="card">
+    Discord → <a href="https://discord.gg/zEq6t4y73N">Discord Kashspade</a>
+  </div>
+
+  <div class="card">
+    YouTube → <a href="https://www.youtube.com/@kashspade">Youtube Kashspade</a>
+  </div>
+</div>
+
+<!-- MEMBERS -->
 <div class="section">
   <div class="section-title">MEMBERS</div>
   <div class="card">KevinSpade</div>
@@ -206,11 +226,11 @@ footer {
 </div>
 
 <footer>
-  © 2026 NS-SPADE • final boss mode
+  © 2026 NS-SPADE • infinity mode
 </footer>
 
-<!-- 3D MOUSE MOVE -->
 <script>
+/* 3D SHIRT MOVE */
 const shirt = document.getElementById("shirt");
 
 document.addEventListener("mousemove", (e) => {
@@ -219,6 +239,22 @@ document.addEventListener("mousemove", (e) => {
 
   shirt.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
 });
+
+/* 🔥 24 JAM LOOP COUNTDOWN */
+let time = 24 * 60 * 60;
+
+setInterval(() => {
+  let h = Math.floor(time / 3600);
+  let m = Math.floor((time % 3600) / 60);
+  let s = time % 60;
+
+  document.getElementById("countdown").innerText =
+    `LIMITED DROP: ${h}h ${m}m ${s}s`;
+
+  time--;
+
+  if (time < 0) time = 24 * 60 * 60;
+}, 1000);
 </script>
 
 </body>
