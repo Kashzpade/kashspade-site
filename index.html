@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>NS — Nggak Sehat</title>
+<title>NS</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
 * {
   margin: 0;
@@ -18,137 +18,126 @@
 body {
   background: #050505;
   color: #eaeaea;
-  overflow: hidden;
 }
 
-/* cinematic background glow */
+/* subtle background */
 .bg {
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at center, #111 0%, #050505 60%, #000 100%);
+  background: radial-gradient(circle at top, #111 0%, #050505 60%, #000 100%);
   z-index: 0;
 }
 
-/* MAIN CONTENT */
+/* intro */
+.intro {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 1px solid #2a2a2a;
+  background: transparent;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.circle:hover {
+  background: #fff;
+}
+
+/* main */
 .main {
-  filter: blur(25px);
   opacity: 0;
-  transform: scale(1.05);
-  transition: 1.2s ease;
+  transform: translateY(10px);
+  transition: 0.8s ease;
   position: relative;
   z-index: 2;
 }
 
-/* INTRO */
-.intro {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0,0,0,0.95);
-  z-index: 999;
-  text-align: center;
-}
-
-/* animated text */
-.intro h1 {
-  font-size: 13px;
-  letter-spacing: 3px;
-  color: #888;
-  animation: fadeIn 2s ease;
-}
-
-.intro p {
-  margin-top: 10px;
-  font-size: 12px;
-  color: #555;
-}
-
-/* circle button */
-.circle {
-  margin-top: 25px;
-  width: 75px;
-  height: 75px;
-  border-radius: 50%;
-  border: 1px solid #444;
-  background: transparent;
-  cursor: pointer;
-  transition: 0.3s;
-  position: relative;
-}
-
-.circle:hover {
-  transform: scale(1.1);
-  background: #fff;
-}
-
-/* pulse ring */
-.circle::after {
-  content: "";
-  position: absolute;
-  inset: -10px;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 0.4; }
-  100% { transform: scale(1.4); opacity: 0; }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* CONTENT */
 .container {
-  max-width: 900px;
+  max-width: 860px;
   margin: auto;
-  padding: 80px 20px;
+  padding: 100px 24px;
 }
 
+/* header */
 .logo {
-  font-size: 56px;
-  font-weight: 700;
-  letter-spacing: 8px;
+  font-size: 52px;
+  font-weight: 600;
+  letter-spacing: 6px;
 }
 
 .sub {
+  margin-top: 6px;
   color: #777;
   font-size: 13px;
-  margin-top: 5px;
 }
 
-.hero {
-  margin-top: 60px;
+/* section spacing */
+.section {
+  margin-top: 70px;
 }
 
-.hero p {
-  color: #aaa;
-  max-width: 520px;
-  line-height: 1.7;
+/* title small */
+.title {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #666;
+  margin-bottom: 18px;
 }
 
-/* cards */
+/* card */
 .card {
   background: rgba(255,255,255,0.03);
-  border: 1px solid #1e1e1e;
-  padding: 14px;
+  border: 1px solid #1b1b1b;
+  padding: 14px 16px;
   border-radius: 12px;
   margin-bottom: 10px;
   transition: 0.2s;
 }
 
 .card:hover {
-  transform: translateX(5px);
-  border-color: #333;
+  border-color: #2a2a2a;
+  transform: translateX(4px);
 }
 
-/* MUSIC */
+.name {
+  font-weight: 500;
+}
+
+.desc {
+  font-size: 13px;
+  color: #777;
+  margin-top: 3px;
+}
+
+/* links */
+a {
+  color: #aaa;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #fff;
+}
+
+/* footer */
+footer {
+  margin-top: 100px;
+  font-size: 12px;
+  color: #444;
+  text-align: center;
+}
+
+/* music */
 audio {
   display: none;
 }
@@ -160,38 +149,66 @@ audio {
 
 <div class="bg"></div>
 
-<!-- INTRO CINEMATIC -->
+<!-- INTRO -->
 <div class="intro" id="intro">
-  <h1>SYSTEM INITIALIZING...</h1>
-  <p>VERIFYING USER INPUT</p>
   <button class="circle" onclick="enter()"></button>
 </div>
 
 <!-- MAIN -->
 <div class="main" id="main">
 
-  <div class="container">
+<div class="container">
 
-    <div class="logo">NS</div>
-    <div class="sub">Nggak Sehat — digital chaos protocol</div>
+  <div class="logo">NS</div>
+  <div class="sub">Nggak Sehat</div>
 
-    <div class="hero">
-      <p>
-        sekumpulan manusia yang hidup di internet lebih lama dari dunia nyata.
-        <br><br>
-        status: tidak sehat, tapi stabil.
-      </p>
+  <!-- MEMBERS -->
+  <div class="section">
+    <div class="title">MEMBERS</div>
+
+    <div class="card">
+      <div class="name">KevinSpade</div>
+      <div class="desc">YouTube: youtube.com/@kashspade</div>
     </div>
 
-    <div style="margin-top:80px;">
-      <div class="card">KevinSpade — system hacker node</div>
-      <div class="card">Fizz — multiplayer addiction unit</div>
-      <div class="card">Akuanta — online but silent mode</div>
-      <div class="card">HailSiguma — initialization phase</div>
-      <div class="card">Kenzoo — rare entity detected</div>
+    <div class="card">
+      <div class="name">Fizz</div>
+      <div class="desc">no channel</div>
     </div>
 
+    <div class="card">
+      <div class="name">Akuanta</div>
+      <div class="desc">online but silent</div>
+    </div>
+
+    <div class="card">
+      <div class="name">HailSiguma</div>
+      <div class="desc">new member</div>
+    </div>
+
+    <div class="card">
+      <div class="name">Kenzoo</div>
+      <div class="desc">rare online</div>
+    </div>
   </div>
+
+  <!-- LINKS -->
+  <div class="section">
+    <div class="title">COMMUNITY</div>
+
+    <div class="card">
+      <div class="name">Discord</div>
+      <div class="desc">
+        <a href="https://discord.gg/zEq6t4y73N" target="_blank">join server</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © NS — built simple
+  </footer>
+
+</div>
 
 </div>
 
@@ -202,32 +219,15 @@ audio {
 
 <script>
 function enter() {
-  const intro = document.getElementById("intro");
+  document.getElementById("intro").style.display = "none";
+
   const main = document.getElementById("main");
-
-  intro.style.opacity = "0";
-  intro.style.transform = "scale(1.1)";
-  setTimeout(() => intro.style.display = "none", 800);
-
   main.style.opacity = "1";
-  main.style.filter = "blur(0px)";
-  main.style.transform = "scale(1)";
+  main.style.transform = "translateY(0)";
 
-  // music fade in
   const music = document.getElementById("bgMusic");
-  music.volume = 0;
-
-  music.play().then(() => {
-    let v = 0;
-    let fade = setInterval(() => {
-      if (v < 0.25) {
-        v += 0.01;
-        music.volume = v;
-      } else {
-        clearInterval(fade);
-      }
-    }, 50);
-  });
+  music.volume = 0.2;
+  music.play().catch(()=>{});
 }
 </script>
 
