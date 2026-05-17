@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>NS GOD MODE FINAL</title>
+<title>NS FINAL BOSS</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
@@ -15,7 +15,7 @@
   font-family: Inter;
 }
 
-/* ❌ HIDE SCROLLBAR BUT STILL SCROLLABLE */
+/* SCROLL FIX (VISIBLE BUT HIDDEN BAR) */
 html, body {
   height: 100%;
   overflow-y: auto;
@@ -26,9 +26,12 @@ body::-webkit-scrollbar {
   width: 0;
 }
 
-/* BACKGROUND */
+/* CINEMATIC BACKGROUND */
 body {
-  background: linear-gradient(135deg, #07122b, #0a58ff);
+  background: radial-gradient(circle at 20% 20%, #4da3ff, transparent 40%),
+              radial-gradient(circle at 80% 30%, #1b4fff, transparent 45%),
+              radial-gradient(circle at 50% 90%, #ffffff30, transparent 50%),
+              linear-gradient(135deg, #050b1f, #0a58ff);
   color: white;
 }
 
@@ -36,23 +39,21 @@ body {
 .money {
   position: fixed;
   inset: 0;
-  z-index: 0;
   pointer-events: none;
+  z-index: 0;
 }
-
 .money span {
   position: absolute;
   opacity: 0.05;
   font-size: 26px;
   animation: float 12s linear infinite;
 }
-
 @keyframes float {
   from { transform: translateY(100vh); }
   to { transform: translateY(-10vh); }
 }
 
-/* LOCK */
+/* LOCK SCREEN */
 .lock {
   position: fixed;
   inset: 0;
@@ -64,7 +65,6 @@ body {
   align-items: center;
   z-index: 999;
 }
-
 .lock.hidden {
   opacity: 0;
   pointer-events: none;
@@ -73,20 +73,22 @@ body {
 
 .lock h1 {
   font-size: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
+  text-align: center;
+  opacity: 0.9;
 }
 
 /* RGB BAR */
 .bar {
-  width: 340px;
+  width: 360px;
   height: 14px;
   border-radius: 999px;
   cursor: pointer;
   background: linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, violet, red);
   background-size: 300% 100%;
   animation: rgb 3s linear infinite;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
 }
-
 @keyframes rgb {
   0% { background-position: 0%; }
   100% { background-position: 100%; }
@@ -100,7 +102,6 @@ body {
   position: relative;
   z-index: 2;
 }
-
 .main.unlocked {
   filter: blur(0);
   pointer-events: auto;
@@ -115,40 +116,38 @@ body {
 
 /* TITLE */
 .title {
-  font-size: 58px;
-  letter-spacing: 5px;
+  font-size: 64px;
+  letter-spacing: 6px;
 }
-
 .sub {
   font-size: 12px;
   opacity: 0.7;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
-/* CARD */
+/* SECTIONS */
 .section {
-  margin-top: 30px;
+  margin-top: 35px;
 }
-
 .section h2 {
   font-size: 10px;
   opacity: 0.6;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   margin-bottom: 10px;
 }
 
+/* CARD */
 .card {
   padding: 12px 14px;
   border-radius: 12px;
   background: rgba(255,255,255,0.08);
-  margin-bottom: 10px;
   border: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 10px;
 }
 
-/* BUY + SOUND */
+/* BUY ROW */
 .buy-row {
   display: flex;
-  align-items: center;
   gap: 10px;
   margin-top: 10px;
 }
@@ -156,17 +155,16 @@ body {
 .buy {
   padding: 10px 14px;
   border-radius: 10px;
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.2);
-  cursor: not-allowed;
   text-decoration: line-through;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
 }
 
 .sound {
   padding: 10px 12px;
   border-radius: 10px;
   cursor: pointer;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.12);
   border: 1px solid rgba(255,255,255,0.2);
 }
 
@@ -183,7 +181,7 @@ body {
 
 <body>
 
-<!-- MONEY -->
+<!-- MONEY BACKGROUND -->
 <div class="money" id="money"></div>
 
 <!-- AUDIO -->
@@ -191,7 +189,7 @@ body {
   <source src="/music/bg.mp3">
 </audio>
 
-<!-- LOCK -->
+<!-- LOCK SCREEN -->
 <div class="lock" id="lock">
   <h1 id="text">Click the bar if you love NS</h1>
   <div class="bar" onclick="unlock()"></div>
@@ -209,7 +207,7 @@ body {
   <div class="section">
     <h2>LIMITED DROP</h2>
     <div class="card">
-      NS Shirt — $29.99
+      NS Shirt — $29.99 (SOLD OUT)
       <div class="buy-row">
         <div class="buy">BUY</div>
         <div class="sound" onclick="toggleSound()">mute</div>
@@ -247,11 +245,12 @@ body {
 const money = document.getElementById("money");
 const em = ["💸","💰","🪙"];
 
-for(let i=0;i<35;i++){
+for(let i=0;i<40;i++){
   let s=document.createElement("span");
   s.innerText = em[Math.floor(Math.random()*em.length)];
   s.style.left = Math.random()*100+"vw";
   s.style.top = Math.random()*100+"vh";
+  s.style.fontSize = (18+Math.random()*30)+"px";
   s.style.animationDuration = (8+Math.random()*10)+"s";
   money.appendChild(s);
 }
@@ -260,8 +259,9 @@ for(let i=0;i<35;i++){
 const music = document.getElementById("bgMusic");
 let playing = false;
 
+/* UNLOCK */
 function unlock(){
-  document.getElementById("text").innerText = "ACCESS GRANTED — NS ONLINE";
+  document.getElementById("text").innerText = "ACCESS GRANTED — FINAL BOSS MODE";
 
   setTimeout(()=>{
     document.getElementById("lock").classList.add("hidden");
@@ -273,7 +273,7 @@ function unlock(){
   },600);
 }
 
-/* MUTE */
+/* SOUND TOGGLE */
 function toggleSound(){
   if(!playing) return;
 
@@ -283,6 +283,7 @@ function toggleSound(){
     music.pause();
   }
 }
+
 </script>
 
 </body>
