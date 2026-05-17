@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>NS UNLOCK SYSTEM</title>
+<title>NS GOD MODE</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
@@ -22,31 +22,72 @@ body {
   color: white;
 }
 
-/* GHOST MONEY BACKGROUND */
+/* GHOST MONEY */
 .money {
   position: fixed;
   inset: 0;
-  overflow: hidden;
   z-index: 0;
+  pointer-events: none;
 }
 
 .money span {
   position: absolute;
-  font-size: 30px;
   opacity: 0.05;
-  animation: float 10s linear infinite;
+  font-size: 28px;
+  animation: float 12s linear infinite;
 }
 
 @keyframes float {
-  from { transform: translateY(100vh) rotate(0deg); }
-  to { transform: translateY(-10vh) rotate(360deg); }
+  from { transform: translateY(100vh); }
+  to { transform: translateY(-10vh); }
 }
 
-/* MAIN CONTENT */
+/* LOCK SCREEN */
+.lock {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.lock.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: 1s ease;
+}
+
+.lock h1 {
+  font-size: 16px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* RGB BAR */
+.bar {
+  width: 340px;
+  height: 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  background: linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, violet, red);
+  background-size: 300% 100%;
+  animation: rgb 3s linear infinite;
+}
+
+@keyframes rgb {
+  0% { background-position: 0%; }
+  100% { background-position: 100%; }
+}
+
+/* MAIN */
 .main {
   filter: blur(25px);
-  transition: 1s ease;
   pointer-events: none;
+  transition: 1s ease;
   position: relative;
   z-index: 2;
 }
@@ -56,152 +97,156 @@ body {
   pointer-events: auto;
 }
 
-/* LOCK SCREEN */
-.lock {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(12px);
-  z-index: 999;
-  transition: 1s ease;
-}
-
-.lock.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* TEXT */
-.lock h1 {
-  font-size: 16px;
-  margin-bottom: 20px;
-  letter-spacing: 2px;
-  text-align: center;
-  color: rgba(255,255,255,0.85);
-}
-
-/* RGB BAR */
-.bar {
-  width: 340px;
-  height: 14px;
-  border-radius: 999px;
-  cursor: pointer;
-
-  background: linear-gradient(90deg,
-    red, orange, yellow, lime, cyan, blue, violet, red);
-
-  background-size: 300% 100%;
-  animation: rgb 3s linear infinite;
-
-  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-  transition: 0.2s;
-}
-
-.bar:hover {
-  transform: scale(1.05);
-}
-
-@keyframes rgb {
-  0% { background-position: 0%; }
-  100% { background-position: 100%; }
-}
-
-/* STATUS */
-.status {
-  margin-top: 14px;
-  font-size: 11px;
-  color: rgba(255,255,255,0.4);
-}
-
 /* LAYOUT */
 .container {
-  padding: 60px;
+  max-width: 1100px;
+  margin: auto;
+  padding: 60px 20px;
 }
 
+/* TITLE */
 .title {
-  font-size: 64px;
+  font-size: 60px;
   letter-spacing: 6px;
 }
 
 .sub {
   font-size: 12px;
+  opacity: 0.7;
+  margin-bottom: 40px;
+}
+
+/* SECTIONS */
+.section {
+  margin-top: 40px;
+}
+
+.section h2 {
+  font-size: 10px;
+  letter-spacing: 3px;
   opacity: 0.6;
-  margin-top: 5px;
+  margin-bottom: 12px;
+}
+
+.card {
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+/* SHIRT */
+.shirt {
+  width: 220px;
+  margin-top: 10px;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
+}
+
+/* LINKS */
+a {
+  color: #7fb3ff;
+  text-decoration: none;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 💸 GHOST MONEY BACKGROUND -->
+<!-- MONEY BG -->
 <div class="money" id="money"></div>
 
-<!-- 🔊 AUDIO -->
+<!-- AUDIO -->
 <audio id="bgMusic" loop>
-  <source src="/music/bg.mp3" type="audio/mpeg">
+  <source src="/music/bg.mp3">
 </audio>
 
-<!-- 🔒 LOCK SCREEN -->
+<!-- LOCK -->
 <div class="lock" id="lock">
   <h1 id="text">Click the bar if you believe in NS</h1>
-
   <div class="bar" onclick="unlock()"></div>
-
-  <div class="status">secure access required</div>
 </div>
 
 <!-- MAIN -->
 <div class="main" id="main">
 
   <div class="container">
+
     <div class="title">NS SHIRT</div>
     <div class="sub">WEBSITE BY: KASHSPADE</div>
-  </div>
 
+    <!-- SHIRT PRODUCT -->
+    <div class="section">
+      <h2>LIMITED DROP</h2>
+      <div class="card">
+        NS Shirt - $29.99 (SOLD OUT)
+        <br>
+        <img src="/image/shirt.png" class="shirt"/>
+      </div>
+    </div>
+
+    <!-- LINKS -->
+    <div class="section">
+      <h2>LINKS</h2>
+      <div class="card">
+        Discord → <a href="https://discord.gg/zEq6t4y73N">Discord Kashspade</a>
+      </div>
+      <div class="card">
+        YouTube → <a href="https://www.youtube.com/@kashspade">Youtube Kashspade</a>
+      </div>
+    </div>
+
+    <!-- MEMBERS -->
+    <div class="section">
+      <h2>MEMBERS</h2>
+      <div class="card">KevinSpade</div>
+      <div class="card">Fizz</div>
+      <div class="card">Akuanta</div>
+      <div class="card">HailSiguma</div>
+      <div class="card">Kenzoo</div>
+    </div>
+
+    <!-- OTHER -->
+    <div class="section">
+      <h2>OTHER MEMBERS</h2>
+      <div class="card">RANDOM KID</div>
+      <div class="card">hanjie707</div>
+      <div class="card">paris</div>
+      <div class="card">truechit</div>
+    </div>
+
+  </div>
 </div>
 
 <script>
 
-/* 💸 GHOST MONEY GENERATOR */
+/* MONEY GHOST */
 const money = document.getElementById("money");
-const emojis = ["💸","💰","🪙"];
+const em = ["💸","💰","🪙"];
 
-for (let i = 0; i < 40; i++) {
-  let span = document.createElement("span");
-  span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-  span.style.left = Math.random() * 100 + "vw";
-  span.style.top = Math.random() * 100 + "vh";
-  span.style.fontSize = (20 + Math.random() * 40) + "px";
-  span.style.animationDuration = (8 + Math.random() * 10) + "s";
-  money.appendChild(span);
+for (let i=0;i<35;i++){
+  let s=document.createElement("span");
+  s.innerText = em[Math.floor(Math.random()*em.length)];
+  s.style.left = Math.random()*100+"vw";
+  s.style.top = Math.random()*100+"vh";
+  s.style.fontSize = (20+Math.random()*30)+"px";
+  s.style.animationDuration = (8+Math.random()*10)+"s";
+  money.appendChild(s);
 }
 
-/* 🔓 UNLOCK SYSTEM */
-let musicStarted = false;
+/* AUDIO + UNLOCK */
+const music = document.getElementById("bgMusic");
 
-function unlock() {
+function unlock(){
+  document.getElementById("text").innerText = "NS SYSTEM ONLINE";
 
-  document.getElementById("text").innerText =
-    "ACCESS GRANTED — NS ONLINE";
-
-  const music = document.getElementById("bgMusic");
-
-  setTimeout(() => {
+  setTimeout(()=>{
     document.getElementById("lock").classList.add("hidden");
     document.getElementById("main").classList.add("unlocked");
 
-    /* 🔊 SOUND START (CLICK TRIGGER = WORK 100%) */
-    if (!musicStarted) {
-      music.volume = 0.4;
-      music.play().catch(() => {});
-      musicStarted = true;
-    }
-
-  }, 700);
+    music.volume = 0.4;
+    music.play().catch(()=>{});
+  },600);
 }
 
 </script>
