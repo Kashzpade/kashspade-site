@@ -17,6 +17,7 @@
       background: #0a0a0a;
       color: #eaeaea;
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
     .container {
@@ -26,8 +27,9 @@
     }
 
     h1 {
-      font-size: 48px;
-      letter-spacing: 2px;
+      font-size: 60px;
+      letter-spacing: 3px;
+      animation: fadeIn 1s ease;
     }
 
     h2 {
@@ -65,7 +67,12 @@
     }
 
     .member {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      transition: 0.3s;
+    }
+
+    .member:hover {
+      transform: translateX(5px);
     }
 
     .member span {
@@ -83,6 +90,13 @@
       color: #fff;
     }
 
+    .randomText {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #666;
+      font-style: italic;
+    }
+
     footer {
       margin-top: 80px;
       font-size: 12px;
@@ -90,10 +104,22 @@
       text-align: center;
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
   </style>
 </head>
 
 <body>
+
+  <!-- BACKGROUND MUSIC -->
+  <iframe width="0" height="0"
+    src="https://www.youtube.com/embed/yyjUmv1gJEg?autoplay=1&loop=1&playlist=yyjUmv1gJEg"
+    frameborder="0"
+    allow="autoplay">
+  </iframe>
 
   <div class="container">
 
@@ -106,6 +132,8 @@
         Bukan sekadar grup. Ini tempat orang-orang random
         yang terlalu sering online buat hidup normal.
       </p>
+
+      <div class="randomText" id="randomText"></div>
 
       <div class="buttons">
         <a href="https://discord.gg/zEq6t4y73N" target="_blank">Join Discord</a>
@@ -132,13 +160,13 @@
       <div class="member">
         <b>Akuanta</b><br/>
         <span>si paling online tapi sombong</span><br/>
-        <span>(katanya ada channel, tapi lupa 💀)</span>
+        <span>(katanya ada channel, tapi dia juga lupa 💀)</span>
       </div>
 
       <div class="member">
         <b>HailSiguma</b><br/>
         <span>si new member</span><br/>
-        <span>(belum spawn channel)</span>
+        <span>(baru join, masih adaptasi)</span>
       </div>
 
       <div class="member">
@@ -169,6 +197,19 @@
     </footer>
 
   </div>
+
+  <script>
+    const texts = [
+      "tidur itu mitos",
+      "online 24 jam bukan pilihan, tapi takdir",
+      "niat hidup sehat, tapi mabar dulu",
+      "server down? kita juga",
+      "real life? nanti dulu"
+    ];
+
+    const random = texts[Math.floor(Math.random() * texts.length)];
+    document.getElementById("randomText").innerText = random;
+  </script>
 
 </body>
 </html>
