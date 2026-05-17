@@ -15,7 +15,7 @@
   font-family: Inter;
 }
 
-/* CLEAN SCROLL */
+/* HIDE SCROLLBAR */
 html, body {
   overflow-x: hidden;
   overflow-y: auto;
@@ -25,35 +25,56 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-/* LUXURY BACKGROUND */
+/* BACKGROUND LUXURY */
 body {
-  background: radial-gradient(circle at top left, #3aa0ff20, transparent 40%),
+  background: radial-gradient(circle at top left, #3aa0ff25, transparent 40%),
               radial-gradient(circle at bottom right, #ffffff10, transparent 50%),
               linear-gradient(135deg, #050b1f, #0a58ff);
   color: white;
 }
 
-/* CONTAINER */
+/* 💸 MONEY BACKGROUND */
+.money {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.money span {
+  position: absolute;
+  font-size: 24px;
+  opacity: 0.06;
+  animation: float 12s linear infinite;
+}
+
+@keyframes float {
+  from { transform: translateY(100vh) rotate(0deg); }
+  to { transform: translateY(-10vh) rotate(360deg); }
+}
+
+/* CONTENT */
 .container {
   max-width: 1100px;
   margin: auto;
   padding: 70px 20px;
+  position: relative;
+  z-index: 2;
 }
 
-/* HEADER */
+/* TITLE */
 .title {
   font-size: 56px;
   letter-spacing: 6px;
-  font-weight: 600;
 }
-
 .sub {
   font-size: 12px;
   opacity: 0.6;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
-/* GRID */
+/* GRID STORE */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -76,29 +97,26 @@ body {
   font-size: 14px;
   opacity: 0.8;
 }
-
 .sold {
   text-decoration: line-through;
   opacity: 0.4;
 }
 
-/* BUTTONS */
+/* BUTTON */
 .row {
   display: flex;
   gap: 10px;
   margin-top: 18px;
 }
-
 .btn {
   padding: 10px 14px;
   border-radius: 10px;
   border: 1px solid rgba(255,255,255,0.15);
   background: rgba(255,255,255,0.08);
   cursor: pointer;
-  transition: 0.25s;
   font-size: 12px;
+  transition: 0.2s;
 }
-
 .btn:hover {
   transform: translateY(-2px);
   background: rgba(255,255,255,0.15);
@@ -110,7 +128,6 @@ body {
   display: flex;
   justify-content: center;
 }
-
 .img-wrap img {
   width: 340px;
   border-radius: 16px;
@@ -119,34 +136,67 @@ body {
   cursor: zoom-in;
 }
 
-/* FOOTER LINKS */
-.footer {
-  margin-top: 60px;
-  display: flex;
-  gap: 20px;
-  font-size: 12px;
-  opacity: 0.7;
+/* SECTION */
+.section {
+  margin-top: 50px;
+}
+.section h2 {
+  font-size: 10px;
+  letter-spacing: 3px;
+  opacity: 0.6;
+  margin-bottom: 12px;
 }
 
+/* LIST */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.item {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  font-size: 13px;
+}
+
+/* LINKS */
+.links {
+  margin-top: 60px;
+  display: flex;
+  gap: 25px;
+  font-size: 12px;
+  opacity: 0.8;
+  align-items: center;
+}
 a {
   color: #8ec5ff;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.icon {
+  width: 14px;
+  height: 14px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- 💸 MONEY BACKGROUND -->
+<div class="money" id="money"></div>
+
 <div class="container">
 
-  <!-- HEADER -->
   <div class="title">NS STORE</div>
   <div class="sub">WEBSITE BY: KASHSPADE</div>
 
-  <!-- MAIN -->
+  <!-- STORE -->
   <div class="grid">
 
-    <!-- LEFT -->
     <div class="card">
       <h3>LIMITED DROP</h3>
 
@@ -157,20 +207,49 @@ a {
         <div class="btn">BUY</div>
         <div class="btn" onclick="toggleSound()">MUTE</div>
       </div>
-
     </div>
 
-    <!-- RIGHT IMAGE -->
     <div class="img-wrap">
       <img src="/image/shirt.png" id="shirt">
     </div>
 
   </div>
 
-  <!-- FOOTER -->
-  <div class="footer">
-    <a href="https://discord.gg/zEq6t4y73N">Discord Kashspade</a>
-    <a href="https://www.youtube.com/@kashspade">Youtube Kashspade</a>
+  <!-- MEMBER -->
+  <div class="section">
+    <h2>MEMBER</h2>
+    <div class="list">
+      <div class="item">KevinSpade</div>
+      <div class="item">Fizz</div>
+      <div class="item">Akuanta</div>
+      <div class="item">HailSiguma</div>
+      <div class="item">Kenzoo</div>
+    </div>
+  </div>
+
+  <!-- RANDOM KID -->
+  <div class="section">
+    <h2>RANDOM KID</h2>
+    <div class="list">
+      <div class="item">Paris</div>
+      <div class="item">hanjie707</div>
+      <div class="item">TrueChit</div>
+    </div>
+  </div>
+
+  <!-- LINKS -->
+  <div class="links">
+
+    <a href="https://discord.gg/zEq6t4y73N">
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png">
+      Discord Kashspade
+    </a>
+
+    <a href="https://www.youtube.com/@kashspade">
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png">
+      Youtube Kashspade
+    </a>
+
   </div>
 
 </div>
@@ -182,15 +261,28 @@ a {
 
 <script>
 
+/* 💸 MONEY GENERATOR */
+const money = document.getElementById("money");
+const em = ["💸","💰","🪙"];
+
+for(let i=0;i<45;i++){
+  let s = document.createElement("span");
+  s.innerText = em[Math.floor(Math.random()*em.length)];
+  s.style.left = Math.random()*100 + "vw";
+  s.style.top = Math.random()*100 + "vh";
+  s.style.fontSize = (18 + Math.random()*30) + "px";
+  s.style.animationDuration = (8 + Math.random()*10) + "s";
+  money.appendChild(s);
+}
+
+/* SOUND */
 const music = document.getElementById("bgMusic");
 music.volume = 0.35;
 
-/* autoplay safe */
 document.addEventListener("click", () => {
   music.play().catch(()=>{});
 }, { once: true });
 
-/* mute toggle */
 function toggleSound(){
   if(music.paused){
     music.play();
@@ -199,7 +291,7 @@ function toggleSound(){
   }
 }
 
-/* 🧠 SMOOTH 3D TILT */
+/* 3D IMAGE */
 const img = document.getElementById("shirt");
 
 document.addEventListener("mousemove", (e) => {
@@ -209,13 +301,11 @@ document.addEventListener("mousemove", (e) => {
   img.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
 });
 
-/* 🔍 CLICK ZOOM */
 let zoom = false;
-
 img.addEventListener("click", () => {
   zoom = !zoom;
   if(zoom){
-    img.style.transform = "scale(1.6) rotateX(0deg) rotateY(0deg)";
+    img.style.transform = "scale(1.6)";
   }
 });
 
