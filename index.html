@@ -13,15 +13,49 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Inter;
+  scroll-behavior: smooth;
 }
 
 body {
   background: linear-gradient(135deg, #0a58ff, #eaf3ff);
-  color: #0b1220;
   overflow-x: hidden;
+  color: #0b1220;
 }
 
-/* glow bg */
+/* CINEMATIC INTRO */
+.intro {
+  position: fixed;
+  inset: 0;
+  background: #050b1f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 999;
+  animation: fadeOut 2.5s ease forwards;
+  animation-delay: 2.5s;
+}
+
+.intro h1 {
+  color: white;
+  font-size: 40px;
+  letter-spacing: 8px;
+}
+
+.intro p {
+  color: rgba(255,255,255,0.5);
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* background glow */
 .bg {
   position: fixed;
   inset: 0;
@@ -45,7 +79,7 @@ body {
 .container {
   max-width: 1100px;
   margin: auto;
-  padding: 60px 20px;
+  padding: 80px 20px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
@@ -54,9 +88,20 @@ body {
 
 /* TITLE */
 .title {
-  font-size: 70px;
+  font-size: 75px;
   font-weight: 600;
-  letter-spacing: 8px;
+  letter-spacing: 10px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: show 1s ease forwards;
+  animation-delay: 2.8s;
+}
+
+@keyframes show {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .rgb {
@@ -85,7 +130,7 @@ body {
 
 .price {
   margin-top: 20px;
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 600;
 }
 
@@ -97,26 +142,42 @@ body {
   border: 1px solid rgba(0,0,0,0.2);
   background: rgba(255,255,255,0.5);
   cursor: pointer;
+  transition: 0.3s;
 }
 
-/* SHIRT IMAGE */
+.btn:hover {
+  transform: translateY(-2px);
+  background: white;
+}
+
+/* SHIRT */
 .shirt-wrap {
   display: flex;
   justify-content: center;
+  opacity: 0;
+  transform: scale(0.9);
+  animation: show 1s ease forwards;
+  animation-delay: 3s;
 }
 
 .shirt {
-  width: 360px;
-  max-width: 100%;
+  width: 380px;
   filter: drop-shadow(0 30px 50px rgba(0,0,0,0.25));
 }
 
-/* SECTION */
+/* SECTIONS */
 .section {
   max-width: 900px;
-  margin: 80px auto;
+  margin: 100px auto;
   padding: 0 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: show 1s ease forwards;
 }
+
+.section:nth-of-type(1) { animation-delay: 3.2s; }
+.section:nth-of-type(2) { animation-delay: 3.4s; }
+.section:nth-of-type(3) { animation-delay: 3.6s; }
 
 .section-title {
   font-size: 10px;
@@ -125,6 +186,7 @@ body {
   margin-bottom: 18px;
 }
 
+/* CARD */
 .card {
   padding: 14px 16px;
   border-radius: 12px;
@@ -133,18 +195,12 @@ body {
   margin-bottom: 10px;
 }
 
-/* LINKS */
-a {
-  color: #0a4cff;
-  text-decoration: none;
-}
-
 /* FOOTER */
 footer {
   text-align: center;
   font-size: 11px;
   color: rgba(0,0,0,0.4);
-  margin: 60px 0;
+  margin: 80px 0;
 }
 
 /* mobile */
@@ -159,9 +215,13 @@ footer {
 
 <body>
 
-<div class="bg"></div>
+<!-- CINEMATIC INTRO -->
+<div class="intro">
+  <h1>NS-SPADE</h1>
+  <p>loading brand experience...</p>
+</div>
 
-<!-- MUSIC (AUTO PLAY + CLICK UNLOCK) -->
+<!-- MUSIC (CLICK TO UNLOCK) -->
 <audio id="bgMusic" loop>
   <source src="/music/bg.mp3" type="audio/mpeg">
 </audio>
@@ -169,15 +229,17 @@ footer {
 <script>
 document.addEventListener("click", () => {
   const audio = document.getElementById("bgMusic");
-  audio.volume = 0.4;
+  audio.volume = 0.35;
   audio.play();
 }, { once: true });
 </script>
 
+<div class="bg"></div>
+
 <!-- NAV -->
 <div class="nav">
   <div>NS-SPADE</div>
-  <div>LIMITED DROP</div>
+  <div>PREMIUM DROP</div>
 </div>
 
 <!-- HERO -->
@@ -190,7 +252,7 @@ document.addEventListener("click", () => {
 
     <div class="desc">
       NS Shirt adalah identity piece dari NS-SPADE.<br>
-      clean streetwear aesthetic, luxury drop.
+      clean streetwear aesthetic with premium identity.
     </div>
 
     <div class="price">$29.99</div>
@@ -225,21 +287,9 @@ document.addEventListener("click", () => {
   <div class="card">truechit</div>
 </div>
 
-<!-- LINKS -->
-<div class="section">
-  <div class="section-title">LINKS</div>
-
-  <div class="card">
-    Discord → <a href="https://discord.gg/zEq6t4y73N">join</a>
-  </div>
-
-  <div class="card">
-    YouTube → <a href="https://www.youtube.com/@kashspade">kashspade</a>
-  </div>
-</div>
-
+<!-- FOOTER -->
 <footer>
-  © 2026 NS-SPADE • by kashspade
+  © 2026 NS-SPADE • crafted by kashspade
 </footer>
 
 </body>
