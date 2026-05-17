@@ -1,258 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>KashStore</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NS — Nggak Sehat</title>
 
-<style>
-body{
-  margin:0;
-  font-family:Arial;
-  background:#0b1220;
-  color:white;
-}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-/* HEADER */
-header{
-  padding:15px 25px;
-  background:#111a2e;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border-bottom:1px solid #1f2a44;
-}
+    body {
+      background: #0a0a0a;
+      color: #eaeaea;
+      line-height: 1.6;
+    }
 
-.logo{
-  font-weight:bold;
-  color:#38bdf8;
-}
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+    }
 
-/* LAYOUT */
-.main{
-  display:flex;
-}
+    h1 {
+      font-size: 48px;
+      letter-spacing: 2px;
+    }
 
-/* PRODUCTS */
-.container{
-  flex:1;
-  padding:25px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:15px;
-}
+    h2 {
+      margin-top: 60px;
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #aaa;
+    }
 
-.card{
-  background:#111a2e;
-  border:1px solid #1f2a44;
-  padding:15px;
-  border-radius:12px;
-}
+    p {
+      color: #bbb;
+    }
 
-.card h3{
-  margin:0;
-}
+    .hero {
+      margin-top: 60px;
+    }
 
-.price{
-  color:#38bdf8;
-  margin:8px 0;
-}
+    .buttons {
+      margin-top: 20px;
+    }
 
-button{
-  width:100%;
-  padding:10px;
-  border:none;
-  border-radius:8px;
-  background:#38bdf8;
-  cursor:pointer;
-  font-weight:bold;
-}
+    .buttons a {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-right: 10px;
+      border: 1px solid #444;
+      text-decoration: none;
+      color: #fff;
+      transition: 0.3s;
+    }
 
-/* CART */
-.cart{
-  width:280px;
-  background:#0f172a;
-  border-left:1px solid #1f2a44;
-  padding:15px;
-  height:100vh;
-  overflow:auto;
-}
+    .buttons a:hover {
+      background: #fff;
+      color: #000;
+    }
 
-.item{
-  background:#111a2e;
-  padding:10px;
-  margin-bottom:10px;
-  border-radius:8px;
-}
+    .member {
+      margin-bottom: 20px;
+    }
 
-/* LOGIN */
-#auth{
-  padding:20px;
-  background:#111a2e;
-  border-bottom:1px solid #1f2a44;
-}
+    .member span {
+      color: #777;
+      font-size: 14px;
+    }
 
-input{
-  width:90%;
-  padding:8px;
-  margin:5px 0;
-  border-radius:6px;
-  border:none;
-}
+    a.link {
+      color: #888;
+      text-decoration: none;
+      font-size: 14px;
+    }
 
-.checkout{
-  background:#22c55e;
-  margin-top:10px;
-}
-</style>
+    a.link:hover {
+      color: #fff;
+    }
 
+    footer {
+      margin-top: 80px;
+      font-size: 12px;
+      color: #555;
+      text-align: center;
+    }
+
+  </style>
 </head>
 
 <body>
 
-<header>
-  <div class="logo">KashStore</div>
-  <div>Mini Tebex Store</div>
-</header>
+  <div class="container">
 
-<!-- LOGIN -->
-<div id="auth">
-  <input id="email" placeholder="email">
-  <input id="password" type="password" placeholder="password">
-  <button onclick="login()">Login</button>
-</div>
+    <!-- HERO -->
+    <section class="hero">
+      <h1>NS</h1>
+      <p>Nggak Sehat</p>
 
-<div class="main">
+      <p style="margin-top: 20px;">
+        Bukan sekadar grup. Ini tempat orang-orang random
+        yang terlalu sering online buat hidup normal.
+      </p>
 
-  <!-- PRODUCTS -->
-  <div class="container" id="products"></div>
+      <div class="buttons">
+        <a href="https://discord.gg/zEq6t4y73N" target="_blank">Join Discord</a>
+        <a href="#members">Liat Member</a>
+      </div>
+    </section>
 
-  <!-- CART -->
-  <div class="cart">
-    <h3>Cart</h3>
-    <div id="cart"></div>
+    <!-- MEMBERS -->
+    <section id="members">
+      <h2>MEET THE TEAM</h2>
 
-    <button class="checkout" onclick="checkout()">
-      Checkout
-    </button>
+      <div class="member">
+        <b>KevinSpade</b><br/>
+        <span>si paling hecker</span><br/>
+        <a class="link" href="https://www.youtube.com/@kashspade" target="_blank">YouTube</a>
+      </div>
+
+      <div class="member">
+        <b>Fizz</b><br/>
+        <span>si paling mabar</span><br/>
+        <span>(gada channel, sibuk push rank)</span>
+      </div>
+
+      <div class="member">
+        <b>Akuanta</b><br/>
+        <span>si paling online tapi sombong</span><br/>
+        <span>(katanya ada channel, tapi lupa 💀)</span>
+      </div>
+
+      <div class="member">
+        <b>HailSiguma</b><br/>
+        <span>si new member</span><br/>
+        <span>(belum spawn channel)</span>
+      </div>
+
+      <div class="member">
+        <b>Kenzoo</b><br/>
+        <span>si jarang on</span><br/>
+        <span>(last seen: unknown)</span>
+      </div>
+
+    </section>
+
+    <!-- DISCORD -->
+    <section>
+      <h2>JOIN THE CHAOS</h2>
+      <p>
+        Tempat nongkrong, mabar, debat gak jelas,
+        dan kadang-kadang ngomong serius (jarang).
+      </p>
+
+      <div class="buttons">
+        <a href="https://discord.gg/zEq6t4y73N" target="_blank">Masuk Discord</a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      Kashstore © 2026 <br/>
+      Powered by insomnia & bad decisions.
+    </footer>
+
   </div>
-
-</div>
-
-<script>
-
-// ================= CONFIG =================
-const SUPABASE_URL = "https://tffyptzlonnalscrrcqc.supabase.co";
-const SUPABASE_KEY = "sb_publishable_yS1OzZaeE8KWx0nmmXX2IQ_qzeRzP8U";
-
-// ================= AUTH =================
-async function login(){
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
-  const res = await fetch(SUPABASE_URL + "/auth/v1/token?grant_type=password", {
-    method:"POST",
-    headers:{
-      apikey: SUPABASE_KEY,
-      "Content-Type":"application/json"
-    },
-    body: JSON.stringify({ email, password })
-  });
-
-  const data = await res.json();
-
-  if(data.access_token){
-    localStorage.setItem("email", email);
-    alert("Login sukses!");
-  } else {
-    alert("Login gagal!");
-  }
-}
-
-// ================= LOAD PRODUCTS =================
-async function loadProducts(){
-  const res = await fetch(SUPABASE_URL + "/rest/v1/products?select=*", {
-    headers:{
-      apikey: SUPABASE_KEY,
-      Authorization: "Bearer " + SUPABASE_KEY
-    }
-  });
-
-  const data = await res.json();
-  renderProducts(data);
-}
-
-// ================= RENDER PRODUCTS =================
-function renderProducts(data){
-  const el = document.getElementById("products");
-
-  if(!data || data.length === 0){
-    el.innerHTML = "<p>No products</p>";
-    return;
-  }
-
-  el.innerHTML = data.map(p => `
-    <div class="card">
-      <h3>${p.name}</h3>
-      <div class="price">Rp ${p.price}</div>
-      <button onclick="addCart('${p.name}', ${p.price})">
-        Add to Cart
-      </button>
-    </div>
-  `).join("");
-}
-
-// ================= CART =================
-let cart = [];
-
-function addCart(name, price){
-  cart.push({name, price});
-  renderCart();
-}
-
-function renderCart(){
-  document.getElementById("cart").innerHTML =
-    cart.map(i => `
-      <div class="item">${i.name} - Rp ${i.price}</div>
-    `).join("");
-}
-
-// ================= CHECKOUT =================
-async function checkout(){
-  if(cart.length === 0){
-    alert("Cart kosong!");
-    return;
-  }
-
-  let total = cart.reduce((a,b)=>a+b.price,0);
-  let email = localStorage.getItem("email") || "guest";
-
-  await fetch(SUPABASE_URL + "/rest/v1/orders", {
-    method:"POST",
-    headers:{
-      apikey: SUPABASE_KEY,
-      Authorization: "Bearer " + SUPABASE_KEY,
-      "Content-Type":"application/json",
-      Prefer:"return=representation"
-    },
-    body: JSON.stringify({
-      email,
-      items: JSON.stringify(cart),
-      total,
-      status:"pending",
-      payment_method:"manual"
-    })
-  });
-
-  alert("Order dibuat! Total Rp " + total);
-
-  cart = [];
-  renderCart();
-}
-
-// START
-loadProducts();
-
-</script>
 
 </body>
 </html>
