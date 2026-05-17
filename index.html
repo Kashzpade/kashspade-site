@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>NS SHIRT</title>
+<title>NS-SPADE</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
@@ -21,7 +21,7 @@ body {
   overflow-x: hidden;
 }
 
-/* soft luxury glow */
+/* background */
 .bg {
   position: fixed;
   inset: 0;
@@ -31,11 +31,11 @@ body {
   z-index: -1;
 }
 
-/* TOP BAR */
+/* NAV */
 .nav {
-  padding: 20px 40px;
   display: flex;
   justify-content: space-between;
+  padding: 20px 40px;
   font-size: 12px;
   letter-spacing: 3px;
   color: rgba(0,0,0,0.6);
@@ -52,21 +52,15 @@ body {
   align-items: center;
 }
 
-/* LEFT */
+/* TEXT */
 .title {
-  font-size: 72px;
+  font-size: 70px;
   font-weight: 600;
   letter-spacing: 8px;
 }
 
-.subtitle {
-  margin-top: 10px;
-  font-size: 13px;
-  color: rgba(0,0,0,0.6);
-}
-
 .rgb {
-  margin-top: 12px;
+  margin-top: 10px;
   font-size: 11px;
   letter-spacing: 3px;
 
@@ -74,7 +68,6 @@ body {
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-
   animation: rgb 4s linear infinite;
 }
 
@@ -88,37 +81,23 @@ body {
   font-size: 14px;
   line-height: 1.6;
   color: rgba(0,0,0,0.7);
-  max-width: 420px;
 }
 
-/* PRICE */
 .price {
   margin-top: 25px;
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 600;
 }
 
-.small {
-  font-size: 12px;
-  color: rgba(0,0,0,0.5);
-}
-
-/* BUTTONS */
-.actions {
-  margin-top: 25px;
-  display: flex;
-  gap: 10px;
-}
-
+/* BUTTON */
 .btn {
+  margin-top: 20px;
   padding: 12px 16px;
   border-radius: 12px;
   border: 1px solid rgba(0,0,0,0.2);
   background: rgba(255,255,255,0.5);
   cursor: pointer;
-  transition: 0.25s;
-  font-size: 12px;
-  letter-spacing: 2px;
+  transition: 0.2s;
 }
 
 .btn:hover {
@@ -126,57 +105,64 @@ body {
   background: white;
 }
 
-/* IMAGE */
+/* SHIRT */
 .shirt-wrap {
   display: flex;
   justify-content: center;
 }
 
 .shirt {
-  width: 380px;
+  width: 360px;
   max-width: 100%;
   filter: drop-shadow(0 30px 50px rgba(0,0,0,0.25));
   transform: rotate(-2deg);
-  transition: 0.4s;
+  transition: 0.3s;
 }
 
 .shirt:hover {
   transform: rotate(0deg) scale(1.05);
 }
 
-/* FEATURE STRIP */
+/* SECTION */
+.section {
+  max-width: 900px;
+  margin: 80px auto;
+  padding: 0 20px;
+}
+
+.section-title {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: rgba(0,0,0,0.5);
+  margin-bottom: 20px;
+}
+
+/* CARD */
+.card {
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.45);
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+/* FEATURES */
 .features {
-  margin-top: 80px;
   display: flex;
   justify-content: center;
-  gap: 60px;
-  font-size: 12px;
-  color: rgba(0,0,0,0.6);
+  gap: 40px;
+  font-size: 11px;
   letter-spacing: 2px;
+  color: rgba(0,0,0,0.6);
+  margin-top: 60px;
 }
 
 /* FOOTER */
 footer {
-  margin-top: 80px;
   text-align: center;
   font-size: 11px;
   color: rgba(0,0,0,0.4);
-  padding-bottom: 40px;
-}
-
-@media (max-width: 768px) {
-  .container {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .desc {
-    margin: auto;
-  }
-
-  .actions {
-    justify-content: center;
-  }
+  margin: 60px 0;
 }
 
 </style>
@@ -195,44 +181,57 @@ footer {
 <!-- HERO -->
 <div class="container">
 
-  <!-- LEFT -->
   <div>
     <div class="title">NS SHIRT</div>
 
     <div class="rgb">WEBSITE BY: KASHSPADE</div>
 
-    <div class="subtitle">minimal streetwear identity</div>
-
     <div class="desc">
-      NS Shirt adalah representasi dari NS-SPADE.<br>
-      clean, simple, built for identity — not hype.
+      NS Shirt adalah identity piece dari NS-SPADE.<br>
+      clean streetwear aesthetic, limited drop.
     </div>
 
     <div class="price">$29.99</div>
-    <div class="small">limited drop • no restock</div>
 
-    <div class="actions">
-      <button class="btn">BUY NOW</button>
-      <button class="btn">DETAILS</button>
-    </div>
+    <button class="btn">BUY NOW</button>
   </div>
 
-  <!-- RIGHT -->
   <div class="shirt-wrap">
-    <img src="image/shirt.png" class="shirt" />
+    <img src="/image/shirt.png" class="shirt" />
   </div>
 
+</div>
+
+<!-- MEMBER -->
+<div class="section">
+  <div class="section-title">MEMBERS</div>
+
+  <div class="card">KevinSpade</div>
+  <div class="card">Fizz</div>
+  <div class="card">Akuanta</div>
+  <div class="card">HailSiguma</div>
+  <div class="card">Kenzoo</div>
+</div>
+
+<!-- OTHER -->
+<div class="section">
+  <div class="section-title">OTHER MEMBERS</div>
+
+  <div class="card">RANDOM KID</div>
+  <div class="card">hanjie707</div>
+  <div class="card">paris</div>
+  <div class="card">truechit</div>
 </div>
 
 <!-- FEATURES -->
 <div class="features">
-  <div>PREMIUM QUALITY</div>
-  <div>LIMITED EDITION</div>
-  <div>NS-SPADE DROP</div>
+  <div>PREMIUM DROP</div>
+  <div>LIMITED</div>
+  <div>NS-SPADE</div>
 </div>
 
 <footer>
-  © 2026 NS-SPADE • built by kashspade
+  © 2026 NS-SPADE • by kashspade
 </footer>
 
 </body>
