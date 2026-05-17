@@ -21,63 +21,65 @@ body {
   overflow-x: hidden;
 }
 
-/* background glow */
+/* glow background */
 .glow {
   position: fixed;
-  width: 500px;
-  height: 500px;
-  background: rgba(255,255,255,0.05);
-  filter: blur(120px);
-  top: -150px;
-  left: -150px;
+  width: 600px;
+  height: 600px;
+  background: rgba(255,255,255,0.04);
+  filter: blur(140px);
+  top: -200px;
+  left: -200px;
+  z-index: 0;
 }
 
-/* layout */
 .container {
+  position: relative;
+  z-index: 2;
   max-width: 900px;
   margin: auto;
   padding: 80px 20px;
 }
 
-/* header */
+/* HEADER */
 .logo {
-  font-size: 52px;
+  font-size: 54px;
   font-weight: 700;
   letter-spacing: 6px;
 }
 
-.tagline {
-  color: #888;
-  margin-top: 6px;
+.sub {
+  color: #777;
   font-size: 14px;
+  margin-top: 5px;
 }
 
-/* hero */
+/* HERO */
 .hero {
   margin-top: 60px;
 }
 
 .hero p {
   color: #aaa;
-  max-width: 500px;
-  line-height: 1.6;
+  max-width: 520px;
+  line-height: 1.7;
 }
 
-/* buttons */
-.buttons {
+/* BUTTON */
+.btns {
   margin-top: 25px;
   display: flex;
   gap: 12px;
 }
 
 .btn {
-  padding: 10px 16px;
+  padding: 10px 14px;
   border: 1px solid #2a2a2a;
-  color: #fff;
+  border-radius: 10px;
   text-decoration: none;
+  color: #fff;
   font-size: 14px;
-  transition: 0.25s;
-  border-radius: 8px;
+  transition: 0.2s;
 }
 
 .btn:hover {
@@ -86,7 +88,7 @@ body {
   transform: translateY(-2px);
 }
 
-/* section */
+/* SECTION */
 .section {
   margin-top: 80px;
 }
@@ -95,21 +97,21 @@ body {
   font-size: 12px;
   letter-spacing: 3px;
   color: #666;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
-/* card */
+/* CARD */
 .card {
   background: #0d0d0d;
   border: 1px solid #1e1e1e;
-  padding: 16px;
+  padding: 14px;
   border-radius: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   transition: 0.2s;
 }
 
 .card:hover {
-  transform: translateX(4px);
+  transform: translateX(5px);
   border-color: #333;
 }
 
@@ -118,12 +120,12 @@ body {
 }
 
 .desc {
-  color: #777;
   font-size: 13px;
-  margin-top: 4px;
+  color: #777;
+  margin-top: 3px;
 }
 
-/* footer */
+/* FOOTER */
 footer {
   margin-top: 100px;
   text-align: center;
@@ -131,21 +133,21 @@ footer {
   color: #444;
 }
 
-/* music button */
-.music {
+/* MUSIC BUTTON */
+.music-btn {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  padding: 8px 12px;
-  font-size: 12px;
-  border: 1px solid #2a2a2a;
   background: #0d0d0d;
+  border: 1px solid #2a2a2a;
   color: #fff;
-  border-radius: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 12px;
   cursor: pointer;
 }
 
-.music:hover {
+.music-btn:hover {
   background: #fff;
   color: #000;
 }
@@ -159,21 +161,22 @@ footer {
 
 <div class="container">
 
-  <!-- HERO -->
+  <!-- HEADER -->
   <div class="logo">NS</div>
-  <div class="tagline">Nggak Sehat — digital chaos group</div>
+  <div class="sub">Nggak Sehat — digital chaos unit</div>
 
+  <!-- HERO -->
   <div class="hero">
     <p>
       Sekumpulan manusia yang terlalu sering online,
-      gak produktif, tapi selalu aktif.
+      gak punya arah hidup jelas, tapi selalu aktif.
       <br><br>
-      gak sehat, tapi solid.
+      kita gak sehat, tapi kita jalan terus.
     </p>
 
-    <div class="buttons">
+    <div class="btns">
       <a class="btn" href="https://discord.gg/zEq6t4y73N" target="_blank">Join Discord</a>
-      <a class="btn" href="#members">Meet Members</a>
+      <a class="btn" href="#members">Members</a>
     </div>
   </div>
 
@@ -183,7 +186,7 @@ footer {
 
     <div class="card">
       <div class="name">KevinSpade</div>
-      <div class="desc">si paling hecker — youtube aktif</div>
+      <div class="desc">si paling hecker — YouTube aktif</div>
     </div>
 
     <div class="card">
@@ -203,37 +206,38 @@ footer {
 
     <div class="card">
       <div class="name">Kenzoo</div>
-      <div class="desc">jarang muncul — legend misterius</div>
+      <div class="desc">rare spawn character</div>
     </div>
 
   </div>
 
-  <!-- DISCORD -->
+  <!-- COMMUNITY -->
   <div class="section">
     <h2>COMMUNITY</h2>
 
     <div class="card">
       <div class="name">Discord Server</div>
-      <div class="desc">tempat chaos, mabar, & gak jelas</div>
+      <div class="desc">tempat mabar, chaos, & gak jelas</div>
     </div>
 
-    <div class="buttons">
+    <div class="btns">
       <a class="btn" href="https://discord.gg/zEq6t4y73N" target="_blank">Enter Server</a>
     </div>
   </div>
 
+  <!-- FOOTER -->
   <footer>
     Kashstore © 2026 — built in chaos mode
   </footer>
 
 </div>
 
-<!-- MUSIC -->
+<!-- MUSIC (FIX VERCEL PATH) -->
 <audio id="bgMusic" loop>
   <source src="/music/bg.mp3" type="audio/mpeg">
 </audio>
 
-<button class="music" onclick="playMusic()">music</button>
+<button class="music-btn" onclick="playMusic()">play music</button>
 
 <script>
 function playMusic() {
