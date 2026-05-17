@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>NS-SPADE</title>
+<title>NS-SPADE FINAL</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
@@ -13,49 +13,23 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Inter;
-  scroll-behavior: smooth;
 }
 
+/* HIDE SCROLLBAR (TAPI MASIH BISA SCROLL) */
 body {
   background: linear-gradient(135deg, #0a58ff, #eaf3ff);
+  overflow-y: scroll;
   overflow-x: hidden;
-  color: #0b1220;
+
+  -ms-overflow-style: none;  /* IE/Edge */
+  scrollbar-width: none;     /* Firefox */
 }
 
-/* CINEMATIC INTRO */
-.intro {
-  position: fixed;
-  inset: 0;
-  background: #050b1f;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 999;
-  animation: fadeOut 2.5s ease forwards;
-  animation-delay: 2.5s;
+body::-webkit-scrollbar {
+  display: none;             /* Chrome/Safari */
 }
 
-.intro h1 {
-  color: white;
-  font-size: 40px;
-  letter-spacing: 8px;
-}
-
-.intro p {
-  color: rgba(255,255,255,0.5);
-  font-size: 12px;
-  margin-top: 10px;
-}
-
-@keyframes fadeOut {
-  to {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
-
-/* background glow */
+/* BG */
 .bg {
   position: fixed;
   inset: 0;
@@ -86,29 +60,17 @@ body {
   align-items: center;
 }
 
-/* TITLE */
+/* TEXT */
 .title {
-  font-size: 75px;
+  font-size: 74px;
   font-weight: 600;
-  letter-spacing: 10px;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: show 1s ease forwards;
-  animation-delay: 2.8s;
-}
-
-@keyframes show {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  letter-spacing: 8px;
 }
 
 .rgb {
   margin-top: 10px;
   font-size: 11px;
   letter-spacing: 3px;
-
   background: linear-gradient(90deg, red, blue, lime, cyan, magenta, red);
   background-size: 300% 100%;
   -webkit-background-clip: text;
@@ -119,13 +81,6 @@ body {
 @keyframes rgb {
   0% { background-position: 0%; }
   100% { background-position: 100%; }
-}
-
-.desc {
-  margin-top: 18px;
-  font-size: 14px;
-  line-height: 1.6;
-  color: rgba(0,0,0,0.7);
 }
 
 .price {
@@ -142,7 +97,7 @@ body {
   border: 1px solid rgba(0,0,0,0.2);
   background: rgba(255,255,255,0.5);
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
 .btn:hover {
@@ -150,34 +105,25 @@ body {
   background: white;
 }
 
-/* SHIRT */
+/* SHIRT 3D */
 .shirt-wrap {
   display: flex;
   justify-content: center;
-  opacity: 0;
-  transform: scale(0.9);
-  animation: show 1s ease forwards;
-  animation-delay: 3s;
+  perspective: 1000px;
 }
 
 .shirt {
-  width: 380px;
+  width: 360px;
   filter: drop-shadow(0 30px 50px rgba(0,0,0,0.25));
+  transition: transform 0.1s;
 }
 
-/* SECTIONS */
+/* SECTION */
 .section {
   max-width: 900px;
   margin: 100px auto;
   padding: 0 20px;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: show 1s ease forwards;
 }
-
-.section:nth-of-type(1) { animation-delay: 3.2s; }
-.section:nth-of-type(2) { animation-delay: 3.4s; }
-.section:nth-of-type(3) { animation-delay: 3.6s; }
 
 .section-title {
   font-size: 10px;
@@ -186,13 +132,12 @@ body {
   margin-bottom: 18px;
 }
 
-/* CARD */
 .card {
   padding: 14px 16px;
   border-radius: 12px;
   background: rgba(255,255,255,0.45);
-  border: 1px solid rgba(0,0,0,0.08);
   margin-bottom: 10px;
+  border: 1px solid rgba(0,0,0,0.08);
 }
 
 /* FOOTER */
@@ -203,7 +148,7 @@ footer {
   margin: 80px 0;
 }
 
-/* mobile */
+/* MOBILE */
 @media (max-width: 768px) {
   .container {
     grid-template-columns: 1fr;
@@ -215,31 +160,12 @@ footer {
 
 <body>
 
-<!-- CINEMATIC INTRO -->
-<div class="intro">
-  <h1>NS-SPADE</h1>
-  <p>loading brand experience...</p>
-</div>
-
-<!-- MUSIC (CLICK TO UNLOCK) -->
-<audio id="bgMusic" loop>
-  <source src="/music/bg.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-document.addEventListener("click", () => {
-  const audio = document.getElementById("bgMusic");
-  audio.volume = 0.35;
-  audio.play();
-}, { once: true });
-</script>
-
 <div class="bg"></div>
 
 <!-- NAV -->
 <div class="nav">
   <div>NS-SPADE</div>
-  <div>PREMIUM DROP</div>
+  <div>FINAL BOSS DROP</div>
 </div>
 
 <!-- HERO -->
@@ -247,29 +173,22 @@ document.addEventListener("click", () => {
 
   <div>
     <div class="title">NS SHIRT</div>
-
     <div class="rgb">WEBSITE BY: KASHSPADE</div>
-
-    <div class="desc">
-      NS Shirt adalah identity piece dari NS-SPADE.<br>
-      clean streetwear aesthetic with premium identity.
-    </div>
 
     <div class="price">$29.99</div>
 
-    <button class="btn">BUY NOW</button>
+    <button class="btn">SOLD OUT</button>
   </div>
 
   <div class="shirt-wrap">
-    <img src="/image/shirt.png" class="shirt" />
+    <img src="/image/shirt.png" class="shirt" id="shirt"/>
   </div>
 
 </div>
 
-<!-- MEMBERS -->
+<!-- MEMBER -->
 <div class="section">
   <div class="section-title">MEMBERS</div>
-
   <div class="card">KevinSpade</div>
   <div class="card">Fizz</div>
   <div class="card">Akuanta</div>
@@ -280,17 +199,27 @@ document.addEventListener("click", () => {
 <!-- OTHER -->
 <div class="section">
   <div class="section-title">OTHER MEMBERS</div>
-
   <div class="card">RANDOM KID</div>
   <div class="card">hanjie707</div>
   <div class="card">paris</div>
   <div class="card">truechit</div>
 </div>
 
-<!-- FOOTER -->
 <footer>
-  © 2026 NS-SPADE • crafted by kashspade
+  © 2026 NS-SPADE • final boss mode
 </footer>
+
+<!-- 3D MOUSE MOVE -->
+<script>
+const shirt = document.getElementById("shirt");
+
+document.addEventListener("mousemove", (e) => {
+  const x = (window.innerWidth / 2 - e.clientX) / 25;
+  const y = (window.innerHeight / 2 - e.clientY) / 25;
+
+  shirt.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+});
+</script>
 
 </body>
 </html>
