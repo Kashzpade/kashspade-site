@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>NS STORE AAA++</title>
+<title>NS DROP SYSTEM</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
@@ -25,36 +25,33 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-/* BACKGROUND LUXURY */
+/* LUXURY BACKGROUND */
 body {
-  background: radial-gradient(circle at top left, #3aa0ff25, transparent 40%),
-              radial-gradient(circle at bottom right, #ffffff10, transparent 50%),
+  background: radial-gradient(circle at top, #3aa0ff30, transparent 40%),
+              radial-gradient(circle at bottom, #ffffff10, transparent 50%),
               linear-gradient(135deg, #050b1f, #0a58ff);
   color: white;
 }
 
-/* 💸 MONEY BACKGROUND */
+/* 💸 MONEY */
 .money {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  overflow: hidden;
 }
-
 .money span {
   position: absolute;
-  font-size: 24px;
   opacity: 0.06;
+  font-size: 22px;
   animation: float 12s linear infinite;
 }
-
 @keyframes float {
-  from { transform: translateY(100vh) rotate(0deg); }
-  to { transform: translateY(-10vh) rotate(360deg); }
+  from { transform: translateY(100vh); }
+  to { transform: translateY(-10vh); }
 }
 
-/* CONTENT */
+/* CONTAINER */
 .container {
   max-width: 1100px;
   margin: auto;
@@ -65,16 +62,16 @@ body {
 
 /* TITLE */
 .title {
-  font-size: 56px;
+  font-size: 58px;
   letter-spacing: 6px;
 }
 .sub {
   font-size: 12px;
   opacity: 0.6;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
-/* GRID STORE */
+/* GRID */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -93,13 +90,26 @@ body {
 
 /* PRICE */
 .price {
-  margin-top: 10px;
   font-size: 14px;
   opacity: 0.8;
 }
 .sold {
   text-decoration: line-through;
   opacity: 0.4;
+}
+
+/* LIVE + COUNTDOWN */
+.live {
+  margin-top: 10px;
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.countdown {
+  margin-top: 12px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  opacity: 0.85;
 }
 
 /* BUTTON */
@@ -115,11 +125,6 @@ body {
   background: rgba(255,255,255,0.08);
   cursor: pointer;
   font-size: 12px;
-  transition: 0.2s;
-}
-.btn:hover {
-  transform: translateY(-2px);
-  background: rgba(255,255,255,0.15);
 }
 
 /* IMAGE */
@@ -136,7 +141,7 @@ body {
   cursor: zoom-in;
 }
 
-/* SECTION */
+/* LIST */
 .section {
   margin-top: 50px;
 }
@@ -144,10 +149,8 @@ body {
   font-size: 10px;
   letter-spacing: 3px;
   opacity: 0.6;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
-
-/* LIST */
 .list {
   display: flex;
   flex-direction: column;
@@ -165,10 +168,9 @@ body {
 .links {
   margin-top: 60px;
   display: flex;
-  gap: 25px;
+  gap: 20px;
   font-size: 12px;
   opacity: 0.8;
-  align-items: center;
 }
 a {
   color: #8ec5ff;
@@ -179,7 +181,6 @@ a {
 }
 .icon {
   width: 14px;
-  height: 14px;
 }
 </style>
 </head>
@@ -191,17 +192,23 @@ a {
 
 <div class="container">
 
-  <div class="title">NS STORE</div>
+  <div class="title">NS DROP</div>
   <div class="sub">WEBSITE BY: KASHSPADE</div>
 
   <!-- STORE -->
   <div class="grid">
 
     <div class="card">
-      <h3>LIMITED DROP</h3>
-
       <div class="price">NS SHIRT</div>
       <div class="price sold">PRICE: $29.99 — SOLD OUT</div>
+
+      <!-- LIVE BUYERS -->
+      <div class="live">LIVE BUYERS: <span id="buyers">128</span></div>
+
+      <!-- COUNTDOWN -->
+      <div class="countdown">
+        NEXT DROP: <span id="timer">24:00:00</span>
+      </div>
 
       <div class="row">
         <div class="btn">BUY</div>
@@ -239,7 +246,6 @@ a {
 
   <!-- LINKS -->
   <div class="links">
-
     <a href="https://discord.gg/zEq6t4y73N">
       <img class="icon" src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png">
       Discord Kashspade
@@ -249,7 +255,6 @@ a {
       <img class="icon" src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png">
       Youtube Kashspade
     </a>
-
   </div>
 
 </div>
@@ -261,21 +266,20 @@ a {
 
 <script>
 
-/* 💸 MONEY GENERATOR */
+/* 💸 MONEY */
 const money = document.getElementById("money");
 const em = ["💸","💰","🪙"];
 
-for(let i=0;i<45;i++){
+for(let i=0;i<50;i++){
   let s = document.createElement("span");
   s.innerText = em[Math.floor(Math.random()*em.length)];
-  s.style.left = Math.random()*100 + "vw";
-  s.style.top = Math.random()*100 + "vh";
-  s.style.fontSize = (18 + Math.random()*30) + "px";
-  s.style.animationDuration = (8 + Math.random()*10) + "s";
+  s.style.left = Math.random()*100+"vw";
+  s.style.top = Math.random()*100+"vh";
+  s.style.animationDuration = (8+Math.random()*10)+"s";
   money.appendChild(s);
 }
 
-/* SOUND */
+/* 🎵 MUSIC */
 const music = document.getElementById("bgMusic");
 music.volume = 0.35;
 
@@ -291,7 +295,32 @@ function toggleSound(){
   }
 }
 
-/* 3D IMAGE */
+/* 💰 LIVE BUYERS */
+let buyers = 128;
+setInterval(() => {
+  buyers += Math.random() < 0.7 ? 1 : 2;
+  document.getElementById("buyers").innerText = buyers;
+}, 3000);
+
+/* 🔥 COUNTDOWN 24H LOOP */
+let total = 24 * 60 * 60;
+
+setInterval(() => {
+  total--;
+
+  if(total <= 0){
+    total = 24 * 60 * 60; // loop reset
+  }
+
+  let h = String(Math.floor(total/3600)).padStart(2,'0');
+  let m = String(Math.floor((total%3600)/60)).padStart(2,'0');
+  let s = String(total%60).padStart(2,'0');
+
+  document.getElementById("timer").innerText = `${h}:${m}:${s}`;
+
+}, 1000);
+
+/* 🧠 3D IMAGE */
 const img = document.getElementById("shirt");
 
 document.addEventListener("mousemove", (e) => {
@@ -299,14 +328,6 @@ document.addEventListener("mousemove", (e) => {
   let y = (window.innerHeight/2 - e.clientY) / 40;
 
   img.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
-});
-
-let zoom = false;
-img.addEventListener("click", () => {
-  zoom = !zoom;
-  if(zoom){
-    img.style.transform = "scale(1.6)";
-  }
 });
 
 </script>
