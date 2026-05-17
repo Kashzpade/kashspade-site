@@ -21,12 +21,11 @@ html, body {
   overflow-x: hidden;
 }
 
-/* hide scrollbar but keep scroll */
 body {
-  overflow-y: auto;
   background: linear-gradient(135deg, #0a58ff, #eaf3ff);
   color: #0b1220;
 
+  overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -35,18 +34,17 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-/* background glow */
+/* BACKGROUND */
 .bg {
   position: fixed;
   inset: 0;
   background:
     radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), transparent 55%),
     radial-gradient(circle at 70% 70%, rgba(0,100,255,0.25), transparent 60%);
-  filter: blur(10px);
   z-index: -1;
 }
 
-/* 🔥 CINEMATIC INTRO */
+/* INTRO */
 .intro {
   position: fixed;
   inset: 0;
@@ -56,17 +54,11 @@ body::-webkit-scrollbar {
   flex-direction: column;
 
   background: rgba(255,255,255,0.18);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(16px);
   z-index: 999;
-  animation: fadeIn 1.2s ease;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* pulsing glow ring button */
+/* BUTTON */
 .btn {
   width: 90px;
   height: 90px;
@@ -75,8 +67,6 @@ body::-webkit-scrollbar {
   background: rgba(255,255,255,0.6);
   cursor: pointer;
   position: relative;
-  z-index: 2;
-  transition: 0.3s;
 }
 
 .btn::before {
@@ -99,10 +89,10 @@ body::-webkit-scrollbar {
   font-size: 12px;
   letter-spacing: 3px;
   color: rgba(0,0,0,0.6);
-  animation: flicker 2s infinite;
+  animation: blink 2s infinite;
 }
 
-@keyframes flicker {
+@keyframes blink {
   0%,100% { opacity: 1; }
   50% { opacity: 0.4; }
 }
@@ -110,8 +100,8 @@ body::-webkit-scrollbar {
 /* MAIN */
 .main {
   opacity: 0;
-  transform: translateY(20px);
-  transition: 0.9s ease;
+  transform: translateY(15px);
+  transition: 0.8s ease;
 }
 
 .container {
@@ -121,7 +111,7 @@ body::-webkit-scrollbar {
   text-align: center;
 }
 
-/* LOGO */
+/* HEADER */
 .logo {
   font-size: 64px;
   font-weight: 600;
@@ -207,15 +197,10 @@ audio {
 
 <div class="bg"></div>
 
-<!-- 🔥 CINEMATIC INTRO -->
+<!-- INTRO -->
 <div class="intro" id="intro">
-
   <button class="btn" onclick="enter()"></button>
-
-  <div class="intro-text">
-    PENCET BULET DI BAWAH
-  </div>
-
+  <div class="intro-text">PENCET BULET DI BAWAH</div>
 </div>
 
 <!-- AUDIO -->
@@ -236,24 +221,20 @@ audio {
   <!-- MEMBERS -->
   <div class="section">
     <div class="title">MEMBERS</div>
-
     <div class="card">KevinSpade</div>
     <div class="card">Fizz</div>
     <div class="card">Akuanta</div>
     <div class="card">HailSiguma</div>
     <div class="card">Kenzoo</div>
-
   </div>
 
   <!-- OTHER -->
   <div class="section">
     <div class="title">OTHER MEMBERS</div>
-
     <div class="card">RANDOM KID</div>
     <div class="card">hanjie707</div>
     <div class="card">paris</div>
     <div class="card">truechit</div>
-
   </div>
 
   <!-- LINKS -->
@@ -286,9 +267,7 @@ function enter() {
   music.volume = 0.15;
 
   const play = music.play();
-  if (play !== undefined) {
-    play.catch(() => {});
-  }
+  if (play !== undefined) play.catch(() => {});
 }
 </script>
 
