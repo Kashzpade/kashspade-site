@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>NS GOD MODE AUDIO</title>
+<title>NS UNLOCK SYSTEM</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
@@ -15,261 +15,195 @@
   font-family: Inter;
 }
 
-/* HIDE SCROLLBAR */
-html, body {
-  overflow-y: scroll;
-  overflow-x: hidden;
-  scrollbar-width: none;
-}
-body::-webkit-scrollbar {
-  width: 0;
-}
-
-/* 🌌 CINEMATIC BACKGROUND (NOT POLOS) */
+/* BACKGROUND */
 body {
-  background: radial-gradient(circle at 20% 20%, #4da3ff 0%, transparent 40%),
-              radial-gradient(circle at 80% 30%, #1b4fff 0%, transparent 45%),
-              radial-gradient(circle at 50% 80%, #eaf3ff 0%, transparent 50%),
-              linear-gradient(135deg, #08142c, #0a58ff);
-  color: #0b1220;
+  background: linear-gradient(135deg, #07122b, #0a58ff);
+  overflow: hidden;
+  color: white;
 }
 
-/* soft grain overlay */
-body::before {
-  content: "";
+/* GHOST MONEY BACKGROUND */
+.money {
   position: fixed;
   inset: 0;
-  background: url("https://grainy-gradients.vercel.app/noise.svg");
-  opacity: 0.08;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.money span {
+  position: absolute;
+  font-size: 30px;
+  opacity: 0.05;
+  animation: float 10s linear infinite;
+}
+
+@keyframes float {
+  from { transform: translateY(100vh) rotate(0deg); }
+  to { transform: translateY(-10vh) rotate(360deg); }
+}
+
+/* MAIN CONTENT */
+.main {
+  filter: blur(25px);
+  transition: 1s ease;
+  pointer-events: none;
+  position: relative;
+  z-index: 2;
+}
+
+.main.unlocked {
+  filter: blur(0);
+  pointer-events: auto;
+}
+
+/* LOCK SCREEN */
+.lock {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(12px);
+  z-index: 999;
+  transition: 1s ease;
+}
+
+.lock.hidden {
+  opacity: 0;
   pointer-events: none;
 }
 
-/* NAV */
-.nav {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px 40px;
-  font-size: 12px;
-  letter-spacing: 3px;
-  color: rgba(255,255,255,0.7);
+/* TEXT */
+.lock h1 {
+  font-size: 16px;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  text-align: center;
+  color: rgba(255,255,255,0.85);
+}
+
+/* RGB BAR */
+.bar {
+  width: 340px;
+  height: 14px;
+  border-radius: 999px;
+  cursor: pointer;
+
+  background: linear-gradient(90deg,
+    red, orange, yellow, lime, cyan, blue, violet, red);
+
+  background-size: 300% 100%;
+  animation: rgb 3s linear infinite;
+
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  transition: 0.2s;
+}
+
+.bar:hover {
+  transform: scale(1.05);
+}
+
+@keyframes rgb {
+  0% { background-position: 0%; }
+  100% { background-position: 100%; }
+}
+
+/* STATUS */
+.status {
+  margin-top: 14px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
 }
 
 /* LAYOUT */
 .container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 80px 20px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
+  padding: 60px;
 }
 
-/* TITLE */
 .title {
-  font-size: 72px;
-  font-weight: 600;
-  letter-spacing: 8px;
-  color: white;
+  font-size: 64px;
+  letter-spacing: 6px;
 }
 
-.rgb {
-  margin-top: 10px;
-  font-size: 11px;
-  letter-spacing: 3px;
-  background: linear-gradient(90deg, #fff, #6aa9ff, #fff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* COUNTDOWN */
-.countdown {
-  margin-top: 18px;
-  font-size: 20px;
-  font-weight: 600;
-  color: white;
-}
-
-/* BUTTON */
-.btn {
-  margin-top: 20px;
-  padding: 12px 16px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.1);
-  color: white;
-  cursor: pointer;
-  backdrop-filter: blur(10px);
-}
-
-/* SHIRT */
-.shirt-wrap {
-  perspective: 1000px;
-  display: flex;
-  justify-content: center;
-}
-
-.shirt {
-  width: 360px;
-  filter: drop-shadow(0 30px 50px rgba(0,0,0,0.4));
-  transition: transform 0.1s;
-}
-
-/* SECTION */
-.section {
-  max-width: 900px;
-  margin: 90px auto;
-  padding: 0 20px;
-}
-
-.section-title {
-  font-size: 10px;
-  letter-spacing: 3px;
-  color: rgba(255,255,255,0.6);
-  margin-bottom: 18px;
-}
-
-.card {
-  padding: 14px 16px;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.08);
-  margin-bottom: 10px;
-  border: 1px solid rgba(255,255,255,0.1);
-  color: white;
-}
-
-/* FOOTER */
-footer {
-  text-align: center;
-  font-size: 11px;
-  color: rgba(255,255,255,0.4);
-  margin: 80px 0;
-}
-
-/* AUDIO BUTTON */
-.audio-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 14px;
+.sub {
   font-size: 12px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: rgba(0,0,0,0.3);
-  color: white;
-  cursor: pointer;
-  backdrop-filter: blur(10px);
+  opacity: 0.6;
+  margin-top: 5px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- AUDIO -->
+<!-- 💸 GHOST MONEY BACKGROUND -->
+<div class="money" id="money"></div>
+
+<!-- 🔊 AUDIO -->
 <audio id="bgMusic" loop>
   <source src="/music/bg.mp3" type="audio/mpeg">
 </audio>
 
-<!-- AUDIO BUTTON -->
-<button class="audio-btn" onclick="toggleAudio()">mute</button>
+<!-- 🔒 LOCK SCREEN -->
+<div class="lock" id="lock">
+  <h1 id="text">Click the bar if you believe in NS</h1>
 
-<!-- NAV -->
-<div class="nav">
-  <div>NS-SPADE</div>
-  <div>GOD MODE AUDIO</div>
+  <div class="bar" onclick="unlock()"></div>
+
+  <div class="status">secure access required</div>
 </div>
 
-<!-- HERO -->
-<div class="container">
+<!-- MAIN -->
+<div class="main" id="main">
 
-  <div>
+  <div class="container">
     <div class="title">NS SHIRT</div>
-    <div class="rgb">WEBSITE BY: KASHSPADE</div>
-
-    <div class="countdown" id="countdown"></div>
-
-    <button class="btn">SOLD OUT</button>
-  </div>
-
-  <div class="shirt-wrap">
-    <img src="/image/shirt.png" class="shirt" id="shirt"/>
+    <div class="sub">WEBSITE BY: KASHSPADE</div>
   </div>
 
 </div>
-
-<!-- LINKS -->
-<div class="section">
-  <div class="section-title">LINKS</div>
-
-  <div class="card">
-    Discord → Discord Kashspade
-  </div>
-
-  <div class="card">
-    YouTube → Youtube Kashspade
-  </div>
-</div>
-
-<!-- MEMBERS -->
-<div class="section">
-  <div class="section-title">MEMBERS</div>
-  <div class="card">KevinSpade</div>
-  <div class="card">Fizz</div>
-  <div class="card">Akuanta</div>
-  <div class="card">HailSiguma</div>
-  <div class="card">Kenzoo</div>
-</div>
-
-<footer>
-  © 2026 NS-SPADE
-</footer>
 
 <script>
-/* 3D SHIRT */
-const shirt = document.getElementById("shirt");
 
-document.addEventListener("mousemove", (e) => {
-  const x = (window.innerWidth / 2 - e.clientX) / 25;
-  const y = (window.innerHeight / 2 - e.clientY) / 25;
+/* 💸 GHOST MONEY GENERATOR */
+const money = document.getElementById("money");
+const emojis = ["💸","💰","🪙"];
 
-  shirt.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
-});
-
-/* COUNTDOWN 24 JAM LOOP */
-let time = 24 * 60 * 60;
-
-setInterval(() => {
-  let h = Math.floor(time / 3600);
-  let m = Math.floor((time % 3600) / 60);
-  let s = time % 60;
-
-  document.getElementById("countdown").innerText =
-    `LIMITED DROP: ${h}h ${m}m ${s}s`;
-
-  time--;
-  if (time < 0) time = 24 * 60 * 60;
-}, 1000);
-
-/* 🔥 AUDIO AUTO PLAY (DELAY 1 DETIK BIAR GAK KE BLOCK) */
-const music = document.getElementById("bgMusic");
-let isPlaying = true;
-
-setTimeout(() => {
-  music.volume = 0.4;
-  music.play().catch(() => {});
-}, 1000);
-
-/* MUTE / UNMUTE */
-function toggleAudio() {
-  if (isPlaying) {
-    music.pause();
-    document.querySelector(".audio-btn").innerText = "unmute";
-  } else {
-    music.play();
-    document.querySelector(".audio-btn").innerText = "mute";
-  }
-  isPlaying = !isPlaying;
+for (let i = 0; i < 40; i++) {
+  let span = document.createElement("span");
+  span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+  span.style.left = Math.random() * 100 + "vw";
+  span.style.top = Math.random() * 100 + "vh";
+  span.style.fontSize = (20 + Math.random() * 40) + "px";
+  span.style.animationDuration = (8 + Math.random() * 10) + "s";
+  money.appendChild(span);
 }
+
+/* 🔓 UNLOCK SYSTEM */
+let musicStarted = false;
+
+function unlock() {
+
+  document.getElementById("text").innerText =
+    "ACCESS GRANTED — NS ONLINE";
+
+  const music = document.getElementById("bgMusic");
+
+  setTimeout(() => {
+    document.getElementById("lock").classList.add("hidden");
+    document.getElementById("main").classList.add("unlocked");
+
+    /* 🔊 SOUND START (CLICK TRIGGER = WORK 100%) */
+    if (!musicStarted) {
+      music.volume = 0.4;
+      music.play().catch(() => {});
+      musicStarted = true;
+    }
+
+  }, 700);
+}
+
 </script>
 
 </body>
