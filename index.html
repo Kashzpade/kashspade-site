@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>alvaXzico Store | Security Verification</title>
+  <title>alvaXzico Store | Premium Joki Marketplace</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -34,8 +34,8 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: #000000; /* Hitam pekat total */
-      z-index: 99999; /* Lapisan paling atas mematikan konten lain */
+      background: #000000;
+      z-index: 99999;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -75,11 +75,26 @@
       line-height: 1.5;
     }
 
-    /* Hubungkan reCAPTCHA di tengah */
     .gate-captcha {
       display: flex;
       justify-content: center;
       margin-bottom: 10px;
+    }
+
+    /* Loader Animasi Pasca-Captcha */
+    #gateLoader {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(168, 85, 247, 0.2);
+      border-radius: 50%;
+      border-top-color: #a855f7;
+      animation: spin 0.8s linear infinite;
+      margin-top: 15px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
     /* ===================================================
@@ -115,7 +130,6 @@
       100% { transform: translateY(105vh) rotate(360deg); }
     }
 
-    /* Layout Wrapper */
     .wrapper {
       position: relative;
       z-index: 2;
@@ -125,9 +139,7 @@
       padding: 60px 20px;
     }
 
-    header {
-      margin-bottom: 40px;
-    }
+    header { margin-bottom: 40px; }
 
     .logo {
       display: flex;
@@ -178,7 +190,7 @@
       box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
     }
 
-    /* Grid Joki */
+    /* ===== STORE GRID & CARDS ===== */
     .store-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -220,9 +232,28 @@
       box-shadow: 0 20px 40px rgba(168, 85, 247, 0.15);
     }
 
-    .card-info {
-      margin-bottom: 20px;
+    .hot-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: linear-gradient(45deg, #ef4444, #f97316);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 30px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+      animation: pulseGlow 2s infinite;
     }
+
+    @keyframes pulseGlow {
+      0% { opacity: 0.8; box-shadow: 0 0 10px rgba(239, 68, 68, 0.4); }
+      50% { opacity: 1; box-shadow: 0 0 18px rgba(239, 68, 68, 0.8); }
+      100% { opacity: 0.8; box-shadow: 0 0 10px rgba(239, 68, 68, 0.4); }
+    }
+
+    .card-info { margin-bottom: 20px; }
 
     .tag {
       font-size: 11px;
@@ -236,19 +267,8 @@
       gap: 6px;
     }
 
-    .card h3 {
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: #f8fafc;
-    }
-
-    .card p {
-      color: #94a3b8;
-      font-size: 13.5px;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
+    .card h3 { font-size: 24px; font-weight: 600; margin-bottom: 8px; color: #f8fafc; }
+    .card p { color: #94a3b8; font-size: 13.5px; line-height: 1.6; margin-bottom: 20px; }
 
     .price {
       color: #22c55e;
@@ -259,12 +279,7 @@
       align-items: baseline;
       gap: 4px;
     }
-
-    .price span {
-      font-size: 14px;
-      color: #64748b;
-      font-weight: 400;
-    }
+    .price span { font-size: 14px; color: #64748b; font-weight: 400; }
 
     .btn {
       display: flex;
@@ -282,14 +297,76 @@
       transition: 0.3s;
       box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
     }
+    .btn:hover { background: #1ebe5d; transform: scale(1.02); box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4); }
 
-    .btn:hover {
-      background: #1ebe5d;
-      transform: scale(1.02);
-      box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4);
+    /* ===== 📣 LIVE TRANSACTION POP-UP (TOP LEFT) ===== */
+    .live-tx {
+      position: fixed;
+      top: 25px;
+      left: 25px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 12.5px;
+      color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      transform: translateX(-120%);
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 100;
+    }
+    .live-tx.show { transform: translateX(0); }
+    .tx-icon { color: #22c55e; animation: scaleUp 0.5s infinite alternate; }
+
+    /* ===== 🙋‍♂️ INTERACTIVE FAQ SECTION ===== */
+    .faq-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 40px 0;
+      text-align: left;
+    }
+    .faq-title {
+      font-size: 26px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 25px;
+      background: linear-gradient(90deg, #fff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .faq-item {
+      background: rgba(255,255,255,0.01);
+      border: 1px solid rgba(255,255,255,0.04);
+      margin-bottom: 12px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .faq-question {
+      padding: 18px 22px;
+      font-weight: 500;
+      font-size: 14.5px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      transition: background 0.3s;
+    }
+    .faq-question:hover { background: rgba(255,255,255,0.03); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 22px;
+      color: #94a3b8;
+      font-size: 13.5px;
+      line-height: 1.6;
+      transition: max-height 0.4s ease, padding 0.4s ease;
     }
 
-    /* WA Notif */
+    /* WA Notif Bottom Left */
     .wa-notif {
       position: fixed;
       bottom: 25px;
@@ -312,15 +389,19 @@
       align-items: center;
       gap: 10px;
     }
-
     .wa-notif.show { opacity: 1; transform: translateY(0); }
     .wa-dot { width: 8px; height: 8px; background: #25D366; border-radius: 50%; box-shadow: 0 0 10px #25D366; }
 
-    /* Music Controller */
-    .music-ctrl {
+    /* ===== CONTROLLERS PANEL (BOTTOM RIGHT) ===== */
+    .controls-panel {
       position: fixed;
       bottom: 25px;
       right: 25px;
+      display: flex;
+      gap: 12px;
+      z-index: 10;
+    }
+    .music-ctrl, .discord-ctrl {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(12px);
@@ -332,14 +413,19 @@
       font-weight: 500;
       color: #94a3b8;
       transition: 0.3s;
-      z-index: 10;
       user-select: none;
       display: flex;
       align-items: center;
       gap: 8px;
     }
+    .music-ctrl:hover, .discord-ctrl:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: white;
+      border-color: rgba(168, 85, 247, 0.4);
+    }
+    .discord-ctrl { background: rgba(88, 101, 242, 0.1); border-color: rgba(88, 101, 242, 0.2); color: #5865F2; }
+    .discord-ctrl:hover { background: rgba(88, 101, 242, 0.2); border-color: #5865F2; box-shadow: 0 0 15px rgba(88, 101, 242, 0.3); }
 
-    .music-ctrl:hover { background: rgba(255, 255, 255, 0.08); color: white; border-color: rgba(168, 85, 247, 0.4); }
     footer { margin-top: 50px; font-size: 13px; color: #475569; letter-spacing: 0.5px; }
   </style>
 </head>
@@ -354,12 +440,18 @@
       <div class="gate-captcha">
         <div class="g-recaptcha" data-sitekey="6Lcpi_gsAAAAAJkSCfedfELBpMgalzUt7G3C0O7-" data-theme="dark" data-callback="onCaptchaSuccess"></div>
       </div>
+      <div id="gateLoader"></div>
     </div>
   </div>
 
 
   <div id="mainContent">
     <div class="money-container" id="moneyBg"></div>
+
+    <div class="live-tx" id="liveTx">
+      <i class="fa-solid fa-circle-check tx-icon"></i>
+      <span id="txText">Someone just purchased Joki SOLS RNG</span>
+    </div>
 
     <div class="wrapper">
       <header>
@@ -375,6 +467,7 @@
       <div class="store-grid">
         
         <div class="card">
+          <div class="hot-badge">🔥 BEST SELLER</div>
           <div class="card-info">
             <div class="tag"><i class="fa-solid fa-gamepad"></i> Roblox</div>
             <h3>SOLS RNG AFK</h3>
@@ -387,6 +480,7 @@
         </div>
 
         <div class="card">
+          <div class="hot-badge" style="background: linear-gradient(45deg, #3b82f6, #06b6d4); box-shadow: 0 0 10px rgba(59,130,246,0.5);">✨ POPULAR</div>
           <div class="card-info">
             <div class="tag"><i class="fa-solid fa-bolt"></i> Boost</div>
             <h3>Rank Push Service</h3>
@@ -412,6 +506,25 @@
 
       </div>
 
+      <div class="faq-container">
+        <h2 class="faq-title">Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">Apakah Proses Joki Aman Dari Banned? <i class="fa-solid fa-chevron-down"></i></div>
+          <div class="faq-answer">100% Aman. Kami menggunakan device fisik ber-hardware tinggi tanpa script ilegal eksternal yang melanggar sistem game, menjaga akun Anda sepenuhnya steril.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">Bagaimana Sistem Pembayarannya? <i class="fa-solid fa-chevron-down"></i></div>
+          <div class="faq-answer">Kami menerima pembayaran instan via QRIS, E-Wallet (Dana, Ovo, Gopay), serta Transfer Bank resmi setelah rincian order divalidasi admin.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">Berapa Lama Pengerjaan Joki Selesai? <i class="fa-solid fa-chevron-down"></i></div>
+          <div class="faq-answer">Tergantung durasi atau paket tier joki yang diambil. Pengerjaan langsung dilakukan secepatnya (real-time) antrean Anda aktif dikonfirmasi admin via WhatsApp.</div>
+        </div>
+      </div>
+
       <footer>
         © 2026 alvaXzico Store. All Rights Reserved.
       </footer>
@@ -422,7 +535,14 @@
     <source src="music/bg.mp3" type="audio/mpeg">
   </audio>
 
-  <div class="music-ctrl" id="musicBtn" onclick="toggleMusic()"><i class="fa-solid fa-music"></i> Play BGM</div>
+  <div class="controls-panel">
+    <a class="discord-ctrl" href="https://discord.gg/YOUR_INVITE_LINK" target="_blank" style="text-decoration: none;">
+      <i class="fa-brands fa-discord"></i> Discord Community
+    </a>
+    <div class="music-ctrl" id="musicBtn" onclick="toggleMusic()">
+      <i class="fa-solid fa-music"></i> Play BGM
+    </div>
+  </div>
 
   <div class="wa-notif" id="waNotif">
     <div class="wa-dot"></div>
@@ -430,24 +550,38 @@
   </div>
 
   <script>
-    /* ===== FUNCTION DETEKSI CAPTCHA LU_SUKSES ===== */
+    const bgm = document.getElementById('bgm');
+    const musicBtn = document.getElementById('musicBtn');
+    let isPlaying = false;
+
+    /* ===== DETEKSI CAPTCHA LU SUKSES (DENGAN DELAY LOADER PREMIUM) ===== */
     function onCaptchaSuccess() {
       const gate = document.getElementById('securityGate');
       const content = document.getElementById('mainContent');
+      const loader = document.getElementById('gateLoader');
 
-      // Animasi menghilang (fade out) untuk layar hitam
-      gate.style.opacity = '0';
-      gate.style.visibility = 'hidden';
+      loader.style.display = 'block'; // Nyalain roda muter canggih
 
-      // Munculkan isi store asli dengan transisi smooth
-      content.style.opacity = '1';
-      content.style.transform = 'scale(1)';
+      setTimeout(() => {
+        gate.style.opacity = '0';
+        gate.style.visibility = 'hidden';
 
-      // Otomatis nyalain efek duit melayang pas store kebuka
-      setInterval(createMoney, 3500);
-      // Nyalain interval notif WA
-      setInterval(showWaNotif, 10000);
-      setTimeout(showWaNotif, 2000);
+        content.style.opacity = '1';
+        content.style.transform = 'scale(1)';
+
+        // Jalankan Musik Otomatis
+        bgm.play().then(() => {
+          musicBtn.innerHTML = '<i class="fa-solid fa-pause"></i> Pause BGM';
+          isPlaying = true;
+        }).catch(err => console.log("Blocked by strict autoplay policy."));
+
+        // Jalankan seluruh loop visual interval pendukung
+        setInterval(createMoney, 3500);
+        setInterval(showWaNotif, 14000);
+        setInterval(showLiveTx, 18000);
+        setTimeout(showWaNotif, 2000);
+        setTimeout(showLiveTx, 6000);
+      }, 1200); // Penundaan seolah loading verifikasi data selama 1,2 detik
     }
 
     /* ===== EFFECT MONEY FALLING ===== */
@@ -463,21 +597,34 @@
       setTimeout(() => { money.remove(); }, 7000);
     }
 
-    /* ===== BACKSOUND MUSIC PLAYER ===== */
-    const bgm = document.getElementById('bgm');
-    const musicBtn = document.getElementById('musicBtn');
-    let isPlaying = false;
-
+    /* ===== BACKSOUND CONTROLLER MANUAL ===== */
     function toggleMusic() {
       if (!isPlaying) {
         bgm.play().then(() => {
           musicBtn.innerHTML = '<i class="fa-solid fa-pause"></i> Pause BGM';
           isPlaying = true;
-        }).catch(err => console.log("Interaksi user dibutuhkan oleh browser."));
+        });
       } else {
         bgm.pause();
         musicBtn.innerHTML = '<i class="fa-solid fa-music"></i> Play BGM';
         isPlaying = false;
+      }
+    }
+
+    /* ===== INTERACTIVE FAQ DROPDOWN FUNCTION ===== */
+    function toggleFaq(element) {
+      const answer = element.nextElementSibling;
+      const icon = element.querySelector('i');
+      if (answer.style.maxHeight && answer.style.maxHeight !== '0px') {
+        answer.style.maxHeight = '0px';
+        answer.style.paddingTop = '0px';
+        answer.style.paddingBottom = '0px';
+        icon.style.transform = 'rotate(0deg)';
+      } else {
+        answer.style.maxHeight = answer.scrollHeight + 36 + 'px';
+        answer.style.paddingTop = '10px';
+        answer.style.paddingBottom = '20px';
+        icon.style.transform = 'rotate(180deg)';
       }
     }
 
@@ -486,6 +633,23 @@
       const notif = document.getElementById('waNotif');
       notif.classList.add('show');
       setTimeout(() => { notif.classList.remove('show'); }, 3500);
+    }
+
+    /* ===== FAKE LIVE TRANSACTION POP-UP GENERATOR ===== */
+    const buyers = ['Kiaraa_','RizkyDx','User_911','Kashspade','Fiiizzzz','XziicoLovers','TianGanteng','Zerryn_','KayrocX'];
+    const products = ['Joki SOLS RNG (5 Jam)','Rank Push ke Mythic','Premium Server Setup','Joki SOLS RNG (12 Jam)','Discord Verification Bot Setup'];
+    
+    function showLiveTx() {
+      const tx = document.getElementById('liveTx');
+      const txText = document.getElementById('txText');
+      
+      const randomBuyer = buyers[Math.floor(Math.random() * buyers.length)];
+      const randomProduct = products[Math.floor(Math.random() * products.length)];
+      
+      txText.innerHTML = `<strong>${randomBuyer}</strong> just ordered <strong>${randomProduct}</strong>`;
+      
+      tx.classList.add('show');
+      setTimeout(() => { tx.classList.remove('show'); }, 4500);
     }
 
     /* ===== HOVER GLOWING EFFECT FOR CARDS ===== */
