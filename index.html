@@ -3,107 +3,252 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NS Spade Joki</title>
+  <title>alvaXzico Store</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f0f1a;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #14001f, #050510);
       color: white;
+      overflow-x: hidden;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 40px;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #a855f7, #6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero {
       text-align: center;
+      padding: 60px 20px;
     }
 
-    .container {
-      padding: 40px 20px;
+    .hero h1 {
+      font-size: 42px;
+      background: linear-gradient(90deg, #c084fc, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    h1 {
-      color: #a855f7;
-      font-size: 32px;
-      margin-bottom: 10px;
+    .hero p {
+      color: #aaa;
+      margin-top: 10px;
+    }
+
+    .badge {
+      margin-top: 20px;
+      display: inline-block;
+      background: #22c55e;
+      color: black;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: bold;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .store {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      padding: 40px;
     }
 
     .card {
-      background: #1a1a2e;
-      padding: 20px;
-      border-radius: 12px;
-      margin-top: 20px;
-      display: inline-block;
-      width: 300px;
-      box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 25px;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: 0.3s;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 0 50px rgba(168,85,247,0.5);
+    }
+
+    .card h2 {
+      margin-bottom: 10px;
     }
 
     .price {
-      font-size: 24px;
       color: #22c55e;
-      margin: 10px 0;
+      font-size: 24px;
+      margin-bottom: 10px;
     }
 
     ul {
-      text-align: left;
       padding-left: 20px;
+      color: #ccc;
+      margin-bottom: 15px;
     }
 
     .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 20px;
-      background: #25D366;
-      color: white;
+      display: block;
+      text-align: center;
+      padding: 12px;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #25D366, #1ebe5d);
       text-decoration: none;
-      border-radius: 8px;
+      color: white;
       font-weight: bold;
       transition: 0.2s;
     }
 
     .btn:hover {
-      background: #1ebe5d;
       transform: scale(1.05);
+      box-shadow: 0 0 25px #25D366;
     }
 
-    .footer {
-      margin-top: 40px;
-      font-size: 12px;
-      color: #aaa;
+    .features {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .features h3 {
+      color: #c084fc;
+      margin-bottom: 20px;
+    }
+
+    .feature-list {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .feature {
+      background: rgba(255,255,255,0.05);
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #777;
+    }
+
+    /* FAKE NOTIF */
+    .notif {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #1a1a2e;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: 13px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: 0.5s;
+    }
+
+    .notif.show {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
-    <h1>NS SPADE JOKI SERVICE</h1>
-    <p>Jasa Joki Aman & Fast ⚡</p>
+<header>
+  <div class="logo">alvaXzico Store 👑</div>
+</header>
 
-    <div class="card">
-      <h2>🎰 ROBLOX AFK SOLS RNG</h2>
+<section class="hero">
+  <h1>Jasa Joki Premium</h1>
+  <p>Fast • Aman • 24 Jam Online</p>
+  <div class="badge">🔥 SLOT TERBATAS</div>
+</section>
 
-      <div class="price">1K / JAM</div>
+<section class="store">
+  <div class="card">
+    <h2>🎰 ROBLOX SOLS RNG AFK</h2>
+    <div class="price">1K / JAM</div>
 
-      <ul>
-        <li>AFK farming SOLS RNG</li>
-        <li>Online 24 jam</li>
-        <li>Bisa request durasi</li>
-        <li>Aman & terpercaya</li>
-      </ul>
+    <ul>
+      <li>AFK farming otomatis</li>
+      <li>PC 24 jam nonstop</li>
+      <li>Aman & terpercaya</li>
+    </ul>
 
-      <p><b>Paket:</b></p>
-      <ul>
-        <li>5 Jam → 5K</li>
-        <li>10 Jam → 10K</li>
-        <li>24 Jam → 24K</li>
-      </ul>
+    <ul>
+      <li>5 Jam → 5K</li>
+      <li>10 Jam → 10K</li>
+      <li>24 Jam → 24K</li>
+    </ul>
 
-      <a class="btn" href="https://wa.me/62895385584661?text=Halo%20NS%20Spade%20Joki%2C%20saya%20mau%20order%20AFK%20SOLS%20RNG%0A%0ANama%3A%0ADurasi%3A" target="_blank">
-        ORDER SEKARANG
-      </a>
-    </div>
-
-    <div class="footer">
-      © 2026 NS Spade
-    </div>
+    <a class="btn" href="https://wa.me/62895385584661?text=Halo%20alvaXzico%20Store%2C%20saya%20mau%20order%20AFK%20SOLS%20RNG%0A%0ANama%3A%0ADurasi%3A" target="_blank">
+      ORDER SEKARANG
+    </a>
   </div>
+</section>
+
+<section class="features">
+  <h3>Kenapa Pilih Kami?</h3>
+  <div class="feature-list">
+    <div class="feature">⚡ Fast Response</div>
+    <div class="feature">🛡️ Aman</div>
+    <div class="feature">🖥️ 24 Jam Online</div>
+    <div class="feature">💬 Bisa Pantau</div>
+  </div>
+</section>
+
+<footer>
+  © 2026 alvaXzico Store
+</footer>
+
+<div class="notif" id="notif"></div>
+
+<script>
+  const messages = [
+    "Rizky baru saja order 5 jam 🔥",
+    "Andi membeli paket 10 jam ⚡",
+    "Budi order AFK SOLS RNG 💰",
+    "User baru saja checkout 🎮"
+  ];
+
+  function showNotif() {
+    const notif = document.getElementById("notif");
+    notif.innerText = messages[Math.floor(Math.random() * messages.length)];
+    notif.classList.add("show");
+
+    setTimeout(() => {
+      notif.classList.remove("show");
+    }, 3000);
+  }
+
+  setInterval(showNotif, 6000);
+</script>
 
 </body>
 </html>
