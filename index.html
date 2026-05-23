@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>alvaXzico Store</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 *{
@@ -16,31 +16,48 @@
 }
 
 body{
-  background: linear-gradient(180deg,#0a0a12,#050507);
+  background:#0b0f17;
   color:white;
 }
 
-/* HEADER */
-header{
-  text-align:center;
-  padding:30px 20px;
+/* NAVBAR */
+nav{
+  display:flex;
+  justify-content:space-between;
+  padding:20px 40px;
+  align-items:center;
+  border-bottom:1px solid #1f2937;
+  position:sticky;
+  top:0;
+  background:#0b0f17;
+  z-index:10;
 }
 
 .logo{
-  font-size:26px;
   font-weight:600;
-  letter-spacing:1px;
   color:#c084fc;
+  font-size:18px;
+}
+
+.nav-links a{
+  color:#aaa;
+  margin-left:20px;
+  text-decoration:none;
+  font-size:14px;
+}
+
+.nav-links a:hover{
+  color:white;
 }
 
 /* HERO */
 .hero{
   text-align:center;
-  padding:40px 20px;
+  padding:70px 20px 40px;
 }
 
 .hero h1{
-  font-size:36px;
+  font-size:42px;
   margin-bottom:10px;
 }
 
@@ -49,58 +66,81 @@ header{
 }
 
 .badge{
-  margin-top:15px;
   display:inline-block;
-  padding:5px 12px;
+  margin-top:15px;
+  padding:6px 14px;
+  border:1px solid #2d2d2d;
   border-radius:20px;
   font-size:12px;
-  background:#1f2937;
-  border:1px solid #333;
+  color:#ccc;
+}
+
+/* SECTION TITLE */
+.section-title{
+  text-align:center;
+  margin:40px 0 20px;
+  font-size:20px;
+  color:#c084fc;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;
+  padding:20px 40px 60px;
 }
 
 /* CARD */
-.container{
-  display:flex;
-  justify-content:center;
-  padding:30px;
-}
-
 .card{
-  width:320px;
-  padding:25px;
+  background:#111827;
+  border:1px solid #1f2937;
   border-radius:14px;
-  background: rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.08);
+  padding:20px;
   transition:.3s;
+  opacity:0;
+  transform:translateY(20px);
+  animation:fadeUp .6s forwards;
 }
 
 .card:hover{
   transform:translateY(-6px);
-  box-shadow:0 0 30px rgba(168,85,247,0.15);
+  border-color:#a855f7;
+}
+
+@keyframes fadeUp{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.card h3{
+  margin-bottom:10px;
 }
 
 .price{
   color:#22c55e;
-  font-size:24px;
-  margin:10px 0;
+  margin-bottom:10px;
 }
 
 ul{
   padding-left:18px;
   color:#bbb;
-  margin-bottom:15px;
+  font-size:14px;
+  margin-bottom:12px;
 }
 
 /* BUTTON */
 .btn{
   display:block;
   text-align:center;
-  padding:12px;
-  border-radius:8px;
+  padding:10px;
   background:#25D366;
-  text-decoration:none;
+  border-radius:8px;
   color:white;
-  font-weight:600;
+  text-decoration:none;
+  font-weight:500;
   transition:.2s;
 }
 
@@ -110,36 +150,38 @@ ul{
 
 /* FEATURES */
 .features{
-  text-align:center;
-  padding:40px 20px;
-}
-
-.features h3{
-  margin-bottom:20px;
-}
-
-.list{
   display:flex;
   justify-content:center;
-  gap:15px;
   flex-wrap:wrap;
+  gap:12px;
+  padding:20px;
 }
 
-.item{
-  padding:10px 15px;
+.feature{
+  background:#111827;
+  border:1px solid #1f2937;
+  padding:10px 14px;
   border-radius:8px;
-  background:#111;
-  border:1px solid #222;
   font-size:13px;
+  color:#aaa;
 }
 
-/* NOTIF WA */
-.wa-notif{
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:20px;
+  font-size:12px;
+  color:#555;
+  border-top:1px solid #1f2937;
+}
+
+/* NOTIF */
+.notif{
   position:fixed;
   bottom:20px;
   left:20px;
-  background:#111;
-  border:1px solid #222;
+  background:#111827;
+  border:1px solid #1f2937;
   padding:10px 14px;
   border-radius:8px;
   font-size:13px;
@@ -148,84 +190,72 @@ ul{
   transition:.4s;
 }
 
-.wa-notif.show{
+.notif.show{
   opacity:1;
   transform:translateY(0);
-}
-
-/* FOOTER */
-footer{
-  text-align:center;
-  padding:20px;
-  color:#666;
-  font-size:12px;
 }
 </style>
 </head>
 
 <body>
 
-<header>
+<nav>
   <div class="logo">alvaXzico Store</div>
-</header>
+  <div class="nav-links">
+    <a href="#">Home</a>
+    <a href="#service">Service</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
 
 <section class="hero">
-  <h1>Joki Roblox Premium</h1>
-  <p>Fast • Aman • 24 Jam</p>
-  <div class="badge">Slot Terbatas</div>
+  <h1>Digital Game Service</h1>
+  <p>Fast • Secure • 24/7 Online Support</p>
+  <div class="badge">Trusted Service Platform</div>
 </section>
 
-<div class="container">
-  <div class="card">
-    <h2>🎰 SOLS RNG AFK</h2>
-    <div class="price">1K / JAM</div>
+<h2 class="section-title" id="service">Layanan Kami</h2>
 
+<div class="grid">
+
+  <div class="card">
+    <h3>🎰 Roblox SOLS RNG AFK</h3>
+    <div class="price">1K / JAM</div>
     <ul>
       <li>AFK farming otomatis</li>
-      <li>Online 24 jam</li>
-      <li>Aman & stabil</li>
+      <li>24 jam server aktif</li>
+      <li>Bisa request durasi</li>
     </ul>
-
-    <ul>
-      <li>5 Jam → 5K</li>
-      <li>10 Jam → 10K</li>
-      <li>24 Jam → 24K</li>
-    </ul>
-
-    <a class="btn" href="https://wa.me/62895385584661?text=Halo%20alvaXzico%20Store%2C%20saya%20mau%20order%20AFK%20SOLS%20RNG%0A%0ANama%3A%0ADurasi%3A" target="_blank">
-      Order via WhatsApp
-    </a>
+    <a class="btn" href="https://wa.me/62895385584661?text=Order%20SOLS%20RNG%20AFK">Order</a>
   </div>
+
 </div>
 
 <section class="features">
-  <h3>Keunggulan</h3>
-  <div class="list">
-    <div class="item">Fast Response</div>
-    <div class="item">Aman</div>
-    <div class="item">24 Jam Online</div>
-    <div class="item">Bisa Pantau</div>
-  </div>
+  <div class="feature">⚡ Fast Response</div>
+  <div class="feature">🛡️ Secure Service</div>
+  <div class="feature">🖥️ 24/7 Online</div>
+  <div class="feature">💬 Live Support</div>
 </section>
 
 <footer>
-  © 2026 alvaXzico Store
+  © 2026 alvaXzico Digital Service
 </footer>
 
 <!-- NOTIF NOMOR -->
-<div class="wa-notif" id="notif">+62 895-3855-84661</div>
+<div class="notif" id="notif">+62 895-3855-84661</div>
 
 <script>
 function showNotif(){
-  const notif = document.getElementById("notif");
-  notif.classList.add("show");
+  const n = document.getElementById("notif");
+  n.classList.add("show");
 
   setTimeout(()=>{
-    notif.classList.remove("show");
-  },3000);
+    n.classList.remove("show");
+  },2500);
 }
 
-setInterval(showNotif,7000);
+setInterval(showNotif,8000);
 </script>
 
 </body>
