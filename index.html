@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>alvaXzico Store</title>
+  <title>alvaXzico Store | Premium Joki Marketplace</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
   <style>
@@ -17,7 +19,7 @@
     }
 
     body {
-      background: radial-gradient(circle at top, #110724, #05050a);
+      background: radial-gradient(circle at top, #13092b, #040408);
       color: white;
       overflow-x: hidden;
       min-height: 100vh;
@@ -38,17 +40,13 @@
       position: absolute;
       top: -50px;
       font-size: 24px;
-      opacity: 0.04; /* Sangat soft / hampir invisible */
+      opacity: 0.04; /* Soft transparan */
       animation: fall linear infinite;
     }
 
     @keyframes fall {
-      0% {
-        transform: translateY(-50px) rotate(0deg);
-      }
-      100% {
-        transform: translateY(105vh) rotate(360deg);
-      }
+      0% { transform: translateY(-50px) rotate(0deg); }
+      100% { transform: translateY(105vh) rotate(360deg); }
     }
 
     /* ===== CONTENT LAYOUT ===== */
@@ -58,100 +56,149 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 50px 20px;
+      padding: 60px 20px;
     }
 
     header {
-      margin-bottom: 30px;
+      margin-bottom: 40px;
     }
 
+    /* Logo Menggunakan Font Awesome + Gradient */
     .logo {
-      font-size: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 32px;
       font-weight: 700;
       letter-spacing: 1.5px;
       background: linear-gradient(90deg, #c084fc, #6366f1);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+      text-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+    }
+
+    .logo i {
+      background: linear-gradient(90deg, #c084fc, #6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .hero h1 {
-      font-size: 38px;
-      font-weight: 600;
-      margin-bottom: 8px;
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 12px;
       text-align: center;
+      letter-spacing: -0.5px;
     }
 
     .hero p {
-      color: #aaa;
-      font-size: 14px;
+      color: #94a3b8;
+      font-size: 15px;
       text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
     }
 
     .badge {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 6px 16px;
+      display: table;
+      margin: 20px auto 0 auto;
+      padding: 6px 18px;
       border-radius: 20px;
-      font-size: 12px;
-      font-weight: 500;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      background: rgba(168, 85, 247, 0.1);
+      border: 1px solid rgba(168, 85, 247, 0.3);
       color: #c084fc;
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
     }
 
     /* ===== STORE MULTI CARD GRID ===== */
     .store-grid {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 25px;
-      margin: 40px 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin: 50px 0;
       width: 100%;
-      max-width: 1100px;
+      max-width: 1140px;
     }
 
     .card {
       background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 16px;
-      padding: 30px;
-      width: 330px;
-      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 35px 25px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(800px circle at var(--x, 0px) var(--y, 0px), rgba(168, 85, 247, 0.08), transparent 40%);
+      pointer-events: none;
     }
 
     .card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(168, 85, 247, 0.3);
-      box-shadow: 0 15px 40px rgba(168, 85, 247, 0.15);
+      transform: translateY(-10px);
+      border-color: rgba(168, 85, 247, 0.4);
+      box-shadow: 0 20px 40px rgba(168, 85, 247, 0.15);
+    }
+
+    .card-info {
+      margin-bottom: 20px;
     }
 
     .tag {
       font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       color: #a855f7;
-      font-weight: 600;
-      margin-bottom: 8px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .card h3 {
-      font-size: 22px;
-      margin-bottom: 5px;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #f8fafc;
+    }
+
+    .card p {
+      color: #94a3b8;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin-bottom: 20px;
     }
 
     .price {
       color: #22c55e;
-      font-size: 26px;
-      font-weight: 600;
+      font-size: 28px;
+      font-weight: 700;
       margin: 15px 0;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
     }
 
-    .card p {
-      color: #aaa;
-      font-size: 13px;
-      margin-bottom: 15px;
+    .price span {
+      font-size: 14px;
+      color: #64748b;
+      font-weight: 400;
     }
 
     /* ===== RECAPTCHA BOX ===== */
@@ -159,19 +206,22 @@
       margin: 20px 0;
       display: flex;
       justify-content: center;
-      transform: scale(0.9); /* Sedikit dikecilkan agar pas di card */
+      transform: scale(0.88);
     }
 
     /* ===== BUTTON ===== */
     .btn {
-      display: block;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       padding: 14px;
-      border-radius: 10px;
+      border-radius: 12px;
       background: #25D366;
       color: white;
       text-decoration: none;
       font-weight: 600;
+      font-size: 15px;
       letter-spacing: 0.5px;
       transition: 0.3s;
       box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
@@ -180,7 +230,7 @@
     .btn:hover {
       background: #1ebe5d;
       transform: scale(1.02);
-      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+      box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4);
     }
 
     /* ===== CLEAN WA NOTIF ===== */
@@ -188,23 +238,23 @@
       position: fixed;
       bottom: 25px;
       left: 25px;
-      background: rgba(15, 15, 25, 0.8);
+      background: rgba(10, 10, 18, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(8px);
-      padding: 12px 18px;
-      border-radius: 10px;
-      font-size: 13px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 13.5px;
       font-weight: 500;
-      color: #ccc;
-      letter-spacing: 0.5px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      color: #e2e8f0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
       opacity: 0;
       transform: translateY(20px);
       transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       z-index: 10;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     .wa-notif.show {
@@ -217,7 +267,7 @@
       height: 8px;
       background: #25D366;
       border-radius: 50%;
-      box-shadow: 0 0 8px #25D366;
+      box-shadow: 0 0 10px #25D366;
     }
 
     /* ===== MUSIC CONTROLLER ===== */
@@ -227,28 +277,32 @@
       right: 25px;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(8px);
-      padding: 10px 16px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 12px 20px;
       border-radius: 30px;
       cursor: pointer;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 500;
-      color: #aaa;
+      color: #94a3b8;
       transition: 0.3s;
       z-index: 10;
       user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .music-ctrl:hover {
       background: rgba(255, 255, 255, 0.08);
       color: white;
-      border-color: rgba(168, 85, 247, 0.3);
+      border-color: rgba(168, 85, 247, 0.4);
     }
 
     footer {
-      margin-top: 40px;
-      font-size: 12px;
-      color: #444;
+      margin-top: 50px;
+      font-size: 13px;
+      color: #475569;
       letter-spacing: 0.5px;
     }
   </style>
@@ -259,30 +313,66 @@
 
   <div class="wrapper">
     <header>
-      <div class="logo">alvaXzico Store</div>
+      <div class="logo"><i class="fa-solid fa-crown"></i> alvaXzico Store</div>
     </header>
 
     <section class="hero">
       <h1>Premium Joki Marketplace</h1>
-      <p>Secure Automation • High Performance Specs • 24/7 Availability</p>
-      <div class="badge">SYSTEM READY</div>
+      <p>Automated Farming • High Tier Boosting • Dedicated 24/7 Hardware Network Setup</p>
+      <div class="badge">SYSTEM ONLINE & SECURE</div>
     </section>
 
     <div class="store-grid">
       
       <div class="card">
-        <div class="tag">Roblox</div>
-        <h3>SOLS RNG AFK</h3>
-        <div class="price">1K / JAM</div>
-        <p>Automated AFK farming service on dedicated 24-hour high-end PC.</p>
-        
-        <div class="captcha-container">
-          <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY" data-theme="dark"></div>
+        <div class="card-info">
+          <div class="tag"><i class="fa-solid fa-gamepad"></i> Roblox</div>
+          <h3>SOLS RNG AFK</h3>
+          <p>Automated AFK farming service handled on dedicated 24-hour hardware. Safe from sudden disconnections.</p>
+          <div class="price">1K <span>/ jam</span></div>
         </div>
+        <div>
+          <div class="captcha-container">
+            <div class="g-recaptcha" data-sitekey="6Lcpi_gsAAAAAJkSCfedfELBpMgalzUt7G3C0O7-" data-theme="dark"></div>
+          </div>
+          <a class="btn" href="https://wa.me/62895385584661?text=Halo%20alvaXzico%20Store%2C%20mau%20order%20AFK%20SOLS%20RNG" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
+          </a>
+        </div>
+      </div>
 
-        <a class="btn" href="https://wa.me/62895385584661?text=Halo%20alvaXzico%20Store%2C%20saya%20mau%20order%20AFK%20SOLS%20RNG%0A%0ANama%3A%0ADurasi%3A" target="_blank">
-          Order via WhatsApp
-        </a>
+      <div class="card">
+        <div class="card-info">
+          <div class="tag"><i class="fa-solid fa-bolt"></i> Boost</div>
+          <h3>Rank Push Service</h3>
+          <p>Fast and private tier boosting by experienced high-skill players. Win rate and safety guaranteed.</p>
+          <div class="price">5K+ <span>/ tier</span></div>
+        </div>
+        <div>
+          <div class="captcha-container">
+            <div class="g-recaptcha" data-sitekey="6Lcpi_gsAAAAAJkSCfedfELBpMgalzUt7G3C0O7-" data-theme="dark"></div>
+          </div>
+          <a class="btn" href="https://wa.me/62895385584661?text=Halo%20alvaXzico%20Store%2C%20mau%20order%20Rank%20Push%20Service" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-info">
+          <div class="tag"><i class="fa-solid fa-server"></i> Setup</div>
+          <h3>Server Setup</h3>
+          <p>Professional Minecraft network optimization or advanced Discord bot integration built for high traffic counts.</p>
+          <div class="price">10K+ <span>/ setup</span></div>
+        </div>
+        <div>
+          <div class="captcha-container">
+            <div class="g-recaptcha" data-sitekey="6Lcpi_gsAAAAAJkSCfedfELBpMgalzUt7G3C0O7-" data-theme="dark"></div>
+          </div>
+          <a class="btn" href="https://wa.me/62895385584661?text=Halo%20alvaXzico%20Store%2C%20mau%20order%20Server%20Setup" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
+          </a>
+        </div>
       </div>
 
     </div>
@@ -296,7 +386,7 @@
     <source src="music/bg.mp3" type="audio/mpeg">
   </audio>
 
-  <div class="music-ctrl" id="musicBtn" onclick="toggleMusic()">🎵 Play BGM</div>
+  <div class="music-ctrl" id="musicBtn" onclick="toggleMusic()"><i class="fa-solid fa-music"></i> Play BGM</div>
 
   <div class="wa-notif" id="waNotif">
     <div class="wa-dot"></div>
@@ -304,27 +394,19 @@
   </div>
 
   <script>
-    /* ===== SCRIPT REAL MONEY DROPPING EFFECT ===== */
+    /* ===== EFFECT MONEY FALLING ===== */
     const moneyBg = document.getElementById('moneyBg');
     function createMoney() {
       const money = document.createElement('div');
       money.classList.add('money');
       money.innerText = '💸';
-      
-      // Random posisi horizontal, ukuran font, dan kecepatan jatuh
       money.style.left = Math.random() * 100 + 'vw';
-      money.style.fontSize = Math.random() * (26 - 16) + 16 + 'px';
-      money.style.animationDuration = Math.random() * (8 - 4) + 4 + 's';
-      
+      money.style.fontSize = Math.random() * (24 - 16) + 16 + 'px';
+      money.style.animationDuration = Math.random() * (7 - 4) + 4 + 's';
       moneyBg.appendChild(money);
-
-      // Hapus element kalau sudah selesai animasi biar ga berat
-      setTimeout(() => {
-        money.remove();
-      }, 8000);
+      setTimeout(() => { money.remove(); }, 7000);
     }
-    // Loop melahirkan uang melayang secara konstan
-    setInterval(createMoney, 4000);
+    setInterval(createMoney, 3500);
 
     /* ===== BACKSOUND MUSIC PLAYER ===== */
     const bgm = document.getElementById('bgm');
@@ -334,5 +416,36 @@
     function toggleMusic() {
       if (!isPlaying) {
         bgm.play().then(() => {
-          musicBtn.innerHTML = '⏸️ Pause BGM';
-          isPlaying
+          musicBtn.innerHTML = '<i class="fa-solid fa-pause"></i> Pause BGM';
+          isPlaying = true;
+        }).catch(err => console.log("Interaksi user dibutuhkan oleh browser."));
+      } else {
+        bgm.pause();
+        musicBtn.innerHTML = '<i class="fa-solid fa-music"></i> Play BGM';
+        isPlaying = false;
+      }
+    }
+
+    /* ===== WA NOTIF POPUP LOOP ===== */
+    function showWaNotif() {
+      const notif = document.getElementById('waNotif');
+      notif.classList.add('show');
+      setTimeout(() => { notif.classList.remove('show'); }, 3500);
+    }
+    setInterval(showWaNotif, 10000);
+    setTimeout(showWaNotif, 2000);
+
+    /* ===== HOVER GLOWING EFFECT FOR CARDS ===== */
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--x', `${x}px`);
+        card.style.setProperty('--y', `${y}px`);
+      });
+    });
+  </script>
+
+</body>
+</html>
