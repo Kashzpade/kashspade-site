@@ -1,209 +1,338 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>alvaXzico Marketplace</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>alvaXzico Store</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Poppins;
-}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
-body{
-  background:#070a12;
-  color:white;
-  overflow-x:hidden;
-}
+    body {
+      background: radial-gradient(circle at top, #110724, #05050a);
+      color: white;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
 
-/* 💸 MONEY BG */
-.money{
-  position:fixed;
-  top:-50px;
-  font-size:18px;
-  opacity:0.06;
-  animation:fall linear infinite;
-  pointer-events:none;
-}
+    /* ===== BACKGROUND UANG MELAYANG (AESTHETIC) ===== */
+    .money-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
 
-@keyframes fall{
-  0%{transform:translateY(-100px);}
-  100%{transform:translateY(120vh);}
-}
+    .money {
+      position: absolute;
+      top: -50px;
+      font-size: 24px;
+      opacity: 0.04; /* Sangat soft / hampir invisible */
+      animation: fall linear infinite;
+    }
 
-/* NAV */
-nav{
-  display:flex;
-  justify-content:space-between;
-  padding:20px 40px;
-  border-bottom:1px solid #1f2937;
-  position:sticky;
-  top:0;
-  background:#070a12;
-}
+    @keyframes fall {
+      0% {
+        transform: translateY(-50px) rotate(0deg);
+      }
+      100% {
+        transform: translateY(105vh) rotate(360deg);
+      }
+    }
 
-.logo{
-  color:#c084fc;
-  font-weight:600;
-}
+    /* ===== CONTENT LAYOUT ===== */
+    .wrapper {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px 20px;
+    }
 
-input{
-  padding:8px 12px;
-  border-radius:8px;
-  border:none;
-  outline:none;
-  background:#111827;
-  color:white;
-}
+    header {
+      margin-bottom: 30px;
+    }
 
-/* HERO */
-.hero{
-  text-align:center;
-  padding:40px 20px;
-}
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      background: linear-gradient(90deg, #c084fc, #6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+    }
 
-.hero h1{
-  font-size:38px;
-}
+    .hero h1 {
+      font-size: 38px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      text-align: center;
+    }
 
-.hero p{
-  color:#aaa;
-}
+    .hero p {
+      color: #aaa;
+      font-size: 14px;
+      text-align: center;
+    }
 
-/* FILTER */
-.filters{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin:20px 0;
-  flex-wrap:wrap;
-}
+    .badge {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #c084fc;
+    }
 
-.filters button{
-  padding:8px 12px;
-  border-radius:8px;
-  border:1px solid #1f2937;
-  background:#111827;
-  color:#aaa;
-  cursor:pointer;
-  transition:.2s;
-}
+    /* ===== STORE MULTI CARD GRID ===== */
+    .store-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+      margin: 40px 0;
+      width: 100%;
+      max-width: 1100px;
+    }
 
-.filters button:hover{
-  border-color:#a855f7;
-  color:white;
-}
+    .card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      padding: 30px;
+      width: 330px;
+      backdrop-filter: blur(12px);
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
 
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
-  padding:20px 40px 60px;
-}
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(168, 85, 247, 0.3);
+      box-shadow: 0 15px 40px rgba(168, 85, 247, 0.15);
+    }
 
-/* CARD */
-.card{
-  background:#111827;
-  border:1px solid #1f2937;
-  border-radius:14px;
-  padding:20px;
-  transition:.2s;
-}
+    .tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #a855f7;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
 
-.card:hover{
-  transform:translateY(-6px);
-  border-color:#a855f7;
-}
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 5px;
+    }
 
-.price{
-  color:#22c55e;
-  margin:10px 0;
-}
+    .price {
+      color: #22c55e;
+      font-size: 26px;
+      font-weight: 600;
+      margin: 15px 0;
+    }
 
-.tag{
-  font-size:12px;
-  color:#888;
-}
+    .card p {
+      color: #aaa;
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
 
-/* BUTTON */
-.btn{
-  display:block;
-  margin-top:10px;
-  padding:10px;
-  background:#25D366;
-  border-radius:8px;
-  text-align:center;
-  color:white;
-  text-decoration:none;
-}
-</style>
+    /* ===== RECAPTCHA BOX ===== */
+    .captcha-container {
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+      transform: scale(0.9); /* Sedikit dikecilkan agar pas di card */
+    }
+
+    /* ===== BUTTON ===== */
+    .btn {
+      display: block;
+      text-align: center;
+      padding: 14px;
+      border-radius: 10px;
+      background: #25D366;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: 0.3s;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
+    }
+
+    .btn:hover {
+      background: #1ebe5d;
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+    }
+
+    /* ===== CLEAN WA NOTIF ===== */
+    .wa-notif {
+      position: fixed;
+      bottom: 25px;
+      left: 25px;
+      background: rgba(15, 15, 25, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #ccc;
+      letter-spacing: 0.5px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .wa-notif.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .wa-dot {
+      width: 8px;
+      height: 8px;
+      background: #25D366;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #25D366;
+    }
+
+    /* ===== MUSIC CONTROLLER ===== */
+    .music-ctrl {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      padding: 10px 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      color: #aaa;
+      transition: 0.3s;
+      z-index: 10;
+      user-select: none;
+    }
+
+    .music-ctrl:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: white;
+      border-color: rgba(168, 85, 247, 0.3);
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 12px;
+      color: #444;
+      letter-spacing: 0.5px;
+    }
+  </style>
 </head>
-
 <body>
 
-<script>
-function spawnMoney(){
-  const m=document.createElement("div");
-  m.classList.add("money");
-  m.innerHTML="💸";
-  m.style.left=Math.random()*window.innerWidth+"px";
-  m.style.animationDuration=(5+Math.random()*5)+"s";
-  document.body.appendChild(m);
-  setTimeout(()=>m.remove(),10000);
-}
-setInterval(spawnMoney,300);
-</script>
+  <div class="money-container" id="moneyBg"></div>
 
-<nav>
-  <div class="logo">alvaXzico Market</div>
-  <input type="text" placeholder="Search service...">
-</nav>
+  <div class="wrapper">
+    <header>
+      <div class="logo">alvaXzico Store</div>
+    </header>
 
-<section class="hero">
-  <h1>Premium Game Marketplace</h1>
-  <p>Fast • Trusted • 24/7 Service</p>
-</section>
+    <section class="hero">
+      <h1>Premium Joki Marketplace</h1>
+      <p>Secure Automation • High Performance Specs • 24/7 Availability</p>
+      <div class="badge">SYSTEM READY</div>
+    </section>
 
-<div class="filters">
-  <button>All</button>
-  <button>Roblox</button>
-  <button>Minecraft</button>
-  <button>Boost</button>
-</div>
+    <div class="store-grid">
+      
+      <div class="card">
+        <div class="tag">Roblox</div>
+        <h3>SOLS RNG AFK</h3>
+        <div class="price">1K / JAM</div>
+        <p>Automated AFK farming service on dedicated 24-hour high-end PC.</p>
+        
+        <div class="captcha-container">
+          <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY" data-theme="dark"></div>
+        </div>
 
-<section class="grid">
+        <a class="btn" href="https://wa.me/62895385584661?text=Halo%20alvaXzico%20Store%2C%20saya%20mau%20order%20AFK%20SOLS%20RNG%0A%0ANama%3A%0ADurasi%3A" target="_blank">
+          Order via WhatsApp
+        </a>
+      </div>
 
-  <div class="card">
-    <div class="tag">Roblox</div>
-    <h3>SOLS RNG AFK</h3>
-    <div class="price">1K / JAM</div>
-    <p>AFK farming service</p>
-    <a class="btn" href="https://wa.me/62895385584661">Order</a>
+    </div>
+
+    <footer>
+      © 2026 alvaXzico Store. All Rights Reserved.
+    </footer>
   </div>
 
-  <div class="card">
-    <div class="tag">Boost</div>
-    <h3>Rank Push Service</h3>
-    <div class="price">5K+</div>
-    <p>Fast rank boosting</p>
-    <a class="btn" href="https://wa.me/62895385584661">Order</a>
+  <audio id="bgm" loop>
+    <source src="music/bg.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="music-ctrl" id="musicBtn" onclick="toggleMusic()">🎵 Play BGM</div>
+
+  <div class="wa-notif" id="waNotif">
+    <div class="wa-dot"></div>
+    <span id="waNumber">+62 895-3855-84661</span>
   </div>
 
-  <div class="card">
-    <div class="tag">Setup</div>
-    <h3>Server Setup</h3>
-    <div class="price">10K+</div>
-    <p>Minecraft / Discord setup</p>
-    <a class="btn" href="https://wa.me/62895385584661">Order</a>
-  </div>
+  <script>
+    /* ===== SCRIPT REAL MONEY DROPPING EFFECT ===== */
+    const moneyBg = document.getElementById('moneyBg');
+    function createMoney() {
+      const money = document.createElement('div');
+      money.classList.add('money');
+      money.innerText = '💸';
+      
+      // Random posisi horizontal, ukuran font, dan kecepatan jatuh
+      money.style.left = Math.random() * 100 + 'vw';
+      money.style.fontSize = Math.random() * (26 - 16) + 16 + 'px';
+      money.style.animationDuration = Math.random() * (8 - 4) + 4 + 's';
+      
+      moneyBg.appendChild(money);
 
-</section>
+      // Hapus element kalau sudah selesai animasi biar ga berat
+      setTimeout(() => {
+        money.remove();
+      }, 8000);
+    }
+    // Loop melahirkan uang melayang secara konstan
+    setInterval(createMoney, 4000);
 
-</body>
-</html>
+    /* ===== BACKSOUND MUSIC PLAYER ===== */
+    const bgm = document.getElementById('bgm');
+    const musicBtn = document.getElementById('musicBtn');
+    let isPlaying = false;
+
+    function toggleMusic() {
+      if (!isPlaying) {
+        bgm.play().then(() => {
+          musicBtn.innerHTML = '⏸️ Pause BGM';
+          isPlaying
