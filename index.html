@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>alvaXzico Store</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 *{
@@ -23,14 +23,15 @@ body{
   overflow:hidden;
 }
 
-/* ===== MONEY BG (clean floating) ===== */
+/* ===== MONEY BG ===== */
 .money{
   position:fixed;
   top:-50px;
   font-size:18px;
-  opacity:0.06;
+  opacity:0.07;
   animation:fall linear infinite;
   pointer-events:none;
+  z-index:1;
 }
 
 @keyframes fall{
@@ -38,72 +39,135 @@ body{
   100%{transform:translateY(120vh);}
 }
 
-/* LAYOUT */
-.container{
+/* ===== GATE ===== */
+#gate{
+  position:fixed;
+  inset:0;
+  background:#05060a;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.box{
+  background:#111827;
+  padding:25px;
+  border-radius:12px;
+  border:1px solid #1f2937;
+  text-align:center;
+  width:300px;
+}
+
+.btn{
+  margin-top:15px;
+  padding:10px 14px;
+  background:#25D366;
+  border:none;
+  border-radius:8px;
+  color:white;
+  cursor:pointer;
+  width:100%;
+}
+
+/* ===== STORE ===== */
+#store{
+  display:none;
   position:relative;
   z-index:2;
   text-align:center;
-  padding:60px 20px;
+  padding:50px 20px;
 }
 
 .logo{
   font-size:22px;
   color:#c084fc;
-  font-weight:600;
+  margin-bottom:30px;
 }
 
+/* CARD */
 .card{
-  margin:40px auto;
-  width:340px;
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.08);
+  width:320px;
+  margin:0 auto;
+  background:#111827;
+  border:1px solid #1f2937;
   border-radius:14px;
-  padding:25px;
-  backdrop-filter: blur(10px);
+  padding:20px;
 }
 
 .price{
   color:#22c55e;
   margin:10px 0;
-  font-size:22px;
 }
 
-.btn{
+/* BUTTON */
+a{
   display:block;
-  margin-top:15px;
+  margin-top:10px;
   padding:10px;
   background:#25D366;
-  border-radius:8px;
   color:white;
   text-decoration:none;
-  font-weight:500;
+  border-radius:8px;
 }
 
-/* RECAPTCHA */
-.captcha{
-  margin-top:15px;
-  display:flex;
-  justify-content:center;
-}
-
-/* MUSIC */
+/* MUSIC BTN */
 .music{
   position:fixed;
   bottom:20px;
   right:20px;
   background:#111827;
   border:1px solid #1f2937;
-  padding:10px 12px;
+  padding:10px;
   border-radius:8px;
   cursor:pointer;
-  font-size:12px;
+  z-index:10;
+}
+
+/* CAPTCHA CENTER */
+.g-recaptcha{
+  display:flex;
+  justify-content:center;
+  margin-top:10px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<!-- ===== MONEY BACKGROUND ===== -->
+<script>
+function spawnMoney(){
+  const m = document.createElement("div");
+  m.classList.add("money");
+  m.innerHTML = "💸";
+
+  m.style.left = Math.random() * window.innerWidth + "px";
+  m.style.animationDuration = (5 + Math.random() * 5) + "s";
+
+  document.body.appendChild(m);
+
+  setTimeout(()=>m.remove(),10000);
+}
+setInterval(spawnMoney,400);
+</script>
+
+<!-- ===== GATE ===== -->
+<div id="gate">
+  <div class="box">
+    <h3>Verify You’re Human</h3>
+
+    <div class="g-recaptcha"
+         data-sitekey="6Lcpi_gsAAAAAJkSCfedfELBpMgalzUt7G3C0O7-">
+    </div>
+
+    <button class="btn" onclick="enterSite()">Enter Store</button>
+  </div>
+</div>
+
+<!-- ===== STORE ===== -->
+<div id="store">
+
   <div class="logo">alvaXzico Store</div>
 
   <div class="card">
@@ -114,15 +178,11 @@ body{
       Roblox AFK farming service
     </p>
 
-    <!-- RECAPTCHA BENERAN -->
-    <div class="captcha">
-      <div class="g-recaptcha" data-sitekey="6LeHifgsAAAAAIPfuPu_gurv2EMHitkJ8Yr5-fCm"></div>
-    </div>
-
-    <a class="btn" href="https://wa.me/62895385584661">
+    <a href="https://wa.me/62895385584661">
       Order via WhatsApp
     </a>
   </div>
+
 </div>
 
 <!-- MUSIC -->
@@ -134,33 +194,33 @@ body{
 
 <script>
 let music = document.getElementById("bgm");
-let play = false;
+let playing = false;
 
 function toggleMusic(){
-  if(!play){
-    music.play();
-    play = true;
+  if(!playing){
+    music.play().catch(()=>{});
+    playing = true;
   }else{
     music.pause();
-    play = false;
+    playing = false;
   }
 }
 
-/* ===== CLEAN MONEY EFFECT ===== */
-function spawnMoney(){
-  const m = document.createElement("div");
-  m.classList.add("money");
-  m.innerHTML = "💸";
+function enterSite(){
+  const resp = grecaptcha.getResponse();
 
-  m.style.left = Math.random() * window.innerWidth + "px";
-  m.style.animationDuration = (6 + Math.random() * 6) + "s";
+  if(resp.length === 0){
+    alert("Complete captcha dulu bro");
+    return;
+  }
 
-  document.body.appendChild(m);
+  document.getElementById("gate").style.display = "none";
+  document.getElementById("store").style.display = "block";
 
-  setTimeout(()=>m.remove(),12000);
+  // AUTO MUSIC (langsung hidup)
+  music.play().catch(()=>{});
+  playing = true;
 }
-
-setInterval(spawnMoney,400);
 </script>
 
 </body>
