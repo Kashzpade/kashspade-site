@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>alvaXzico Store | Premium Joki Marketplace</title>
+  <title>alvaXzico Store | Premium Services</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -81,7 +81,6 @@
       margin-bottom: 10px;
     }
 
-    /* Loader Animasi Pasca-Captcha */
     #gateLoader {
       display: none;
       width: 40px;
@@ -93,9 +92,7 @@
       margin-top: 15px;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ===================================================
        💻 STORE CONTENT (SEMBUNYI SEBELUM VERIFIKASI)
@@ -299,7 +296,7 @@
     }
     .btn:hover { background: #1ebe5d; transform: scale(1.02); box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4); }
 
-    /* ===== 📣 LIVE TRANSACTION POP-UP (TOP LEFT) ===== */
+    /* ===== 📣 LIVE TRANSACTION POP-UP ===== */
     .live-tx {
       position: fixed;
       top: 25px;
@@ -319,9 +316,9 @@
       z-index: 100;
     }
     .live-tx.show { transform: translateX(0); }
-    .tx-icon { color: #22c55e; animation: scaleUp 0.5s infinite alternate; }
+    .tx-icon { color: #22c55e; }
 
-    /* ===== 🙋‍♂️ INTERACTIVE FAQ SECTION ===== */
+    /* ===== 🙋‍♂️ FAQ SECTION ===== */
     .faq-container {
       width: 100%;
       max-width: 800px;
@@ -366,7 +363,7 @@
       transition: max-height 0.4s ease, padding 0.4s ease;
     }
 
-    /* WA Notif Bottom Left */
+    /* WA Notif Box */
     .wa-notif {
       position: fixed;
       bottom: 25px;
@@ -392,7 +389,7 @@
     .wa-notif.show { opacity: 1; transform: translateY(0); }
     .wa-dot { width: 8px; height: 8px; background: #25D366; border-radius: 50%; box-shadow: 0 0 10px #25D366; }
 
-    /* ===== CONTROLLERS PANEL (BOTTOM RIGHT) ===== */
+    /* CONTROLLERS PANEL */
     .controls-panel {
       position: fixed;
       bottom: 25px;
@@ -450,7 +447,7 @@
 
     <div class="live-tx" id="liveTx">
       <i class="fa-solid fa-circle-check tx-icon"></i>
-      <span id="txText">Someone just purchased Joki SOLS RNG</span>
+      <span id="txText">Someone just purchased Discord Setup</span>
     </div>
 
     <div class="wrapper">
@@ -459,8 +456,8 @@
       </header>
 
       <section class="hero">
-        <h1>Premium Joki Marketplace</h1>
-        <p>Automated Farming • High Tier Boosting • Dedicated 24/7 Hardware Network Setup</p>
+        <h1>Premium Marketplace Services</h1>
+        <p>Automated Farming • Discord Community Building • Simplified Minecraft Multiplayer Configuration</p>
         <div class="badge">SYSTEM SECURE & VERIFIED</div>
       </section>
 
@@ -482,24 +479,24 @@
         <div class="card">
           <div class="hot-badge" style="background: linear-gradient(45deg, #3b82f6, #06b6d4); box-shadow: 0 0 10px rgba(59,130,246,0.5);">✨ POPULAR</div>
           <div class="card-info">
-            <div class="tag"><i class="fa-solid fa-bolt"></i> Boost</div>
-            <h3>Rank Push Service</h3>
-            <p>Fast and private tier boosting by experienced high-skill players. Win rate and safety guaranteed.</p>
-            <div class="price">5K+ <span>/ tier</span></div>
+            <div class="tag"><i class="fa-brands fa-discord"></i> Community</div>
+            <h3>Discord Setup Server</h3>
+            <p>Pembuatan server Discord rapi, manajemen room/roles terstruktur, sitem auto-mod, serta integrasi bot interaktif premium.</p>
+            <div class="price">10K+ <span>/ setup</span></div>
           </div>
-          <a class="btn" href="https://wa.me/62895385584661?text=Halo%20alvaXzico%20Store%2C%20mau%20order%20Rank%20Push%20Service" target="_blank">
+          <a class="btn" href="https://wa.me/62895385584661?text=Halo%20alvaXzico%20Store%2C%20mau%20order%20Discord%20Setup%20Server" target="_blank">
             <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
           </a>
         </div>
 
         <div class="card">
           <div class="card-info">
-            <div class="tag"><i class="fa-solid fa-server"></i> Setup</div>
-            <h3>Server Setup</h3>
-            <p>Professional Minecraft network optimization or advanced Discord bot integration built for high traffic counts.</p>
-            <div class="price">10K+ <span>/ setup</span></div>
+            <div class="tag"><i class="fa-solid fa-server"></i> Gaming</div>
+            <h3>Minecraft Server Setup</h3>
+            <p>Setup server Minecraft vanilla/mabar biasa dengan optimasi plugin dasar (AuthMe, LuckPerms). Siap main terima beres tanpa ribet.</p>
+            <div class="price">15K+ <span>/ server</span></div>
           </div>
-          <a class="btn" href="https://wa.me/62895385584661?text=Halo%20alvaXzico%20Store%2C%20mau%20order%20Server%20Setup" target="_blank">
+          <a class="btn" href="https://wa.me/62895385584661?text=Halo%20alvaXzico%20Store%2C%20mau%20order%20Minecraft%20Server%20Setup" target="_blank">
             <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
           </a>
         </div>
@@ -510,8 +507,8 @@
         <h2 class="faq-title">Frequently Asked Questions</h2>
         
         <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">Apakah Proses Joki Aman Dari Banned? <i class="fa-solid fa-chevron-down"></i></div>
-          <div class="faq-answer">100% Aman. Kami menggunakan device fisik ber-hardware tinggi tanpa script ilegal eksternal yang melanggar sistem game, menjaga akun Anda sepenuhnya steril.</div>
+          <div class="faq-question" onclick="toggleFaq(this)">Apakah Pengerjaan Servernya Lama? <i class="fa-solid fa-chevron-down"></i></div>
+          <div class="faq-answer">Pengerjaan diusahakan secepatnya setelah detail room Discord atau plugin Minecraft yang lu mau dikirimkan. Biasanya memakan waktu beberapa jam saja.</div>
         </div>
 
         <div class="faq-item">
@@ -520,8 +517,8 @@
         </div>
 
         <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">Berapa Lama Pengerjaan Joki Selesai? <i class="fa-solid fa-chevron-down"></i></div>
-          <div class="faq-answer">Tergantung durasi atau paket tier joki yang diambil. Pengerjaan langsung dilakukan secepatnya (real-time) antrean Anda aktif dikonfirmasi admin via WhatsApp.</div>
+          <div class="faq-question" onclick="toggleFaq(this)">Bisa Request Custom Bot atau Plugin? <i class="fa-solid fa-chevron-down"></i></div>
+          <div class="faq-answer">Bisa banget, bro! Lu tinggal konsultasi aja via WhatsApp buat fitur apa aja yang mau dimasukin ke server lu biar diatur sama admin.</div>
         </div>
       </div>
 
@@ -554,13 +551,13 @@
     const musicBtn = document.getElementById('musicBtn');
     let isPlaying = false;
 
-    /* ===== DETEKSI CAPTCHA LU SUKSES (DENGAN DELAY LOADER PREMIUM) ===== */
+    /* ===== DETEKSI CAPTCHA LU SUKSES (AUTO NYALAIN MUSIK) ===== */
     function onCaptchaSuccess() {
       const gate = document.getElementById('securityGate');
       const content = document.getElementById('mainContent');
       const loader = document.getElementById('gateLoader');
 
-      loader.style.display = 'block'; // Nyalain roda muter canggih
+      loader.style.display = 'block';
 
       setTimeout(() => {
         gate.style.opacity = '0';
@@ -573,15 +570,15 @@
         bgm.play().then(() => {
           musicBtn.innerHTML = '<i class="fa-solid fa-pause"></i> Pause BGM';
           isPlaying = true;
-        }).catch(err => console.log("Blocked by strict autoplay policy."));
+        }).catch(err => console.log("Autoplay music terhambat kebijakan browser."));
 
-        // Jalankan seluruh loop visual interval pendukung
+        // Jalankan seluruh visual interval pendukung
         setInterval(createMoney, 3500);
         setInterval(showWaNotif, 14000);
         setInterval(showLiveTx, 18000);
         setTimeout(showWaNotif, 2000);
         setTimeout(showLiveTx, 6000);
-      }, 1200); // Penundaan seolah loading verifikasi data selama 1,2 detik
+      }, 1200); 
     }
 
     /* ===== EFFECT MONEY FALLING ===== */
@@ -611,7 +608,7 @@
       }
     }
 
-    /* ===== INTERACTIVE FAQ DROPDOWN FUNCTION ===== */
+    /* ===== INTERACTIVE FAQ DROPDOWN ===== */
     function toggleFaq(element) {
       const answer = element.nextElementSibling;
       const icon = element.querySelector('i');
@@ -636,8 +633,8 @@
     }
 
     /* ===== FAKE LIVE TRANSACTION POP-UP GENERATOR ===== */
-    const buyers = ['Kiaraa_','RizkyDx','User_911','Kashspade','Fiiizzzz','XziicoLovers','TianGanteng','Zerryn_','KayrocX'];
-    const products = ['Joki SOLS RNG (5 Jam)','Rank Push ke Mythic','Premium Server Setup','Joki SOLS RNG (12 Jam)','Discord Verification Bot Setup'];
+    const buyers = ['Kiaraa_','RizkyDx','User_911','Fizz_','Tian_','Zerryn_','KayrocX','Anta_','Kenzo_'];
+    const products = ['Joki SOLS RNG (5 Jam)','Discord Setup Server (Premium)','Minecraft Server Mabar Setup','Joki SOLS RNG (12 Jam)'];
     
     function showLiveTx() {
       const tx = document.getElementById('liveTx');
