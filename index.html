@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>alvaXzico Store | Premium Joki Marketplace</title>
+  <title>alvaXzico Store | Security Verification</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -25,7 +25,73 @@
       min-height: 100vh;
     }
 
-    /* ===== BACKGROUND UANG MELAYANG (AESTHETIC) ===== */
+    /* ===================================================
+       🔒 BLACK GATE SECURITY SCREEN (LAYAR VERIFIKASI UTAMA)
+       =================================================== */
+    #securityGate {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000000; /* Hitam pekat total */
+      z-index: 99999; /* Lapisan paling atas mematikan konten lain */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+      padding: 20px;
+    }
+
+    .gate-box {
+      text-align: center;
+      max-width: 400px;
+      padding: 40px 30px;
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .gate-box i {
+      font-size: 50px;
+      color: #a855f7;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+    }
+
+    .gate-box h2 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .gate-box p {
+      color: #64748b;
+      font-size: 13px;
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    /* Hubungkan reCAPTCHA di tengah */
+    .gate-captcha {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    /* ===================================================
+       💻 STORE CONTENT (SEMBUNYI SEBELUM VERIFIKASI)
+       =================================================== */
+    #mainContent {
+      opacity: 0;
+      transform: scale(0.98);
+      transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
+    }
+
+    /* Efek Uang Melayang */
     .money-container {
       position: fixed;
       top: 0;
@@ -40,7 +106,7 @@
       position: absolute;
       top: -50px;
       font-size: 24px;
-      opacity: 0.04; /* Soft transparan */
+      opacity: 0.04;
       animation: fall linear infinite;
     }
 
@@ -49,7 +115,7 @@
       100% { transform: translateY(105vh) rotate(360deg); }
     }
 
-    /* ===== CONTENT LAYOUT ===== */
+    /* Layout Wrapper */
     .wrapper {
       position: relative;
       z-index: 2;
@@ -63,7 +129,6 @@
       margin-bottom: 40px;
     }
 
-    /* Logo Menggunakan Font Awesome + Gradient */
     .logo {
       display: flex;
       align-items: center;
@@ -113,7 +178,7 @@
       box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
     }
 
-    /* ===== STORE MULTI CARD GRID ===== */
+    /* Grid Joki */
     .store-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -201,15 +266,6 @@
       font-weight: 400;
     }
 
-    /* ===== RECAPTCHA BOX ===== */
-    .captcha-container {
-      margin: 20px 0;
-      display: flex;
-      justify-content: center;
-      transform: scale(0.88);
-    }
-
-    /* ===== BUTTON ===== */
     .btn {
       display: flex;
       align-items: center;
@@ -233,7 +289,7 @@
       box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4);
     }
 
-    /* ===== CLEAN WA NOTIF ===== */
+    /* WA Notif */
     .wa-notif {
       position: fixed;
       bottom: 25px;
@@ -257,20 +313,10 @@
       gap: 10px;
     }
 
-    .wa-notif.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .wa-notif.show { opacity: 1; transform: translateY(0); }
+    .wa-dot { width: 8px; height: 8px; background: #25D366; border-radius: 50%; box-shadow: 0 0 10px #25D366; }
 
-    .wa-dot {
-      width: 8px;
-      height: 8px;
-      background: #25D366;
-      border-radius: 50%;
-      box-shadow: 0 0 10px #25D366;
-    }
-
-    /* ===== MUSIC CONTROLLER ===== */
+    /* Music Controller */
     .music-ctrl {
       position: fixed;
       bottom: 25px;
@@ -293,93 +339,83 @@
       gap: 8px;
     }
 
-    .music-ctrl:hover {
-      background: rgba(255, 255, 255, 0.08);
-      color: white;
-      border-color: rgba(168, 85, 247, 0.4);
-    }
-
-    footer {
-      margin-top: 50px;
-      font-size: 13px;
-      color: #475569;
-      letter-spacing: 0.5px;
-    }
+    .music-ctrl:hover { background: rgba(255, 255, 255, 0.08); color: white; border-color: rgba(168, 85, 247, 0.4); }
+    footer { margin-top: 50px; font-size: 13px; color: #475569; letter-spacing: 0.5px; }
   </style>
 </head>
 <body>
 
-  <div class="money-container" id="moneyBg"></div>
-
-  <div class="wrapper">
-    <header>
-      <div class="logo"><i class="fa-solid fa-crown"></i> alvaXzico Store</div>
-    </header>
-
-    <section class="hero">
-      <h1>Premium Joki Marketplace</h1>
-      <p>Automated Farming • High Tier Boosting • Dedicated 24/7 Hardware Network Setup</p>
-      <div class="badge">SYSTEM ONLINE & SECURE</div>
-    </section>
-
-    <div class="store-grid">
+  <div id="securityGate">
+    <div class="gate-box">
+      <i class="fa-solid fa-shield-halved"></i>
+      <h2>Security Check</h2>
+      <p>Please verify that you are a human to access alvaXzico Store premium services.</p>
       
-      <div class="card">
-        <div class="card-info">
-          <div class="tag"><i class="fa-solid fa-gamepad"></i> Roblox</div>
-          <h3>SOLS RNG AFK</h3>
-          <p>Automated AFK farming service handled on dedicated 24-hour hardware. Safe from sudden disconnections.</p>
-          <div class="price">1K <span>/ jam</span></div>
-        </div>
-        <div>
-          <div class="captcha-container">
-            <div class="g-recaptcha" data-sitekey="6Lcpi_gsAAAAAJkSCfedfELBpMgalzUt7G3C0O7-" data-theme="dark"></div>
+      <div class="gate-captcha">
+        <div class="g-recaptcha" data-sitekey="6Lcpi_gsAAAAAJkSCfedfELBpMgalzUt7G3C0O7-" data-theme="dark" data-callback="onCaptchaSuccess"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="mainContent">
+    <div class="money-container" id="moneyBg"></div>
+
+    <div class="wrapper">
+      <header>
+        <div class="logo"><i class="fa-solid fa-crown"></i> alvaXzico Store</div>
+      </header>
+
+      <section class="hero">
+        <h1>Premium Joki Marketplace</h1>
+        <p>Automated Farming • High Tier Boosting • Dedicated 24/7 Hardware Network Setup</p>
+        <div class="badge">SYSTEM SECURE & VERIFIED</div>
+      </section>
+
+      <div class="store-grid">
+        
+        <div class="card">
+          <div class="card-info">
+            <div class="tag"><i class="fa-solid fa-gamepad"></i> Roblox</div>
+            <h3>SOLS RNG AFK</h3>
+            <p>Automated AFK farming service handled on dedicated 24-hour hardware. Safe from sudden disconnections.</p>
+            <div class="price">1K <span>/ jam</span></div>
           </div>
           <a class="btn" href="https://wa.me/62895385584661?text=Halo%20alvaXzico%20Store%2C%20mau%20order%20AFK%20SOLS%20RNG" target="_blank">
             <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
           </a>
         </div>
-      </div>
 
-      <div class="card">
-        <div class="card-info">
-          <div class="tag"><i class="fa-solid fa-bolt"></i> Boost</div>
-          <h3>Rank Push Service</h3>
-          <p>Fast and private tier boosting by experienced high-skill players. Win rate and safety guaranteed.</p>
-          <div class="price">5K+ <span>/ tier</span></div>
-        </div>
-        <div>
-          <div class="captcha-container">
-            <div class="g-recaptcha" data-sitekey="6Lcpi_gsAAAAAJkSCfedfELBpMgalzUt7G3C0O7-" data-theme="dark"></div>
+        <div class="card">
+          <div class="card-info">
+            <div class="tag"><i class="fa-solid fa-bolt"></i> Boost</div>
+            <h3>Rank Push Service</h3>
+            <p>Fast and private tier boosting by experienced high-skill players. Win rate and safety guaranteed.</p>
+            <div class="price">5K+ <span>/ tier</span></div>
           </div>
           <a class="btn" href="https://wa.me/62895385584661?text=Halo%20alvaXzico%20Store%2C%20mau%20order%20Rank%20Push%20Service" target="_blank">
             <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
           </a>
         </div>
-      </div>
 
-      <div class="card">
-        <div class="card-info">
-          <div class="tag"><i class="fa-solid fa-server"></i> Setup</div>
-          <h3>Server Setup</h3>
-          <p>Professional Minecraft network optimization or advanced Discord bot integration built for high traffic counts.</p>
-          <div class="price">10K+ <span>/ setup</span></div>
-        </div>
-        <div>
-          <div class="captcha-container">
-            <div class="g-recaptcha" data-sitekey="6Lcpi_gsAAAAAJkSCfedfELBpMgalzUt7G3C0O7-" data-theme="dark"></div>
+        <div class="card">
+          <div class="card-info">
+            <div class="tag"><i class="fa-solid fa-server"></i> Setup</div>
+            <h3>Server Setup</h3>
+            <p>Professional Minecraft network optimization or advanced Discord bot integration built for high traffic counts.</p>
+            <div class="price">10K+ <span>/ setup</span></div>
           </div>
           <a class="btn" href="https://wa.me/62895385584661?text=Halo%20alvaXzico%20Store%2C%20mau%20order%20Server%20Setup" target="_blank">
             <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
           </a>
         </div>
+
       </div>
 
+      <footer>
+        © 2026 alvaXzico Store. All Rights Reserved.
+      </footer>
     </div>
-
-    <footer>
-      © 2026 alvaXzico Store. All Rights Reserved.
-    </footer>
   </div>
 
   <audio id="bgm" loop>
@@ -394,6 +430,26 @@
   </div>
 
   <script>
+    /* ===== FUNCTION DETEKSI CAPTCHA LU_SUKSES ===== */
+    function onCaptchaSuccess() {
+      const gate = document.getElementById('securityGate');
+      const content = document.getElementById('mainContent');
+
+      // Animasi menghilang (fade out) untuk layar hitam
+      gate.style.opacity = '0';
+      gate.style.visibility = 'hidden';
+
+      // Munculkan isi store asli dengan transisi smooth
+      content.style.opacity = '1';
+      content.style.transform = 'scale(1)';
+
+      // Otomatis nyalain efek duit melayang pas store kebuka
+      setInterval(createMoney, 3500);
+      // Nyalain interval notif WA
+      setInterval(showWaNotif, 10000);
+      setTimeout(showWaNotif, 2000);
+    }
+
     /* ===== EFFECT MONEY FALLING ===== */
     const moneyBg = document.getElementById('moneyBg');
     function createMoney() {
@@ -406,7 +462,6 @@
       moneyBg.appendChild(money);
       setTimeout(() => { money.remove(); }, 7000);
     }
-    setInterval(createMoney, 3500);
 
     /* ===== BACKSOUND MUSIC PLAYER ===== */
     const bgm = document.getElementById('bgm');
@@ -432,8 +487,6 @@
       notif.classList.add('show');
       setTimeout(() => { notif.classList.remove('show'); }, 3500);
     }
-    setInterval(showWaNotif, 10000);
-    setTimeout(showWaNotif, 2000);
 
     /* ===== HOVER GLOWING EFFECT FOR CARDS ===== */
     document.querySelectorAll('.card').forEach(card => {
