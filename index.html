@@ -123,9 +123,28 @@
     }
 
     @keyframes fall {
-      0% { transform: translateY(-50px) rotate(0deg); }
+      0 { transform: translateY(-50px) rotate(0deg); }
       100% { transform: translateY(105vh) rotate(360deg); }
     }
+
+    /* ===== 🖥️ SYSTEM STATUS BAR ===== */
+    .status-bar {
+      width: 100%;
+      background: rgba(168, 85, 247, 0.03);
+      border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+      padding: 8px 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #a855f7;
+      display: flex;
+      justify-content:间;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .status-online { display: flex; align-items: center; gap: 6px; color: #22c55e; }
+    .status-pulse { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; animation: pulse 1s infinite alternate; }
+    @keyframes pulse { 0% { opacity: 0.4; } 100% { opacity: 1; box-shadow: 0 0 8px #22c55e; } }
 
     .wrapper {
       position: relative;
@@ -133,10 +152,10 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 60px 20px;
+      padding: 40px 20px;
     }
 
-    header { margin-bottom: 40px; }
+    header { margin-bottom: 30px; }
 
     .logo {
       display: flex;
@@ -192,7 +211,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 30px;
-      margin: 50px 0;
+      margin: 40px 0;
       width: 100%;
       max-width: 1140px;
     }
@@ -318,13 +337,25 @@
     .live-tx.show { transform: translateX(0); }
     .tx-icon { color: #22c55e; }
 
-    /* ===== 🙋‍♂️ FAQ SECTION ===== */
-    .faq-container {
-      width: 100%;
-      max-width: 800px;
-      margin: 40px 0;
-      text-align: left;
+    /* ===== ⭐ INTERACTIVE REVIEWS SLIDER ===== */
+    .reviews-section { width: 100%; max-width: 800px; margin: 30px 0; text-align: center; }
+    .review-box {
+      background: rgba(255,255,255,0.01);
+      border: 1px solid rgba(255,255,255,0.03);
+      padding: 25px;
+      border-radius: 16px;
+      position: relative;
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
+    .review-stars { color: #eab308; font-size: 13px; margin-bottom: 8px; }
+    .review-text { font-size: 14px; color: #cbd5e1; italic; line-height: 1.6; margin-bottom: 10px; font-style: italic;}
+    .review-author { font-size: 12px; color: #a855f7; font-weight: 600; letter-spacing: 0.5px; }
+
+    /* ===== 🙋‍♂️ FAQ SECTION ===== */
+    .faq-container { width: 100%; max-width: 800px; margin: 30px 0; text-align: left; }
     .faq-title {
       font-size: 26px;
       font-weight: 600;
@@ -423,7 +454,23 @@
     .discord-ctrl { background: rgba(88, 101, 242, 0.1); border-color: rgba(88, 101, 242, 0.2); color: #5865F2; }
     .discord-ctrl:hover { background: rgba(88, 101, 242, 0.2); border-color: #5865F2; box-shadow: 0 0 15px rgba(88, 101, 242, 0.3); }
 
-    footer { margin-top: 50px; font-size: 13px; color: #475569; letter-spacing: 0.5px; }
+    /* ===== 🛡️ CUSTOM RIGHT CLICK MENU POPUP ===== */
+    #customContextMenu {
+      display: none;
+      position: absolute;
+      background: rgba(15, 15, 25, 0.95);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 11.5px;
+      color: #cbd5e1;
+      z-index: 100000;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      pointer-events: none;
+    }
+
+    footer { margin-top: 40px; font-size: 13px; color: #475569; letter-spacing: 0.5px; }
   </style>
 </head>
 <body>
@@ -443,6 +490,12 @@
 
 
   <div id="mainContent">
+    
+    <div class="status-bar">
+      <div class="status-online"><div class="status-pulse"></div> alvaXzico CORE: ONLINE</div>
+      <div>LOAD: 12-16% • THREADS: SECURE</div>
+    </div>
+
     <div class="money-container" id="moneyBg"></div>
 
     <div class="live-tx" id="liveTx">
@@ -503,6 +556,14 @@
 
       </div>
 
+      <div class="reviews-section">
+        <div class="review-box">
+          <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <div class="review-text" id="reviewText">"Gokil, pesen joki SOLS RNG di sini ditinggal tidur semaleman aman banget, dapet aura langka! Sangat recommended."</div>
+          <div class="review-author" id="reviewAuthor">@RizkyDx — Pelanggan Terverifikasi</div>
+        </div>
+      </div>
+
       <div class="faq-container">
         <h2 class="faq-title">Frequently Asked Questions</h2>
         
@@ -546,12 +607,14 @@
     <span id="waNumber">+62 895-3855-84661</span>
   </div>
 
+  <div id="customContextMenu"><i class="fa-solid fa-ban" style="color: #ef4444; margin-right: 6px;"></i> System Protected By alvaXzico Store</div>
+
   <script>
     const bgm = document.getElementById('bgm');
     const musicBtn = document.getElementById('musicBtn');
     let isPlaying = false;
 
-    /* ===== DETEKSI CAPTCHA LU SUKSES (AUTO NYALAIN MUSIK) ===== */
+    /* ===== DETEKSI CAPTCHA LU SUKSES ===== */
     function onCaptchaSuccess() {
       const gate = document.getElementById('securityGate');
       const content = document.getElementById('mainContent');
@@ -570,12 +633,13 @@
         bgm.play().then(() => {
           musicBtn.innerHTML = '<i class="fa-solid fa-pause"></i> Pause BGM';
           isPlaying = true;
-        }).catch(err => console.log("Autoplay music terhambat kebijakan browser."));
+        }).catch(err => console.log("Autoplay terhalang sistem keamanan browser."));
 
-        // Jalankan seluruh visual interval pendukung
+        // Jalankan seluruh loop visual pendukung
         setInterval(createMoney, 3500);
         setInterval(showWaNotif, 14000);
         setInterval(showLiveTx, 18000);
+        setInterval(rotateReviews, 6000);
         setTimeout(showWaNotif, 2000);
         setTimeout(showLiveTx, 6000);
       }, 1200); 
@@ -632,7 +696,7 @@
       setTimeout(() => { notif.classList.remove('show'); }, 3500);
     }
 
-    /* ===== FAKE LIVE TRANSACTION POP-UP GENERATOR ===== */
+    /* ===== LIVE TRANSACTION POP-UP GENERATOR ===== */
     const buyers = ['Kiaraa_','RizkyDx','User_911','Fizz_','Tian_','Zerryn_','KayrocX','Anta_','Kenzo_'];
     const products = ['Joki SOLS RNG (5 Jam)','Discord Setup Server (Premium)','Minecraft Server Mabar Setup','Joki SOLS RNG (12 Jam)'];
     
@@ -649,7 +713,20 @@
       setTimeout(() => { tx.classList.remove('show'); }, 4500);
     }
 
-    /* ===== HOVER GLOWING EFFECT FOR CARDS ===== */
+    /* ===== AUTOMATIC TESTIMONIAL ROTATOR ===== */
+    const reviews = [
+      { text: '"Gokil, pesen joki SOLS RNG di sini ditinggal tidur semaleman aman banget, dapet aura langka! Sangat recommended."', author: "@RizkyDx — Pelanggan Terverifikasi" },
+      { text: '"Setup server Discord-nya rapi parah, botnya jalan responsif dan fiturnya komplet banget sesuai pesanan. Makasih bre!"', author: "@Kiaraa_ — Pemilik Server Komunitas" },
+      { text: '"Minecraft server mabar gw kelar ga sampe 2 jam, plugin AuthMe sama LuckPerms langsung rapi disetupin. Keren abis."', author: "@User_911 — Server Admin" }
+    ];
+    let currentReviewIndex = 0;
+    function rotateReviews() {
+      currentReviewIndex = (currentReviewIndex + 1) % reviews.length;
+      document.getElementById('reviewText').innerText = reviews[currentReviewIndex].text;
+      document.getElementById('reviewAuthor').innerText = reviews[currentReviewIndex].author;
+    }
+
+    /* ===== CARD HOVER EFFECT ===== */
     document.querySelectorAll('.card').forEach(card => {
       card.addEventListener('mousemove', e => {
         const rect = card.getBoundingClientRect();
@@ -659,6 +736,17 @@
         card.style.setProperty('--y', `${y}px`);
       });
     });
+
+    /* ===== 🛡️ SECURITY ANTI KLIK KANAN SYSTEM ===== */
+    const ctxMenu = document.getElementById('customContextMenu');
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      ctxMenu.style.display = 'block';
+      ctxMenu.style.left = e.pageX + 'px';
+      ctxMenu.style.top = e.pageY + 'px';
+      setTimeout(() => { ctxMenu.style.display = 'none'; }, 1500);
+    });
+    document.addEventListener('click', function() { ctxMenu.style.display = 'none'; });
   </script>
 
 </body>
