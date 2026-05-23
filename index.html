@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>alvaXzico Store</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 <style>
 *{
@@ -16,104 +18,82 @@
 }
 
 body{
-  background:#0a0f1a;
+  background:#070a12;
   color:white;
-  overflow-x:hidden;
+  overflow:hidden;
 }
 
-/* ===== MONEY BACKGROUND ===== */
+/* ===== MONEY BG (clean floating) ===== */
 .money{
   position:fixed;
   top:-50px;
-  font-size:24px;
-  opacity:0.08;
+  font-size:18px;
+  opacity:0.06;
   animation:fall linear infinite;
   pointer-events:none;
 }
 
 @keyframes fall{
-  0%{transform:translateY(-100px) rotate(0deg);}
-  100%{transform:translateY(120vh) rotate(360deg);}
+  0%{transform:translateY(-100px);}
+  100%{transform:translateY(120vh);}
 }
 
-/* ===== NAV ===== */
-nav{
-  display:flex;
-  justify-content:space-between;
-  padding:20px 40px;
-  border-bottom:1px solid #1f2937;
-}
-
-.logo{
-  color:#c084fc;
-  font-weight:600;
-}
-
-/* ===== HERO ===== */
-.hero{
+/* LAYOUT */
+.container{
+  position:relative;
+  z-index:2;
   text-align:center;
   padding:60px 20px;
 }
 
-.hero h1{
-  font-size:40px;
+.logo{
+  font-size:22px;
+  color:#c084fc;
+  font-weight:600;
 }
 
-.hero p{
-  color:#aaa;
-}
-
-/* ===== CARD ===== */
 .card{
-  width:320px;
-  margin:30px auto;
-  background:#111827;
-  padding:20px;
-  border-radius:12px;
-  border:1px solid #1f2937;
+  margin:40px auto;
+  width:340px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:14px;
+  padding:25px;
+  backdrop-filter: blur(10px);
 }
 
 .price{
   color:#22c55e;
   margin:10px 0;
+  font-size:22px;
 }
 
-/* BUTTON */
 .btn{
   display:block;
-  text-align:center;
-  background:#25D366;
+  margin-top:15px;
   padding:10px;
+  background:#25D366;
   border-radius:8px;
   color:white;
   text-decoration:none;
-  margin-top:10px;
+  font-weight:500;
 }
 
-/* ===== CAPTCHA ===== */
+/* RECAPTCHA */
 .captcha{
-  margin:20px auto;
-  text-align:center;
+  margin-top:15px;
+  display:flex;
+  justify-content:center;
 }
 
-.box{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  background:#111827;
-  padding:10px 15px;
-  border-radius:8px;
-  border:1px solid #1f2937;
-}
-
-/* MUSIC BTN */
+/* MUSIC */
 .music{
   position:fixed;
   bottom:20px;
   right:20px;
   background:#111827;
   border:1px solid #1f2937;
-  padding:10px;
+  padding:10px 12px;
   border-radius:8px;
   cursor:pointer;
   font-size:12px;
@@ -123,31 +103,25 @@ nav{
 
 <body>
 
-<nav>
+<div class="container">
   <div class="logo">alvaXzico Store</div>
-</nav>
 
-<div class="hero">
-  <h1>Digital Service Store</h1>
-  <p>Fast • Secure • 24/7</p>
-</div>
+  <div class="card">
+    <h3>🎰 SOLS RNG AFK</h3>
+    <div class="price">1K / JAM</div>
 
-<div class="card">
-  <h3>🎰 SOLS RNG AFK</h3>
-  <div class="price">1K / JAM</div>
+    <p style="color:#aaa;font-size:13px;">
+      Roblox AFK farming service
+    </p>
 
-  <p style="color:#aaa;font-size:13px;">
-    AFK farming otomatis Roblox
-  </p>
-
-  <a class="btn" href="https://wa.me/62895385584661">Order via WA</a>
-
-  <!-- CAPTCHA FAKE -->
-  <div class="captcha">
-    <div class="box">
-      <input type="checkbox" id="bot">
-      <label for="bot">I'm not a robot</label>
+    <!-- RECAPTCHA BENERAN -->
+    <div class="captcha">
+      <div class="g-recaptcha" data-sitekey="6LeHifgsAAAAAIPfuPu_gurv2EMHitkJ8Yr5-fCm"></div>
     </div>
+
+    <a class="btn" href="https://wa.me/62895385584661">
+      Order via WhatsApp
+    </a>
   </div>
 </div>
 
@@ -156,41 +130,37 @@ nav{
   <source src="music/bg.mp3" type="audio/mpeg">
 </audio>
 
-<div class="music" onclick="toggleMusic()">
-  🎵 Music
-</div>
+<div class="music" onclick="toggleMusic()">🎵 Music</div>
 
 <script>
 let music = document.getElementById("bgm");
-let playing = false;
+let play = false;
 
 function toggleMusic(){
-  if(!playing){
+  if(!play){
     music.play();
-    playing = true;
+    play = true;
   }else{
     music.pause();
-    playing = false;
+    play = false;
   }
 }
 
-/* ===== MONEY SPAWN ===== */
+/* ===== CLEAN MONEY EFFECT ===== */
 function spawnMoney(){
   const m = document.createElement("div");
   m.classList.add("money");
   m.innerHTML = "💸";
 
   m.style.left = Math.random() * window.innerWidth + "px";
-  m.style.animationDuration = (5 + Math.random() * 5) + "s";
+  m.style.animationDuration = (6 + Math.random() * 6) + "s";
 
   document.body.appendChild(m);
 
-  setTimeout(()=>{
-    m.remove();
-  },10000);
+  setTimeout(()=>m.remove(),12000);
 }
 
-setInterval(spawnMoney,300);
+setInterval(spawnMoney,400);
 </script>
 
 </body>
