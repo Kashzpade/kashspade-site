@@ -1,204 +1,189 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>alvaXzico Store</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>alvaXzico Store</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
 
-    body {
-      background: radial-gradient(circle at top, #14001f, #050510);
-      color: white;
-      overflow-x: hidden;
-    }
+body{
+  background: linear-gradient(180deg,#0a0a12,#050507);
+  color:white;
+}
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      padding: 20px 40px;
-      align-items: center;
-    }
+/* HEADER */
+header{
+  text-align:center;
+  padding:30px 20px;
+}
 
-    .logo {
-      font-size: 22px;
-      font-weight: 700;
-      background: linear-gradient(90deg, #a855f7, #6366f1);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+.logo{
+  font-size:26px;
+  font-weight:600;
+  letter-spacing:1px;
+  color:#c084fc;
+}
 
-    .hero {
-      text-align: center;
-      padding: 60px 20px;
-    }
+/* HERO */
+.hero{
+  text-align:center;
+  padding:40px 20px;
+}
 
-    .hero h1 {
-      font-size: 42px;
-      background: linear-gradient(90deg, #c084fc, #818cf8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+.hero h1{
+  font-size:36px;
+  margin-bottom:10px;
+}
 
-    .hero p {
-      color: #aaa;
-      margin-top: 10px;
-    }
+.hero p{
+  color:#aaa;
+}
 
-    .badge {
-      margin-top: 20px;
-      display: inline-block;
-      background: #22c55e;
-      color: black;
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: bold;
-      animation: pulse 1.5s infinite;
-    }
+.badge{
+  margin-top:15px;
+  display:inline-block;
+  padding:5px 12px;
+  border-radius:20px;
+  font-size:12px;
+  background:#1f2937;
+  border:1px solid #333;
+}
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
+/* CARD */
+.container{
+  display:flex;
+  justify-content:center;
+  padding:30px;
+}
 
-    .store {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-      padding: 40px;
-    }
+.card{
+  width:320px;
+  padding:25px;
+  border-radius:14px;
+  background: rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.08);
+  transition:.3s;
+}
 
-    .card {
-      background: rgba(255,255,255,0.05);
-      border-radius: 16px;
-      padding: 25px;
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: 0.3s;
-      position: relative;
-    }
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 0 30px rgba(168,85,247,0.15);
+}
 
-    .card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 0 50px rgba(168,85,247,0.5);
-    }
+.price{
+  color:#22c55e;
+  font-size:24px;
+  margin:10px 0;
+}
 
-    .card h2 {
-      margin-bottom: 10px;
-    }
+ul{
+  padding-left:18px;
+  color:#bbb;
+  margin-bottom:15px;
+}
 
-    .price {
-      color: #22c55e;
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
+/* BUTTON */
+.btn{
+  display:block;
+  text-align:center;
+  padding:12px;
+  border-radius:8px;
+  background:#25D366;
+  text-decoration:none;
+  color:white;
+  font-weight:600;
+  transition:.2s;
+}
 
-    ul {
-      padding-left: 20px;
-      color: #ccc;
-      margin-bottom: 15px;
-    }
+.btn:hover{
+  transform:scale(1.03);
+}
 
-    .btn {
-      display: block;
-      text-align: center;
-      padding: 12px;
-      border-radius: 10px;
-      background: linear-gradient(90deg, #25D366, #1ebe5d);
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-      transition: 0.2s;
-    }
+/* FEATURES */
+.features{
+  text-align:center;
+  padding:40px 20px;
+}
 
-    .btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px #25D366;
-    }
+.features h3{
+  margin-bottom:20px;
+}
 
-    .features {
-      text-align: center;
-      padding: 40px 20px;
-    }
+.list{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
 
-    .features h3 {
-      color: #c084fc;
-      margin-bottom: 20px;
-    }
+.item{
+  padding:10px 15px;
+  border-radius:8px;
+  background:#111;
+  border:1px solid #222;
+  font-size:13px;
+}
 
-    .feature-list {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
+/* NOTIF WA */
+.wa-notif{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  background:#111;
+  border:1px solid #222;
+  padding:10px 14px;
+  border-radius:8px;
+  font-size:13px;
+  opacity:0;
+  transform:translateY(20px);
+  transition:.4s;
+}
 
-    .feature {
-      background: rgba(255,255,255,0.05);
-      padding: 12px 18px;
-      border-radius: 10px;
-      font-size: 14px;
-    }
+.wa-notif.show{
+  opacity:1;
+  transform:translateY(0);
+}
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #777;
-    }
-
-    /* FAKE NOTIF */
-    .notif {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background: #1a1a2e;
-      padding: 12px 18px;
-      border-radius: 10px;
-      font-size: 13px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-      opacity: 0;
-      transform: translateY(20px);
-      transition: 0.5s;
-    }
-
-    .notif.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:20px;
+  color:#666;
+  font-size:12px;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">alvaXzico Store 👑</div>
+  <div class="logo">alvaXzico Store</div>
 </header>
 
 <section class="hero">
-  <h1>Jasa Joki Premium</h1>
-  <p>Fast • Aman • 24 Jam Online</p>
-  <div class="badge">🔥 SLOT TERBATAS</div>
+  <h1>Joki Roblox Premium</h1>
+  <p>Fast • Aman • 24 Jam</p>
+  <div class="badge">Slot Terbatas</div>
 </section>
 
-<section class="store">
+<div class="container">
   <div class="card">
-    <h2>🎰 ROBLOX SOLS RNG AFK</h2>
+    <h2>🎰 SOLS RNG AFK</h2>
     <div class="price">1K / JAM</div>
 
     <ul>
       <li>AFK farming otomatis</li>
-      <li>PC 24 jam nonstop</li>
-      <li>Aman & terpercaya</li>
+      <li>Online 24 jam</li>
+      <li>Aman & stabil</li>
     </ul>
 
     <ul>
@@ -208,18 +193,18 @@
     </ul>
 
     <a class="btn" href="https://wa.me/62895385584661?text=Halo%20alvaXzico%20Store%2C%20saya%20mau%20order%20AFK%20SOLS%20RNG%0A%0ANama%3A%0ADurasi%3A" target="_blank">
-      ORDER SEKARANG
+      Order via WhatsApp
     </a>
   </div>
-</section>
+</div>
 
 <section class="features">
-  <h3>Kenapa Pilih Kami?</h3>
-  <div class="feature-list">
-    <div class="feature">⚡ Fast Response</div>
-    <div class="feature">🛡️ Aman</div>
-    <div class="feature">🖥️ 24 Jam Online</div>
-    <div class="feature">💬 Bisa Pantau</div>
+  <h3>Keunggulan</h3>
+  <div class="list">
+    <div class="item">Fast Response</div>
+    <div class="item">Aman</div>
+    <div class="item">24 Jam Online</div>
+    <div class="item">Bisa Pantau</div>
   </div>
 </section>
 
@@ -227,27 +212,20 @@
   © 2026 alvaXzico Store
 </footer>
 
-<div class="notif" id="notif"></div>
+<!-- NOTIF NOMOR -->
+<div class="wa-notif" id="notif">+62 895-3855-84661</div>
 
 <script>
-  const messages = [
-    "Rizky baru saja order 5 jam 🔥",
-    "Andi membeli paket 10 jam ⚡",
-    "Budi order AFK SOLS RNG 💰",
-    "User baru saja checkout 🎮"
-  ];
+function showNotif(){
+  const notif = document.getElementById("notif");
+  notif.classList.add("show");
 
-  function showNotif() {
-    const notif = document.getElementById("notif");
-    notif.innerText = messages[Math.floor(Math.random() * messages.length)];
-    notif.classList.add("show");
+  setTimeout(()=>{
+    notif.classList.remove("show");
+  },3000);
+}
 
-    setTimeout(() => {
-      notif.classList.remove("show");
-    }, 3000);
-  }
-
-  setInterval(showNotif, 6000);
+setInterval(showNotif,7000);
 </script>
 
 </body>
