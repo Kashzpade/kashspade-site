@@ -330,27 +330,44 @@
             
             eventSource.onopen = () => {
                 console.log('Connected to Game Audio Server!');
-            };
+            // Updated connection handling with auto-reconnect
+            const connect = () => {
+                const eventSource = new EventSource('http://' + serverIP + '/stream?player=' + encodeURIComponent(playerName));
 
-            eventSource.onerror = (err) => {
-                console.error("Connection failed! Server might be offline or port blocked.", err);
-                document.getElementById('active-name').innerText = 'Connection Lost';
-                document.getElementById('active-name').style.color = '#f44336';
-            };
+                eventSource.onopen = () => {
+                    statusDiv.innerText = 'Connected & Active (' + playerName + ')';
+                    statusDiv.className = 'status connected';
+                    console.log('SSE connection opened');
+                };
 
-            eventSource.onmessage = (event) => {
-                const data = JSON.parse(event.data);
-                if (data.action === 'play') {
-                    if (currentAudio) {
-                        currentAudio.pause();
+                eventSource.onerror = () => {
+                    statusDiv.innerText = 'Disconnected - Reconnecting...';
+                    statusDiv.className = 'status disconnected';
+                    console.log('SSE connection error, retrying in 3s');
+                    // Close the current connection and attempt reconnection after a short delay
+                    eventSource.close();
+                    setTimeout(connect, 3000);
+                };
+
+                eventSource.onmessage = (event) => {
+                    const data = JSON.parse(event.data);
+                    if (data.action === 'play') {
+                        if (currentAudio) {
+                            currentAudio.pause();
+                        }
+                        currentAudio = new Audio(data.url);
+                        currentAudio.volume = parseFloat(volumeInput.value);
+                        currentAudio.play().catch(e => {
+                            console.log('Auto-play blocked, click to enable.', e);
+                            statusDiv.innerText = 'CLICK PAGE TO UNMUTE AUDIO';
+                            statusDiv.className = 'status disconnected';
+                        });
                     }
-                    currentAudio = new Audio(data.url);
-                    currentAudio.volume = parseFloat(volumeInput.value);
-                    currentAudio.play().catch(e => {
-                        console.log("Autoplay blocked. User interaction required.", e);
-                    });
-                }
+                };
             };
+
+            // Start the connection
+            connect();
         }
     </script>
 </body>
