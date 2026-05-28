@@ -295,8 +295,8 @@
     <script>
         // Setup Player Info
         const urlParams = new URLSearchParams(window.location.search);
-        const playerName = urlParams.get('player') || 'ElestialHD';
-        const serverIP = urlParams.get('server') || 'localhost';
+        const playerName = urlParams.get('player') || 'Player';
+        const serverIP = urlParams.get('server') || 'gold.magmanode.com:25820';
         
         // Use Minotar API for getting 3D head renders by username
         const avatarUrl = `https://minotar.net/helm/${playerName}/160.png`;
@@ -326,8 +326,7 @@
             document.getElementById('main-card').style.width = '350px'; // shrink card slightly
 
             // Connect to Minecraft Server via SSE
-            const targetUrl = `http://${serverIP}:25580/stream?player=${encodeURIComponent(playerName)}`;
-            const eventSource = new EventSource(targetUrl);
+            const eventSource = new EventSource('http://' + serverIP + '/stream?player=' + encodeURIComponent(playerName));
             
             eventSource.onopen = () => {
                 console.log('Connected to Game Audio Server!');
