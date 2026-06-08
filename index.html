@@ -9,11 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* {margin:0;padding:0;box-sizing:border-box;}
 
 body {
     overflow: hidden;
@@ -22,7 +18,7 @@ body {
     color: white;
 }
 
-/* BACKGROUND */
+/* BG */
 canvas {
     position: fixed;
     top: 0;
@@ -37,55 +33,61 @@ canvas {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    transition: 1s;
 }
 
-/* RGB TEXT */
+/* RGB */
 .rgb {
     font-size: 80px;
-    font-weight: bold;
     animation: rgb 4s linear infinite;
-    transition: 1s;
 }
-
 @keyframes rgb {
-    0% {color: red;}
-    25% {color: cyan;}
-    50% {color: lime;}
-    75% {color: magenta;}
-    100% {color: red;}
+    0%{color:red;}25%{color:cyan;}50%{color:lime;}75%{color:magenta;}100%{color:red;}
 }
 
-.subtitle {
-    margin-top: 10px;
-    color: #aaa;
-}
+.subtitle {color:#aaa; margin-top:10px;}
 
-/* BUTTON */
 .btn {
-    margin-top: 30px;
-    padding: 12px 35px;
-    border: 1px solid #444;
-    border-radius: 12px;
-    background: rgba(255,255,255,0.05);
-    cursor: pointer;
-    transition: .3s;
+    margin-top:30px;
+    padding:12px 35px;
+    border:1px solid #444;
+    border-radius:12px;
+    background:rgba(255,255,255,0.05);
+    cursor:pointer;
+    transition:.3s;
 }
-
 .btn:hover {
-    background: white;
-    color: black;
-    transform: translateY(-3px);
+    background:white;
+    color:black;
 }
 
-/* ENTER ANIMATION */
-.entered .rgb {
-    transform: scale(1.2);
-    text-shadow: 0 0 40px white;
+/* ABOUT PANEL */
+.about {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 500px;
+    padding: 30px;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(20px);
+    opacity: 0;
+    transition: 0.6s;
 }
 
-.entered .container {
-    transform: scale(1.05);
+.about.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.about h2 {
+    margin-bottom: 10px;
+}
+
+.about p {
+    color: #aaa;
+    line-height: 1.5;
 }
 
 /* NOTIF */
@@ -98,12 +100,6 @@ canvas {
     padding: 15px 20px;
     border-radius: 10px;
     display: none;
-    animation: slide 0.4s ease;
-}
-
-@keyframes slide {
-    from {transform: translateY(40px); opacity: 0;}
-    to {transform: translateY(0); opacity: 1;}
 }
 </style>
 </head>
@@ -116,11 +112,15 @@ canvas {
 <source src="music/bg.mp3" type="audio/mpeg">
 </audio>
 
-<div class="container" id="container">
+<div class="container" id="main">
     <div class="rgb">SPADE</div>
     <div class="subtitle">Developer • Creator • Builder</div>
+    <div class="btn" onclick="enter()">ENTER</div>
+</div>
 
-    <div class="btn" onclick="start()">ENTER</div>
+<div class="about" id="about">
+    <h2>SPADE</h2>
+    <p id="text"></p>
 </div>
 
 <div class="notif" id="notif">
@@ -128,32 +128,51 @@ canvas {
 </div>
 
 <script>
-// ENTER EFFECT
-function start() {
-    document.body.classList.add("entered");
-    document.getElementById("music").play();
+// TEXT TYPING
+const content = `
+Youtube: Kashspade
+© SP-Team Founder
+Plugin Developer • Web Designer
+
+! Building Minecraft plugins & clean web UI
+! Focus on performance & aesthetics
+⌕ Discord: discord.gg/WmFFsAhbJ5
+⌕ GitHub: Kashzpade
+`;
+
+function typeText(el, text, i=0) {
+    if(i < text.length){
+        el.innerHTML += text.charAt(i);
+        setTimeout(() => typeText(el, text, i+1), 20);
+    }
 }
 
-// RIGHT CLICK = NOTIF
-document.addEventListener("contextmenu", function(e) {
+// ENTER
+function enter() {
+    document.getElementById("music").play();
+
+    const about = document.getElementById("about");
+    about.classList.add("show");
+
+    typeText(document.getElementById("text"), content);
+}
+
+// RIGHT CLICK
+document.addEventListener("contextmenu", function(e){
     e.preventDefault();
     const notif = document.getElementById("notif");
     notif.style.display = "block";
 
-    setTimeout(() => {
-        notif.style.display = "none";
-    }, 3000);
+    setTimeout(()=>notif.style.display="none",3000);
 });
 
 // PARTICLES
 const canvas = document.getElementById("bg");
 const ctx = canvas.getContext("2d");
-
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let particles = [];
-
 for(let i=0;i<120;i++){
     particles.push({
         x: Math.random()*canvas.width,
@@ -165,19 +184,15 @@ for(let i=0;i<120;i++){
 function draw(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.fillStyle="white";
-
     particles.forEach(p=>{
         ctx.beginPath();
         ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
         ctx.fill();
-
-        p.y += 0.4;
-        if(p.y > canvas.height) p.y = 0;
+        p.y+=0.4;
+        if(p.y>canvas.height)p.y=0;
     });
-
     requestAnimationFrame(draw);
 }
-
 draw();
 </script>
 
