@@ -1,374 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spelling Bee Audio Client</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            font-family: 'Outfit', sans-serif;
-            background-color: #0d1117;
-            color: #c9d1d9;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        /* Fullscreen Minecraft Background */
-        .bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://images.unsplash.com/photo-1607513746994-51f730a44832?q=80&w=1920&auto=format&fit=crop'); /* Placeholder MC-like bg */
-            background-size: cover;
-            background-position: center;
-            filter: brightness(0.3) blur(4px);
-            z-index: 1;
-        }
+<title>SPADE</title>
 
-        .wrapper {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            gap: 40px;
-            align-items: center;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
 
-        /* Player Profile Section */
-        .profile {
-            text-align: center;
-            animation: fadeIn 1s ease;
-        }
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
 
-        .avatar-ring {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            border: 4px solid #1f6feb;
-            padding: 5px;
-            margin: 0 auto 20px auto;
-            background: rgba(0,0,0,0.5);
-            box-shadow: 0 0 20px rgba(31, 111, 235, 0.4);
-        }
+body {
+    background: radial-gradient(circle at top, #111, #000);
+    color: white;
+}
 
-        .avatar {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
+/* HERO */
+.hero {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        .welcome-text {
-            font-size: 28px;
-            font-weight: 800;
-            color: #ffffff;
-            margin: 0;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-        }
+.container {
+    text-align: center;
+    animation: fadeIn 1.5s ease;
+}
 
-        .sub-text {
-            font-size: 14px;
-            color: #8b949e;
-            margin-top: 10px;
-            max-width: 250px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
-        }
+h1 {
+    font-size: 60px;
+    letter-spacing: 4px;
+    background: linear-gradient(90deg, #fff, #888);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-        /* Main Card */
-        .card {
-            background: rgba(22, 27, 34, 0.85);
-            border: 1px solid #30363d;
-            border-radius: 16px;
-            padding: 40px;
-            width: 450px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            transition: all 0.3s ease;
-        }
+.subtitle {
+    margin-top: 10px;
+    color: #aaa;
+}
 
-        .card-header {
-            font-size: 22px;
-            font-weight: 800;
-            color: #ffffff;
-            margin-bottom: 20px;
-        }
+/* BUTTON */
+.links {
+    margin-top: 30px;
+}
 
-        /* Step 1: Connect State */
-        .step-1 .info-box {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
+.links a {
+    display: inline-block;
+    margin: 10px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
 
-        .icon-circle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid #1f6feb;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 18px;
-            color: #1f6feb;
-        }
+.links a:hover {
+    background: white;
+    color: black;
+    transform: translateY(-3px);
+}
 
-        .info-text h3 { margin: 0; font-size: 16px; color: #fff; }
-        .info-text p { margin: 5px 0 0 0; font-size: 12px; color: #8b949e; }
+/* ABOUT */
+.about {
+    padding: 80px 20px;
+    text-align: center;
+    max-width: 700px;
+    margin: auto;
+}
 
-        .btn-start {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(180deg, #3fb950 0%, #2ea043 100%);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 600;
-            font-family: 'Outfit', sans-serif;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(46, 160, 67, 0.4);
-            transition: all 0.2s ease;
-            margin-bottom: 25px;
-        }
+.about h2 {
+    margin-bottom: 15px;
+}
 
-        .btn-start:hover {
-            background: linear-gradient(180deg, #46c857 0%, #3fb950 100%);
-            transform: translateY(-2px);
-        }
+.about p {
+    color: #aaa;
+    line-height: 1.6;
+}
 
-        .features {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            font-size: 13px;
-            color: #8b949e;
-        }
+/* FOOTER */
+.footer {
+    text-align: center;
+    padding: 30px;
+    font-size: 12px;
+    color: #555;
+}
 
-        .features li {
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .features li::before {
-            content: '';
-            width: 10px;
-            height: 10px;
-            background: #1f6feb;
-            border-radius: 50%;
-            display: inline-block;
-        }
-
-        /* Step 2: Active State */
-        .step-2 {
-            display: none;
-            text-align: center;
-        }
-
-        .active-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 30px;
-            justify-content: center;
-            text-align: left;
-        }
-
-        .active-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 8px;
-        }
-
-        .active-header h2 { margin: 0; font-size: 18px; color: #fff; }
-        .active-header p { margin: 2px 0 0 0; font-size: 12px; color: #8b949e; }
-
-        .volume-section {
-            background: rgba(0,0,0,0.3);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-        }
-
-        .volume-header {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            color: #fff;
-            margin-bottom: 15px;
-        }
-
-        input[type=range] {
-            width: 100%;
-            accent-color: #1f6feb;
-            background: #0d1117;
-            height: 6px;
-            border-radius: 5px;
-            outline: none;
-            cursor: pointer;
-        }
-
-        .footer-note {
-            font-size: 11px;
-            color: #484f58;
-            margin-top: 15px;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+/* ANIMATION */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
 </head>
+
 <body>
-    <div class="bg"></div>
-    
-    <div class="wrapper">
-        <!-- Player Profile (Left) -->
-        <div class="profile" id="profile-section">
-            <div class="avatar-ring">
-                <img id="player-avatar" src="" alt="Player Avatar" class="avatar">
-            </div>
-            <h2 class="welcome-text">Welcome back, <span id="player-name-display">Player</span>!</h2>
-            <p class="sub-text">Connect your game audio experience and immerse yourself in a whole new dimension of gameplay.</p>
-        </div>
 
-        <!-- Connection Card (Right) -->
-        <div class="card" id="main-card">
-            
-            <!-- Step 1: Connect -->
-            <div id="step-1" class="step-1">
-                <div class="card-header">Connect to Audio</div>
-                <p style="font-size: 13px; color:#8b949e; margin-top:-15px; margin-bottom:20px;">Choose how you'd like to experience audio in the game:</p>
-                
-                <div class="info-box">
-                    <div class="icon-circle">🎧</div>
-                    <div class="info-text">
-                        <h3>Audio Only</h3>
-                        <p>Connect in audio mode, letting you hear the spelling bee voices.</p>
-                    </div>
-                </div>
+<!-- MUSIC -->
+<audio autoplay loop>
+    <source src="music/bg.mp3" type="audio/mpeg">
+</audio>
 
-                <button class="btn-start" onclick="startSession()">🔊 Start audio session</button>
+<!-- HERO -->
+<div class="hero">
+    <div class="container">
+        <h1>SPADE</h1>
+        <p class="subtitle">Founder of SP-Team • Plugin Developer • Web Designer</p>
 
-                <div style="font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 10px;">Enhanced Audio Experience</div>
-                <ul class="features">
-                    <li>Audio that follows the game events automatically</li>
-                    <li>No resourcepack or downloads required</li>
-                    <li>Click start, and simply leave this tab open in the background</li>
-                </ul>
-            </div>
-
-            <!-- Step 2: Active & Volume -->
-            <div id="step-2" class="step-2">
-                <div class="active-header">
-                    <img id="active-avatar" src="" alt="Avatar" class="active-avatar">
-                    <div>
-                        <h2>Welcome, <span id="active-name">Player</span>!</h2>
-                        <p>Keep this tab open for audio</p>
-                    </div>
-                </div>
-
-                <div class="volume-section">
-                    <div class="volume-header">
-                        <span>Audio controls</span>
-                        <span id="volume-percent">80%</span>
-                    </div>
-                    <input type="range" id="volume" min="0" max="1" step="0.01" value="0.8" oninput="updateVolume()">
-                </div>
-                
-                <p class="footer-note">Keep this tab open in the background while playing</p>
-            </div>
-
+        <div class="links">
+            <a href="https://discord.gg/WmFFsAhbJ5">Discord</a>
+            <a href="https://github.com/Kashzpade">GitHub</a>
         </div>
     </div>
+</div>
 
-    <script>
-        // Setup Player Info
-        const urlParams = new URLSearchParams(window.location.search);
-        const playerName = urlParams.get('player') || 'Player';
-        const serverIP = urlParams.get('server') || 'gold.magmanode.com:25820';
-        
-        // Use Minotar API for getting 3D head renders by username
-        const avatarUrl = `https://minotar.net/helm/${playerName}/160.png`;
-        
-        document.getElementById('player-name-display').innerText = playerName;
-        document.getElementById('active-name').innerText = playerName;
-        document.getElementById('player-avatar').src = avatarUrl;
-        document.getElementById('active-avatar').src = avatarUrl;
+<!-- ABOUT -->
+<div class="about">
+    <h2>About Me</h2>
+    <p>
+        I'm SPADE, a developer focused on building Minecraft plugins and modern web interfaces.
+        I enjoy creating clean systems, smooth UI, and bringing ideas into reality.
+        Always learning, always improving.
+    </p>
+</div>
 
-        let currentAudio = null;
-        const volumeInput = document.getElementById('volume');
-        const volumePercent = document.getElementById('volume-percent');
+<!-- FOOTER -->
+<div class="footer">
+    © 2026 SPADE — All rights reserved
+</div>
 
-        function updateVolume() {
-            const vol = parseFloat(volumeInput.value);
-            volumePercent.innerText = Math.round(vol * 100) + '%';
-            if (currentAudio) {
-                currentAudio.volume = vol;
-            }
-        }
-
-        function startSession() {
-            // UI Transition
-            document.getElementById('profile-section').style.display = 'none';
-            document.getElementById('step-1').style.display = 'none';
-            document.getElementById('step-2').style.display = 'block';
-            document.getElementById('main-card').style.width = '350px'; // shrink card slightly
-
-            // Connect to Minecraft Server via SSE
-            const eventSource = new EventSource('http://' + serverIP + '/stream?player=' + encodeURIComponent(playerName));
-            
-            eventSource.onopen = () => {
-                console.log('Connected to Game Audio Server!');
-            // Updated connection handling with auto-reconnect
-            const connect = () => {
-                const eventSource = new EventSource('http://' + serverIP + '/stream?player=' + encodeURIComponent(playerName));
-
-                eventSource.onopen = () => {
-                    statusDiv.innerText = 'Connected & Active (' + playerName + ')';
-                    statusDiv.className = 'status connected';
-                    console.log('SSE connection opened');
-                };
-
-                eventSource.onerror = () => {
-                    statusDiv.innerText = 'Disconnected - Reconnecting...';
-                    statusDiv.className = 'status disconnected';
-                    console.log('SSE connection error, retrying in 3s');
-                    // Close the current connection and attempt reconnection after a short delay
-                    eventSource.close();
-                    setTimeout(connect, 3000);
-                };
-
-                eventSource.onmessage = (event) => {
-                    const data = JSON.parse(event.data);
-                    if (data.action === 'play') {
-                        if (currentAudio) {
-                            currentAudio.pause();
-                        }
-                        currentAudio = new Audio(data.url);
-                        currentAudio.volume = parseFloat(volumeInput.value);
-                        currentAudio.play().catch(e => {
-                            console.log('Auto-play blocked, click to enable.', e);
-                            statusDiv.innerText = 'CLICK PAGE TO UNMUTE AUDIO';
-                            statusDiv.className = 'status disconnected';
-                        });
-                    }
-                };
-            };
-
-            // Start the connection
-            connect();
-        }
-    </script>
 </body>
 </html>
