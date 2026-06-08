@@ -37,14 +37,15 @@ canvas {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    transition: 1s;
 }
 
 /* RGB TEXT */
 .rgb {
-    font-size: 75px;
+    font-size: 80px;
     font-weight: bold;
     animation: rgb 4s linear infinite;
-    text-shadow: 0 0 20px rgba(255,255,255,0.3);
+    transition: 1s;
 }
 
 @keyframes rgb {
@@ -63,9 +64,9 @@ canvas {
 /* BUTTON */
 .btn {
     margin-top: 30px;
-    padding: 12px 30px;
+    padding: 12px 35px;
     border: 1px solid #444;
-    border-radius: 10px;
+    border-radius: 12px;
     background: rgba(255,255,255,0.05);
     cursor: pointer;
     transition: .3s;
@@ -77,12 +78,22 @@ canvas {
     transform: translateY(-3px);
 }
 
+/* ENTER ANIMATION */
+.entered .rgb {
+    transform: scale(1.2);
+    text-shadow: 0 0 40px white;
+}
+
+.entered .container {
+    transform: scale(1.05);
+}
+
 /* NOTIF */
 .notif {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(0,0,0,0.85);
+    bottom: 25px;
+    right: 25px;
+    background: rgba(0,0,0,0.9);
     border: 1px solid #333;
     padding: 15px 20px;
     border-radius: 10px;
@@ -105,7 +116,7 @@ canvas {
 <source src="music/bg.mp3" type="audio/mpeg">
 </audio>
 
-<div class="container">
+<div class="container" id="container">
     <div class="rgb">SPADE</div>
     <div class="subtitle">Developer • Creator • Builder</div>
 
@@ -113,30 +124,25 @@ canvas {
 </div>
 
 <div class="notif" id="notif">
-    🔔 Subscribe ke youtube.com/@Kashspade
+🔔 Subscribe ke youtube.com/@Kashspade
 </div>
 
 <script>
-// START BUTTON
+// ENTER EFFECT
 function start() {
+    document.body.classList.add("entered");
     document.getElementById("music").play();
-    showNotif();
 }
 
-// SHOW NOTIF
-function showNotif() {
+// RIGHT CLICK = NOTIF
+document.addEventListener("contextmenu", function(e) {
+    e.preventDefault();
     const notif = document.getElementById("notif");
     notif.style.display = "block";
 
     setTimeout(() => {
         notif.style.display = "none";
     }, 3000);
-}
-
-// KLIK KANAN = NOTIF + BLOCK MENU
-document.addEventListener("contextmenu", function(e) {
-    e.preventDefault();
-    showNotif();
 });
 
 // PARTICLES
