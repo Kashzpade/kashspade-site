@@ -17,8 +17,21 @@
 }
 
 body {
-    background: radial-gradient(circle at top, #111, #000);
+    background: radial-gradient(circle at top, #0f0f0f, #000);
     color: white;
+    overflow-x: hidden;
+}
+
+/* BACKGROUND GLOW */
+body::before {
+    content: "";
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,255,255,0.08), transparent);
+    top: -100px;
+    left: -100px;
+    z-index: -1;
 }
 
 /* HERO */
@@ -29,9 +42,14 @@ body {
     align-items: center;
 }
 
-.container {
+.card {
+    backdrop-filter: blur(20px);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 40px;
+    border-radius: 16px;
     text-align: center;
-    animation: fadeIn 1.5s ease;
+    animation: fadeIn 1.2s ease;
 }
 
 h1 {
@@ -47,16 +65,16 @@ h1 {
     color: #aaa;
 }
 
-/* BUTTON */
+/* BUTTONS */
 .links {
-    margin-top: 30px;
+    margin-top: 25px;
 }
 
 .links a {
     display: inline-block;
-    margin: 10px;
+    margin: 8px;
     padding: 12px 24px;
-    border-radius: 8px;
+    border-radius: 10px;
     border: 1px solid #333;
     color: white;
     text-decoration: none;
@@ -69,16 +87,32 @@ h1 {
     transform: translateY(-3px);
 }
 
+/* CAPTCHA */
+.captcha {
+    margin-top: 20px;
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid #333;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.captcha:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.captcha.done {
+    background: #1f8f3a;
+    border-color: #1f8f3a;
+}
+
 /* ABOUT */
 .about {
     padding: 80px 20px;
     text-align: center;
     max-width: 700px;
     margin: auto;
-}
-
-.about h2 {
-    margin-bottom: 15px;
 }
 
 .about p {
@@ -96,32 +130,30 @@ h1 {
 
 /* ANIMATION */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
 }
 </style>
 </head>
 
 <body>
 
-<!-- MUSIC -->
-<audio autoplay loop>
+<!-- AUDIO -->
+<audio id="bgmusic" loop>
     <source src="music/bg.mp3" type="audio/mpeg">
 </audio>
 
 <!-- HERO -->
 <div class="hero">
-    <div class="container">
+    <div class="card">
         <h1>SPADE</h1>
         <p class="subtitle">Founder of SP-Team • Plugin Developer • Web Designer</p>
 
-        <div class="links">
+        <div class="captcha" onclick="verify()">
+            ✔ Click to verify you're human
+        </div>
+
+        <div class="links" id="links" style="display:none;">
             <a href="https://discord.gg/WmFFsAhbJ5">Discord</a>
             <a href="https://github.com/Kashzpade">GitHub</a>
         </div>
@@ -130,11 +162,9 @@ h1 {
 
 <!-- ABOUT -->
 <div class="about">
-    <h2>About Me</h2>
     <p>
-        I'm SPADE, a developer focused on building Minecraft plugins and modern web interfaces.
-        I enjoy creating clean systems, smooth UI, and bringing ideas into reality.
-        Always learning, always improving.
+        I'm SPADE, focused on building Minecraft plugins and clean modern web UI.
+        I like creating smooth systems and making things look simple but powerful.
     </p>
 </div>
 
@@ -142,6 +172,21 @@ h1 {
 <div class="footer">
     © 2026 SPADE — All rights reserved
 </div>
+
+<script>
+function verify() {
+    const captcha = document.querySelector(".captcha");
+    const links = document.getElementById("links");
+    const music = document.getElementById("bgmusic");
+
+    captcha.classList.add("done");
+    captcha.innerText = "✔ Verified";
+
+    links.style.display = "block";
+
+    music.play(); // start music on click
+}
+</script>
 
 </body>
 </html>
