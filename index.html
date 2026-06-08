@@ -8,6 +8,8 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 <style>
 * {
     margin: 0;
@@ -16,22 +18,61 @@
     font-family: 'Inter', sans-serif;
 }
 
+/* BACKGROUND */
 body {
-    background: radial-gradient(circle at top, #0f0f0f, #000);
+    background: #000;
     color: white;
     overflow-x: hidden;
 }
 
-/* BACKGROUND GLOW */
-body::before {
-    content: "";
+/* ANIMATED BACKGROUND */
+.bg {
     position: fixed;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(255,255,255,0.08), transparent);
-    top: -100px;
-    left: -100px;
-    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 20%, #111, transparent),
+                radial-gradient(circle at 80% 80%, #111, transparent);
+    animation: moveBg 10s infinite alternate;
+    z-index: -2;
+}
+
+@keyframes moveBg {
+    0% {transform: translate(0,0);}
+    100% {transform: translate(-50px,-50px);}
+}
+
+/* BLUR LOCK */
+.lock {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(20px);
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    transition: 0.8s;
+}
+
+/* CAPTCHA CARD */
+.verify-box {
+    background: rgba(255,255,255,0.05);
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+    animation: fadeIn 1s ease;
+}
+
+.verify-box h2 {
+    margin-bottom: 15px;
+}
+
+/* MAIN CONTENT */
+.main {
+    filter: blur(10px);
+    transition: 1s;
 }
 
 /* HERO */
@@ -43,19 +84,18 @@ body::before {
 }
 
 .card {
-    backdrop-filter: blur(20px);
-    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(25px);
+    background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.1);
-    padding: 40px;
-    border-radius: 16px;
+    padding: 50px;
+    border-radius: 20px;
     text-align: center;
-    animation: fadeIn 1.2s ease;
 }
 
 h1 {
-    font-size: 60px;
-    letter-spacing: 4px;
-    background: linear-gradient(90deg, #fff, #888);
+    font-size: 70px;
+    letter-spacing: 5px;
+    background: linear-gradient(90deg, #fff, #aaa);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -67,14 +107,14 @@ h1 {
 
 /* BUTTONS */
 .links {
-    margin-top: 25px;
+    margin-top: 30px;
 }
 
 .links a {
     display: inline-block;
-    margin: 8px;
-    padding: 12px 24px;
-    border-radius: 10px;
+    margin: 10px;
+    padding: 14px 28px;
+    border-radius: 12px;
     border: 1px solid #333;
     color: white;
     text-decoration: none;
@@ -84,107 +124,61 @@ h1 {
 .links a:hover {
     background: white;
     color: black;
-    transform: translateY(-3px);
-}
-
-/* CAPTCHA */
-.captcha {
-    margin-top: 20px;
-    padding: 12px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid #333;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.captcha:hover {
-    background: rgba(255,255,255,0.1);
-}
-
-.captcha.done {
-    background: #1f8f3a;
-    border-color: #1f8f3a;
-}
-
-/* ABOUT */
-.about {
-    padding: 80px 20px;
-    text-align: center;
-    max-width: 700px;
-    margin: auto;
-}
-
-.about p {
-    color: #aaa;
-    line-height: 1.6;
-}
-
-/* FOOTER */
-.footer {
-    text-align: center;
-    padding: 30px;
-    font-size: 12px;
-    color: #555;
+    transform: translateY(-4px);
 }
 
 /* ANIMATION */
 @keyframes fadeIn {
-    from {opacity: 0; transform: translateY(20px);}
-    to {opacity: 1; transform: translateY(0);}
+    from {opacity:0; transform:translateY(20px);}
+    to {opacity:1; transform:translateY(0);}
 }
 </style>
 </head>
 
 <body>
 
+<div class="bg"></div>
+
+<!-- LOCK SCREEN -->
+<div class="lock" id="lock">
+    <div class="verify-box">
+        <h2>Verify You're Human</h2>
+        <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY" data-callback="verified"></div>
+    </div>
+</div>
+
 <!-- AUDIO -->
-<audio id="bgmusic" loop>
+<audio id="music" loop>
     <source src="music/bg.mp3" type="audio/mpeg">
 </audio>
 
-<!-- HERO -->
-<div class="hero">
-    <div class="card">
-        <h1>SPADE</h1>
-        <p class="subtitle">Founder of SP-Team • Plugin Developer • Web Designer</p>
+<!-- MAIN -->
+<div class="main" id="main">
+    <div class="hero">
+        <div class="card">
+            <h1>SPADE</h1>
+            <p class="subtitle">Founder of SP-Team • Plugin Developer • Web Designer</p>
 
-        <div class="captcha" onclick="verify()">
-            ✔ Click to verify you're human
-        </div>
-
-        <div class="links" id="links" style="display:none;">
-            <a href="https://discord.gg/WmFFsAhbJ5">Discord</a>
-            <a href="https://github.com/Kashzpade">GitHub</a>
+            <div class="links">
+                <a href="https://discord.gg/WmFFsAhbJ5">Discord</a>
+                <a href="https://github.com/Kashzpade">GitHub</a>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- ABOUT -->
-<div class="about">
-    <p>
-        I'm SPADE, focused on building Minecraft plugins and clean modern web UI.
-        I like creating smooth systems and making things look simple but powerful.
-    </p>
-</div>
-
-<!-- FOOTER -->
-<div class="footer">
-    © 2026 SPADE — All rights reserved
-</div>
-
 <script>
-function verify() {
-    const captcha = document.querySelector(".captcha");
-    const links = document.getElementById("links");
-    const music = document.getElementById("bgmusic");
+function verified() {
+    const lock = document.getElementById("lock");
+    const main = document.getElementById("main");
+    const music = document.getElementById("music");
 
-    captcha.classList.add("done");
-    captcha.innerText = "✔ Verified";
+    lock.style.opacity = "0";
+    setTimeout(() => lock.style.display = "none", 800);
 
-    links.style.display = "block";
+    main.style.filter = "blur(0)";
 
-    music.play(); // start music on click
+    music.play(); // start music setelah captcha
 }
 </script>
 
