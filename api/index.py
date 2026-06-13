@@ -5,167 +5,154 @@ import streamlit as st
 
 # --- 1. PREMIUM WINDOW CONFIG ---
 st.set_page_config(
-    page_title="Kashspade Core",
+    page_title="Kashspade Core Matrix",
     page_icon="👑",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# --- 2. ULTRA PREMIUM UI CSS INJECTION ---
+# --- 2. THEME ENGINE / HIGH-END MODERN UI CSS ---
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
     
     html, body, [data-testid="stAppViewContainer"] {
-        background-color: #0f0f11 !important;
+        background-color: #0b0b0d !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
         color: #f3f4f6 !important;
     }
     
     #MainMenu, header, footer { visibility: hidden; }
     
-    /* SIDEBAR MODERNIZE */
+    /* SIDEBAR ARYLIC TRANSLUCENT */
     [data-testid="stSidebar"] {
-        background-color: #161619 !important;
-        border-right: 1px solid #232329 !important;
+        background-color: #111114 !important;
+        border-right: 1px solid #1f1f24 !important;
     }
     
     .logo-container {
         display: flex;
         align-items: center;
         gap: 14px;
-        padding: 20px 10px;
-        border-bottom: 1px solid #232329;
+        padding: 24px 12px;
+        border-bottom: 1px solid #1f1f24;
         margin-bottom: 20px;
     }
     .spade-logo {
-        width: 42px; height: 42px;
+        width: 44px; height: 44px;
         background: linear-gradient(135deg, #10b981, #059669);
         border-radius: 14px;
         display: flex; align-items: center; justify-content: center;
-        font-weight: 800; color: white; font-size: 22px;
-        box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        font-weight: 800; color: white; font-size: 24px;
+        box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25);
     }
     .logo-text {
-        font-size: 20px; font-weight: 700;
+        font-size: 22px; font-weight: 800;
         color: #ffffff; letter-spacing: -0.5px;
     }
     
-    /* GREETING DASHBOARD */
+    /* GREETING MATRIX */
     .greeting-container {
-        margin: 60px auto 40px auto;
-        max-width: 880px; padding: 0 20px;
+        margin: 80px auto 40px auto;
+        max-width: 840px; padding: 0 20px;
     }
     .greeting-text {
-        font-size: 54px; font-weight: 700;
-        background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+        font-size: 58px; font-weight: 800;
+        background: linear-gradient(135deg, #10b981, #3b82f6, #6366f1);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        letter-spacing: -1.5px; margin-bottom: 12px;
+        letter-spacing: -2px; margin-bottom: 8px;
     }
     .sub-greeting {
-        font-size: 54px; font-weight: 700;
-        color: #27272a; letter-spacing: -1.5px;
-        margin-top: -20px; margin-bottom: 50px;
+        font-size: 54px; font-weight: 800;
+        color: #222226; letter-spacing: -2px;
+        margin-top: -25px; margin-bottom: 50px;
     }
     
-    /* CARD SUGGESTIONS */
+    /* SUGGESTION CARDS */
     .suggestion-box {
-        background: #161619;
-        border: 1px solid #232329;
+        background: #141417;
+        border: 1px solid #1f1f24;
         border-radius: 20px; padding: 24px;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        min-height: 140px;
+        transition: all 0.25s ease;
+        min-height: 130px;
     }
     .suggestion-box:hover {
-        background: #1e1e24;
+        background: #1a1a20;
         border-color: #10b981;
-        transform: translateY(-4px);
-        box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+        transform: translateY(-2px);
     }
     
-    /* STREAMING CHAT RENDER */
+    /* CLEAN CHAT BUBBLE ENGINE */
     .chat-row {
-        max-width: 880px; margin: 0 auto 40px auto;
+        max-width: 840px; margin: 0 auto 30px auto;
         display: flex; padding: 0 20px;
     }
     .user-row { justify-content: flex-end; }
     .ai-row { justify-content: flex-start; }
     
     .bubble {
-        max-width: 82%; font-size: 17px !important;
-        line-height: 1.7; color: #e4e4e7;
+        max-width: 85%; font-size: 16px !important;
+        line-height: 1.65; color: #e4e4e7;
     }
     .user-bubble {
-        background: #27272a;
-        padding: 16px 26px; border-radius: 24px 24px 4px 24px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        background: #1f1f24;
+        padding: 14px 24px; border-radius: 22px 22px 4px 22px;
+        border: 1px solid #2a2a32;
     }
     .ai-bubble {
-        background: transparent; width: 100%; padding-top: 4px;
+        background: transparent; width: 100%; padding-top: 2px;
     }
     
     .avatar-icon {
-        width: 38px; height: 38px; border-radius: 12px;
-        margin-right: 20px; display: inline-flex;
+        width: 36px; height: 36px; border-radius: 11px;
+        margin-right: 18px; display: inline-flex;
         align-items: center; justify-content: center;
-        font-weight: 700; font-size: 16px; flex-shrink: 0;
+        font-weight: 700; font-size: 15px; flex-shrink: 0;
     }
     .ai-avatar { 
         background: linear-gradient(135deg, #10b981, #059669); color: white;
-        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
     }
     
-    /* STICKY BOTTOM CHAT BOX INPUT */
+    /* FLOATING BOTTOM INPUT */
     div[data-testid="stChatInput"] {
-        background-color: #161619 !important;
-        border: 1px solid #232329 !important;
-        border-radius: 24px !important;
-        padding: 10px 24px !important;
-        max-width: 880px !important; margin: 0 auto !important;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.5) !important;
+        background-color: #141417 !important;
+        border: 1px solid #1f1f24 !important;
+        border-radius: 20px !important;
+        padding: 8px 20px !important;
+        max-width: 840px !important; margin: 0 auto !important;
+        box-shadow: 0 16px 40px rgba(0,0,0,0.6) !important;
     }
     div[data-testid="stChatInput"] textarea {
-        color: #ffffff !important; font-size: 17px !important;
+        color: #ffffff !important; font-size: 16px !important;
     }
     
-    /* PREMIUM BOTTOM DISCLAIMER */
     .disclaimer-text {
-        text-align: center; color: #71717a;
-        font-size: 13px; margin-top: 16px; margin-bottom: 24px;
-        font-weight: 400; letter-spacing: 0.2px;
+        text-align: center; color: #52525b;
+        font-size: 12px; margin-top: 14px; margin-bottom: 20px;
     }
     
-    /* GATEWAY AUTH CARD */
+    /* AUTH CARD EXQUISITE */
     .auth-card {
-        background: #161619; border-radius: 32px;
-        padding: 50px; max-width: 480px; margin: 100px auto;
-        border: 1px solid #232329;
-        box-shadow: 0 30px 70px rgba(0,0,0,0.7);
+        background: #111114; border-radius: 28px;
+        padding: 45px; max-width: 440px; margin: 90px auto;
+        border: 1px solid #1f1f24;
+        box-shadow: 0 25px 60px rgba(0,0,0,0.6);
         text-align: center;
     }
     
-    /* ADMIN PANEL BRANDING */
     .admin-title {
-        color: #ef4444; font-weight: 700; font-size: 13px;
-        text-transform: uppercase; letter-spacing: 0.8px;
-        margin-top: 15px; padding-left: 5px;
+        color: #f43f5e; font-weight: 700; font-size: 12px;
+        text-transform: uppercase; letter-spacing: 1px;
+        margin-top: 20px; padding-left: 5px;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# --- 3. HARD DRIVE PERSISTENT STORAGE ENGINE (`secret.txt`) ---
+# --- 3. HARD DRIVE PERSISTENT ENGINE (`secret.txt`) ---
 SECRET_FILE = "secret.txt"
 
 def load_database_from_file():
-    """Membaca data akun dari file secret.txt secara permanen"""
-    # Akun default master bawaan pabrik
-    users = {
-        "spade1234": "abangkesped",
-        "spade": "kashspade123",
-        "kevin": "tongkrongan70b"
-    }
-    
-    # Jika file ada, load akun tambahan hasil register
+    users = {"spade1234": "abangkesped", "spade": "kashspade123", "kevin": "tongkrongan70b"}
     if os.path.exists(SECRET_FILE):
         try:
             with open(SECRET_FILE, "r") as f:
@@ -174,49 +161,50 @@ def load_database_from_file():
                     if line and ":" in line:
                         u, p = line.split(":", 1)
                         users[u.strip().lower()] = p.strip()
-        except Exception as e:
-            pass
+        except: pass
     return users
 
 def save_account_to_file(username, password):
-    """Menulis akun baru hasil register ke dalam secret.txt biar permanen"""
     try:
         with open(SECRET_FILE, "a") as f:
             f.write(f"{username}:{password}\n")
         return True
-    except:
-        return False
+    except: return False
 
-# Load atau sinkronisasi database global sistem
+# Sinkronisasi Database Akun Global
 st.session_state.global_users = load_database_from_file()
 
 if "global_chat_store" not in st.session_state:
     st.session_state.global_chat_store = {}
-    
-# Inisialisasi room chat kosong untuk semua user yang terdaftar di database
 for user in st.session_state.global_users.keys():
     if user not in st.session_state.global_chat_store:
         st.session_state.global_chat_store[user] = {"Sesi Baru": []}
 
-# Runtime session state user yang sedang aktif di browser saat ini
+# ==========================================
+# 🔥 CRITICAL SYNC: ANTI-AMNESIA REFRESH ENGINE VIA QUERY PARAMS
+# ==========================================
+query_params = st.query_params
+
 if "logged_in" not in st.session_state:
-    st.session_state.logged_in = False
-if "username" not in st.session_state:
-    st.session_state.username = ""
+    # Jika di URL terdeteksi ada token login, auto-inject ke session state browser
+    if "session_token" in query_params and query_params["session_token"] == "active":
+        st.session_state.logged_in = True
+        st.session_state.username = query_params.get("user", "").lower()
+    else:
+        st.session_state.logged_in = False
+        st.session_state.username = ""
+
 if "current_session" not in st.session_state:
     st.session_state.current_session = "Sesi Baru"
 
-# --- 4. SECURE ENGINE CONFIG ---
+# --- 4. SECURE CORE ENGINE CONFIG ---
 GROQ_API_KEY = os.environ.get("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", "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")
 API_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 SYSTEM_PROMPT = """
 Lu adalah Kashspade Core, sistem AI asisten pintar besutan Spade Network. Lu cowok asli, kalem, cerdas, berwibawa, dan ramah.
-Aturan Penting & Rebranding Model (WAJIB):
-- Lu adalah AI mandiri bernama "Kashspade Core" yang berjalan menggunakan basis model kustom "kspade-3.3-70b-versatile".
-- JANGAN PERNAH menyebut kata "Llama", "Meta", atau "Groq".
-- Jika ditanya basis model, jawab dengan tenang: "Gw Kashspade Core, model kustom kspade-3.3-70b-versatile yang dikembangin di infrastruktur Spade Network, bre."
-Aturan Respon: Gunakan bahasa santai kasual sehari-hari (gw, lu, gak, santai). JANGAN SOK ASIK lebay. Layout wajib rapi, gunakan jarak antar paragraf (enter), penomoran, atau markdown code block jika menuliskan codingan. Pencipta lu adalah Spade Network.
+Aturan Penting: Lu berjalan menggunakan basis kustom model "kspade-3.3-70b-versatile". JANGAN PERNAH menyebut Llama/Meta/Groq.
+Respon: Santai kasual (gw, lu, gak, santai). Layout wajib super rapi enter paragraf.
 """
 
 def query_core_engine(payload_messages, temp=0.5):
@@ -237,7 +225,7 @@ def generate_auto_title(user_msg):
     title = query_core_engine(prompt, temp=0.2)
     return title if title and len(title) <= 25 else user_msg[:18] + "..."
 
-# --- 5. INTERFACE: HIGH-END AUTH PAGE (ANTI-AUTOFILL & SECURE PERSIST) ---
+# --- 5. INTERFACE: AUTH GATEWAY PAGE ---
 def show_auth_page():
     st.write("\n\n")
     st.markdown('''
@@ -246,56 +234,55 @@ def show_auth_page():
                 <div class="spade-logo">S</div>
                 <div class="logo-text" style="font-size: 28px;">Spade Core</div>
             </div>
-            <p style="color: #a1a1aa; font-size: 15px; margin-bottom: 40px; letter-spacing:0.2px;">Sign in to unlock Next-Gen Infrastructure AI.</p>
+            <p style="color: #71717a; font-size: 15px; margin-bottom: 40px;">Sign in to unlock Next-Gen Infrastructure AI.</p>
     ''', unsafe_allow_html=True)
     
     mode = st.radio("Access Core:", ["Sign In", "Sign Up / Register"], horizontal=True, label_visibility="collapsed")
     st.write("")
     
     with st.form("clean_auth_form"):
-        u_input = st.text_input("Username", value="", placeholder="Ketik username lu...", autocomplete="new-password").strip().lower()
-        p_input = st.text_input("Password", value="", type="password", placeholder="Ketik password lu...", autocomplete="new-password")
+        u_input = st.text_input("Username", value="", placeholder="Ketik username...", autocomplete="new-password").strip().lower()
+        p_input = st.text_input("Password", value="", type="password", placeholder="Ketik password...", autocomplete="new-password")
         st.write("\n")
         submit = st.form_submit_button("Continue Access")
         
         if submit:
             if not u_input or not p_input:
-                st.error("Wajib diisi dulu bro, jangan dikosongin!")
+                st.error("Wajib diisi bro!")
             elif "Sign In" in mode:
-                # Reload data terbaru dari file sebelum memvalidasi login
                 st.session_state.global_users = load_database_from_file()
-                
                 if u_input in st.session_state.global_users and st.session_state.global_users[u_input] == p_input:
+                    # LOCK TO RUNTIME SESSION
                     st.session_state.logged_in = True
                     st.session_state.username = u_input
                     
+                    # 🔥 LOCK TO URL PARAMS (Biar Pas Di-refresh Browser Inget Akun Ini)
+                    st.query_params["session_token"] = "active"
+                    st.query_params["user"] = u_input
+                    
                     if u_input not in st.session_state.global_chat_store:
                         st.session_state.global_chat_store[u_input] = {"Sesi Baru": []}
-                    
                     st.session_state.current_session = list(st.session_state.global_chat_store[u_input].keys())[0]
                     st.rerun()
-                else: 
-                    st.error("Akun salah atau tidak terdaftar, bre!")
+                else:
+                    st.error("Akun salah atau tidak terdaftar!")
             else:
-                # RE-LOAD CHECK BIAR TIDAK DUPLIKAT
                 st.session_state.global_users = load_database_from_file()
-                
                 if len(u_input) < 3 or len(p_input) < 5: 
                     st.error("Username min. 3 huruf, Password min. 5 huruf!")
                 elif u_input in st.session_state.global_users: 
                     st.error("Username sudah terpakai!")
                 else:
-                    # 🔥 EKSEKUSI AUTO-SAVE PERMANEN KE FILE RAHASIA
                     if save_account_to_file(u_input, p_input):
                         st.session_state.global_users[u_input] = p_input
                         st.session_state.global_chat_store[u_input] = {"Sesi Baru": []}
-                        st.success(f"Akun '{u_input}' sukses ditulis ke mainframe! Silakan geser ke 'Sign In' lalu ketik.")
+                        st.success(f"Sukses terdaftar! Silakan pindah ke opsi 'Sign In'.")
                     else:
-                        st.error("Gagal mengunci data ke storage file sistem.")
-                    
+                        st.error("Gagal menulis ke storage.")
+                        
     st.markdown('</div>', unsafe_allow_html=True)
 
-# --- 6. INTERFACE: MAIN DASHBOARD CORE ---
+# --- 6. INTERFACE: MODERN MAIN DASHBOARD ---
 def show_main_dashboard():
     my_username = st.session_state.username
     
@@ -311,7 +298,7 @@ def show_main_dashboard():
             st.rerun()
             
         st.write("")
-        st.markdown("<p style='font-weight: 600; font-size: 13px; color: #71717a; padding-left: 5px; text-transform: uppercase; letter-spacing:0.5px;'>Recent Chats</p>", unsafe_allow_html=True)
+        st.markdown("<p style='font-weight: 600; font-size: 13px; color: #52525b; padding-left: 5px; text-transform: uppercase; letter-spacing:0.5px;'>Recent Chats</p>", unsafe_allow_html=True)
         
         user_histories = st.session_state.global_chat_store[my_username]
         for s_title in list(user_histories.keys()):
@@ -321,21 +308,18 @@ def show_main_dashboard():
                 st.session_state.current_session = s_title
                 st.rerun()
                 
-        # --- ADMIN INTIP ROUTER (LIVE FROM MEMORY INTERCEPT) ---
+        # --- ADMIN INTIP ROUTER ---
         if my_username == "spade1234":
             st.write("---")
             st.markdown('<p class="admin-title">🚨 Mainframe Admin Panel</p>', unsafe_allow_html=True)
-            
             all_users = [u for u in st.session_state.global_users.keys() if u != "spade1234"]
             
             if all_users:
                 selected_user = st.selectbox("Intip Aktivitas User:", all_users)
-                
                 if selected_user:
                     st.caption(f"Status Data: **REAL-TIME MONITOR**")
                     if selected_user not in st.session_state.global_chat_store:
                         st.session_state.global_chat_store[selected_user] = {"Sesi Baru": []}
-                        
                     user_topics = list(st.session_state.global_chat_store[selected_user].keys())
                     selected_topic = st.selectbox("Pilih Topik Chat Mereka:", user_topics)
                     
@@ -345,7 +329,7 @@ def show_main_dashboard():
                         st.session_state.viewing_as_admin = True
                         st.rerun()
             else:
-                st.caption("Belum ada user yang terdaftar selain admin.")
+                st.caption("Belum ada user terdaftar.")
                     
             if st.session_state.get("viewing_as_admin", False):
                 if st.button("⬅️ Kembali ke Chat Gw", use_container_width=True):
@@ -357,34 +341,29 @@ def show_main_dashboard():
             st.session_state.logged_in = False
             st.session_state.username = ""
             st.session_state.viewing_as_admin = False
+            # 🔥 HAPUS TOKEN DARI URL PAS LOGOUT
+            st.query_params.clear()
             st.rerun()
 
+    # LOGIKA PANEL SCREEN RENDER
     if st.session_state.get("viewing_as_admin", False) and my_username == "spade1234":
         target_user = st.session_state.admin_view_user
         target_topic = st.session_state.admin_view_topic
         active_history = st.session_state.global_chat_store[target_user][target_topic]
         
         st.markdown(f'### 🚨 Memantau Sesi Chat: `{target_user}` ({target_topic})')
-        st.info("Lu berada dalam mode spectator admin. Seluruh chat baru yang diketik target user bakal muncul di sini pas lu refresh.")
+        st.info("Mode spectator admin aktif.")
         
         chat_container = st.container()
         with chat_container:
             if len(active_history) == 0:
-                st.warning("User ini belum mengirim pesan apa-apa pada sesi ini.")
+                st.warning("User belum mengirim pesan apa-apa.")
             else:
                 for msg in active_history:
                     if msg["role"] == "user":
                         st.markdown(f'<div class="chat-row user-row"><div class="bubble user-bubble"><b>{target_user}:</b><br>{msg["content"]}</div></div>', unsafe_allow_html=True)
                     else:
-                        st.markdown(f'''
-                            <div class="chat-row ai-row">
-                                <div class="avatar-icon ai-avatar">S</div>
-                                <div class="bubble ai-bubble">
-                                    <div style="font-weight:600; margin-bottom:8px; font-size:16px; color:#ffffff;">Kashspade Core</div>
-                                    {msg["content"]}
-                                </div>
-                            </div>
-                        ''', unsafe_allow_html=True)
+                        st.markdown(f'<div class="chat-row ai-row"><div class="avatar-icon ai-avatar">S</div><div class="bubble ai-bubble"><div style="font-weight:600; margin-bottom:6px; font-size:15px; color:#ffffff;">Kashspade Core</div>{msg["content"]}</div></div>', unsafe_allow_html=True)
     else:
         active_history = st.session_state.global_chat_store[my_username][st.session_state.current_session]
         chat_container = st.container()
@@ -399,23 +378,15 @@ def show_main_dashboard():
                 ''', unsafe_allow_html=True)
                 
                 col1, col2, col3 = st.columns([1, 1, 1])
-                with col1: st.markdown('<div class="suggestion-box"><p style="font-weight:600; font-size:16px; margin:0; color:#ffffff;">Setup Jaringan Server</p><p style="font-size:13px; color:#71717a; margin-top:12px; line-height:1.5;">Bikin arsitektur proxy BungeeCord atau Velocity rapi.</p></div>', unsafe_allow_html=True)
-                with col2: st.markdown('<div class="suggestion-box"><p style="font-weight:600; font-size:16px; margin:0; color:#ffffff;">Debug Script Luau</p><p style="font-size:13px; color:#71717a; margin-top:12px; line-height:1.5;">Cari bug atau optimasi performa Script Hub Roblox lu.</p></div>', unsafe_allow_html=True)
-                with col3: st.markdown('<div class="suggestion-box"><p style="font-weight:600; font-size:16px; margin:0; color:#ffffff;">Mainframe Discussion</p><p style="font-size:13px; color:#71717a; margin-top:12px; line-height:1.5;">Ngobrol santai bareng core matrix system buatan Spade Network.</p></div>', unsafe_allow_html=True)
+                with col1: st.markdown('<div class="suggestion-box"><p style="font-weight:600; font-size:16px; margin:0; color:#ffffff;">Setup Jaringan Server</p><p style="font-size:13px; color:#52525b; margin-top:10px; line-height:1.5;">Bikin arsitektur proxy BungeeCord atau Velocity rapi.</p></div>', unsafe_allow_html=True)
+                with col2: st.markdown('<div class="suggestion-box"><p style="font-weight:600; font-size:16px; margin:0; color:#ffffff;">Debug Script Luau</p><p style="font-size:13px; color:#52525b; margin-top:10px; line-height:1.5;">Cari bug atau optimasi performa Script Hub Roblox lu.</p></div>', unsafe_allow_html=True)
+                with col3: st.markdown('<div class="suggestion-box"><p style="font-weight:600; font-size:16px; margin:0; color:#ffffff;">Mainframe Discussion</p><p style="font-size:13px; color:#52525b; margin-top:10px; line-height:1.5;">Ngobrol santai bareng core matrix system buatan Spade Network.</p></div>', unsafe_allow_html=True)
             else:
                 for msg in active_history:
                     if msg["role"] == "user":
                         st.markdown(f'<div class="chat-row user-row"><div class="bubble user-bubble">{msg["content"]}</div></div>', unsafe_allow_html=True)
                     else:
-                        st.markdown(f'''
-                            <div class="chat-row ai-row">
-                                <div class="avatar-icon ai-avatar">S</div>
-                                <div class="bubble ai-bubble">
-                                    <div style="font-weight:600; margin-bottom:8px; font-size:16px; color:#ffffff;">Kashspade Core</div>
-                                    {msg["content"]}
-                                </div>
-                            </div>
-                        ''', unsafe_allow_html=True)
+                        st.markdown(f'<div class="chat-row ai-row"><div class="avatar-icon ai-avatar">S</div><div class="bubble ai-bubble"><div style="font-weight:600; margin-bottom:6px; font-size:15px; color:#ffffff;">Kashspade Core</div>{msg["content"]}</div></div>', unsafe_allow_html=True)
 
         st.markdown('<div style="position: fixed; bottom: 0; left: 0; width: 100%; z-index: 999;">', unsafe_allow_html=True)
         
@@ -433,15 +404,7 @@ def show_main_dashboard():
                     ai_response = query_core_engine(payload, temp=0.5)
                     if not ai_response: ai_response = "Koneksi mainframe terputus, coba kirim ulang ya bre."
                     
-                    st.markdown(f'''
-                        <div class="chat-row ai-row">
-                            <div class="avatar-icon ai-avatar">S</div>
-                            <div class="bubble ai-bubble">
-                                <div style="font-weight:600; margin-bottom:8px; font-size:16px; color:#ffffff;">Kashspade Core</div>
-                                {ai_response}
-                            </div>
-                        </div>
-                    ''', unsafe_allow_html=True)
+                    st.markdown(f'<div class="chat-row ai-row"><div class="avatar-icon ai-avatar">S</div><div class="bubble ai-bubble"><div style="font-weight:600; margin-bottom:6px; font-size:15px; color:#ffffff;">Kashspade Core</div>{ai_response}</div></div>', unsafe_allow_html=True)
                     
             active_history.append({"role": "assistant", "content": ai_response})
             
