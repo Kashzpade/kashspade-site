@@ -1,46 +1,3 @@
-<!DOCTYPE html>
-<html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kashspade Core</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@stlite/mountable@0.39.0/build/stlite.css" />
-    <style>
-      /* Splash Screen Loading Animasi biar keliatan mahal pas web dibuka */
-      #spinner-container {
-        position: fixed;
-        top: 0; left: 0; width: 100vw; height: 100vh;
-        background-color: #131314;
-        display: flex; flex-direction: column; justify-content: center; align-items: center;
-        z-index: 9999; font-family: sans-serif; color: #e3e3e3;
-      }
-      .spinner {
-        width: 50px; height: 50px;
-        border: 3px solid rgba(255,255,255,0.1);
-        border-radius: 50%;
-        border-top-color: #10b981;
-        animation: spin 1s ease-in-out infinite;
-      }
-      @keyframes spin { to { transform: rotate(360deg); } }
-    </style>
-  </head>
-  <body>
-    <div id="spinner-container">
-      <div class="spinner"></div>
-      <p style="margin-top: 20px; font-weight: 500; letter-spacing: 0.5px;">Booting Kashspade Core Mainframe...</p>
-    </div>
-
-    <div id="root"></div>
-
-    <script src="https://cdn.jsdelivr.net/npm/@stlite/mountable@0.39.0/build/stlite.js"></script>
-    <script>
-      stlite.mount(
-        {
-          requirements: ["requests"],
-          entrypoint: "app.py",
-          files: {
-            "app.py": `
 import os
 import time
 import requests
@@ -202,7 +159,6 @@ if "current_session" not in st.session_state:
     st.session_state.current_session = "Sesi Baru"
 
 # --- 4. SECURE ENGINE CONFIG ---
-# Mengambil API key aman dari Environtment Variables Vercel
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "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")
 API_URL = "https://api.groq.com/openai/v1/chat/completions"
 
@@ -371,14 +327,3 @@ def show_main_dashboard():
 # --- 7. RUN ENGINE ---
 if not st.session_state.logged_in: show_auth_page()
 else: show_main_dashboard()
-`,
-          },
-        },
-        document.getElementById("root")
-      ).then(() => {
-        // Matikan splash loading pas stlite beres dimuat
-        document.getElementById("spinner-container").style.display = "none";
-      });
-    </script>
-  </body>
-</html>
