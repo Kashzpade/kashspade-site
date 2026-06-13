@@ -11,7 +11,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- 2. THEME ENGINE / HIGH-END MODERN UI CSS ---
+# --- 2. ULTRA PREMIUM LUXURY UI CSS ---
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
@@ -24,30 +24,35 @@ st.markdown("""
     
     #MainMenu, header, footer { visibility: hidden; }
     
-    /* SIDEBAR ARYLIC TRANSLUCENT */
+    /* SIDEBAR LUXURY DEEP DARK */
     [data-testid="stSidebar"] {
-        background-color: #111114 !important;
+        background-color: #0f0f12 !important;
         border-right: 1px solid #1f1f24 !important;
+    }
+    
+    /* KONTEN UTAMA SIDEBAR */
+    [data-testid="stSidebarUserContent"] {
+        padding-top: 10px !important;
     }
     
     .logo-container {
         display: flex;
         align-items: center;
         gap: 14px;
-        padding: 24px 12px;
+        padding: 20px 12px;
         border-bottom: 1px solid #1f1f24;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
     .spade-logo {
-        width: 44px; height: 44px;
+        width: 42px; height: 42px;
         background: linear-gradient(135deg, #10b981, #059669);
-        border-radius: 14px;
+        border-radius: 12px;
         display: flex; align-items: center; justify-content: center;
-        font-weight: 800; color: white; font-size: 24px;
-        box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25);
+        font-weight: 800; color: white; font-size: 22px;
+        box-shadow: 0 8px 24px rgba(16, 185, 129, 0.2);
     }
     .logo-text {
-        font-size: 22px; font-weight: 800;
+        font-size: 20px; font-weight: 800;
         color: #ffffff; letter-spacing: -0.5px;
     }
     
@@ -64,7 +69,7 @@ st.markdown("""
     }
     .sub-greeting {
         font-size: 54px; font-weight: 800;
-        color: #222226; letter-spacing: -2px;
+        color: #1a1a1e; letter-spacing: -2px;
         margin-top: -25px; margin-bottom: 50px;
     }
     
@@ -131,7 +136,7 @@ st.markdown("""
         font-size: 12px; margin-top: 14px; margin-bottom: 20px;
     }
     
-    /* AUTH CARD EXQUISITE */
+    /* AUTH CARD */
     .auth-card {
         background: #111114; border-radius: 28px;
         padding: 45px; max-width: 440px; margin: 90px auto;
@@ -141,17 +146,19 @@ st.markdown("""
     }
     
     .admin-title {
-        color: #f43f5e; font-weight: 700; font-size: 12px;
+        color: #f43f5e; font-weight: 700; font-size: 11px;
         text-transform: uppercase; letter-spacing: 1px;
-        margin-top: 20px; padding-left: 5px;
+        margin-top: 15px; padding-left: 5px;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# --- 3. HARD DRIVE PERSISTENT ENGINE (`secret.txt`) ---
+# --- 3. HARD DRIVE DATABASE STORAGE SYSTEM (ANTI-RESET REFRESH) ---
 SECRET_FILE = "secret.txt"
+CHAT_FILE = "chat_storage.txt"
 
 def load_database_from_file():
+    """Mengambil database akun dari secret.txt"""
     users = {"spade1234": "abangkesped", "spade": "kashspade123", "kevin": "tongkrongan70b"}
     if os.path.exists(SECRET_FILE):
         try:
@@ -171,22 +178,54 @@ def save_account_to_file(username, password):
         return True
     except: return False
 
-# Sinkronisasi Database Akun Global
+def load_all_chats_from_file():
+    """Membaca riwayat chat seluruh user secara permanen dari hard drive"""
+    store = {}
+    if os.path.exists(CHAT_FILE):
+        try:
+            with open(CHAT_FILE, "r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if line and "||" in line:
+                        parts = line.split("||")
+                        if len(parts) == 4:
+                            user, topic, role, content = parts
+                            # Replace marker enter balik ke format asli string newline
+                            content = content.replace("<br_marker>", "\n")
+                            
+                            if user not in store: store[user] = {}
+                            if topic not in store[user]: store[user][topic] = []
+                            store[user][topic].append({"role": role, "content": content})
+        except: pass
+    return store
+
+def save_single_chat_msg(user, topic, role, content):
+    """Menyisipkan 1 baris chat baru langsung ke dalam hard drive file teks"""
+    try:
+        # Ganti format string enter asli ke marker aman biar gak ngerusak pembacaan baris teks
+        safe_content = content.replace("\n", "<br_marker>")
+        with open(CHAT_FILE, "a", encoding="utf-8") as f:
+            f.write(f"{user}||{topic}||{role}||{safe_content}\n")
+    except: pass
+
+# Jalankan Sync Data dari Hard Drive Utama ke RAM Web Server
 st.session_state.global_users = load_database_from_file()
+loaded_histories = load_all_chats_from_file()
 
 if "global_chat_store" not in st.session_state:
-    st.session_state.global_chat_store = {}
+    st.session_state.global_chat_store = loaded_histories
+
+# Inisialisasi room chat basic jika user belum punya history chat sama sekali
 for user in st.session_state.global_users.keys():
     if user not in st.session_state.global_chat_store:
         st.session_state.global_chat_store[user] = {"Sesi Baru": []}
+    elif not st.session_state.global_chat_store[user]:
+        st.session_state.global_chat_store[user] = {"Sesi Baru": []}
 
-# ==========================================
-# 🔥 CRITICAL SYNC: ANTI-AMNESIA REFRESH ENGINE VIA QUERY PARAMS
-# ==========================================
+# --- 4. ENGINE CORE SYNC PARAMS ---
 query_params = st.query_params
 
 if "logged_in" not in st.session_state:
-    # Jika di URL terdeteksi ada token login, auto-inject ke session state browser
     if "session_token" in query_params and query_params["session_token"] == "active":
         st.session_state.logged_in = True
         st.session_state.username = query_params.get("user", "").lower()
@@ -195,9 +234,13 @@ if "logged_in" not in st.session_state:
         st.session_state.username = ""
 
 if "current_session" not in st.session_state:
-    st.session_state.current_session = "Sesi Baru"
+    my_user = st.session_state.username
+    if st.session_state.logged_in and my_user in st.session_state.global_chat_store:
+        st.session_state.current_session = list(st.session_state.global_chat_store[my_user].keys())[0]
+    else:
+        st.session_state.current_session = "Sesi Baru"
 
-# --- 4. SECURE CORE ENGINE CONFIG ---
+# --- 5. SECURE API CONFIG ---
 GROQ_API_KEY = os.environ.get("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", "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")
 API_URL = "https://api.groq.com/openai/v1/chat/completions"
 
@@ -225,7 +268,7 @@ def generate_auto_title(user_msg):
     title = query_core_engine(prompt, temp=0.2)
     return title if title and len(title) <= 25 else user_msg[:18] + "..."
 
-# --- 5. INTERFACE: AUTH GATEWAY PAGE ---
+# --- 6. INTERFACE: AUTH GATEWAY PAGE ---
 def show_auth_page():
     st.write("\n\n")
     st.markdown('''
@@ -252,11 +295,9 @@ def show_auth_page():
             elif "Sign In" in mode:
                 st.session_state.global_users = load_database_from_file()
                 if u_input in st.session_state.global_users and st.session_state.global_users[u_input] == p_input:
-                    # LOCK TO RUNTIME SESSION
                     st.session_state.logged_in = True
                     st.session_state.username = u_input
                     
-                    # 🔥 LOCK TO URL PARAMS (Biar Pas Di-refresh Browser Inget Akun Ini)
                     st.query_params["session_token"] = "active"
                     st.query_params["user"] = u_input
                     
@@ -264,28 +305,24 @@ def show_auth_page():
                         st.session_state.global_chat_store[u_input] = {"Sesi Baru": []}
                     st.session_state.current_session = list(st.session_state.global_chat_store[u_input].keys())[0]
                     st.rerun()
-                else:
-                    st.error("Akun salah atau tidak terdaftar!")
+                else: st.error("Akun salah atau tidak terdaftar!")
             else:
                 st.session_state.global_users = load_database_from_file()
-                if len(u_input) < 3 or len(p_input) < 5: 
-                    st.error("Username min. 3 huruf, Password min. 5 huruf!")
-                elif u_input in st.session_state.global_users: 
-                    st.error("Username sudah terpakai!")
+                if len(u_input) < 3 or len(p_input) < 5: st.error("Username min. 3 huruf, Password min. 5 huruf!")
+                elif u_input in st.session_state.global_users: st.error("Username sudah terpakai!")
                 else:
                     if save_account_to_file(u_input, p_input):
                         st.session_state.global_users[u_input] = p_input
                         st.session_state.global_chat_store[u_input] = {"Sesi Baru": []}
-                        st.success(f"Sukses terdaftar! Silakan pindah ke opsi 'Sign In'.")
-                    else:
-                        st.error("Gagal menulis ke storage.")
-                        
+                        st.success(f"Sukses terdaftar! Silakan ke opsi 'Sign In'.")
+                    else: st.error("Gagal menulis ke storage.")
     st.markdown('</div>', unsafe_allow_html=True)
 
-# --- 6. INTERFACE: MODERN MAIN DASHBOARD ---
+# --- 7. INTERFACE: MODERN DASHBOARD MAIN MATRIX ---
 def show_main_dashboard():
     my_username = st.session_state.username
     
+    # RENDER SIDEBAR KIRI (CHATS DI ATAS, RECENT CHATS TENGAH, LOGOUT DI DASAR)
     with st.sidebar:
         st.markdown('<div class="logo-container"><div class="spade-logo">S</div><div class="logo-text">Spade Core</div></div>', unsafe_allow_html=True)
         st.caption(f"Operator: **{my_username.upper()}**")
@@ -298,8 +335,9 @@ def show_main_dashboard():
             st.rerun()
             
         st.write("")
-        st.markdown("<p style='font-weight: 600; font-size: 13px; color: #52525b; padding-left: 5px; text-transform: uppercase; letter-spacing:0.5px;'>Recent Chats</p>", unsafe_allow_html=True)
+        st.markdown("<p style='font-weight: 600; font-size: 12px; color: #52525b; padding-left: 5px; text-transform: uppercase; letter-spacing:0.5px;'>Recent Chats</p>", unsafe_allow_html=True)
         
+        # Wrapper area scrolling chat history biar rapi
         user_histories = st.session_state.global_chat_store[my_username]
         for s_title in list(user_histories.keys()):
             is_active = s_title == st.session_state.current_session
@@ -313,11 +351,9 @@ def show_main_dashboard():
             st.write("---")
             st.markdown('<p class="admin-title">🚨 Mainframe Admin Panel</p>', unsafe_allow_html=True)
             all_users = [u for u in st.session_state.global_users.keys() if u != "spade1234"]
-            
             if all_users:
                 selected_user = st.selectbox("Intip Aktivitas User:", all_users)
                 if selected_user:
-                    st.caption(f"Status Data: **REAL-TIME MONITOR**")
                     if selected_user not in st.session_state.global_chat_store:
                         st.session_state.global_chat_store[selected_user] = {"Sesi Baru": []}
                     user_topics = list(st.session_state.global_chat_store[selected_user].keys())
@@ -328,36 +364,30 @@ def show_main_dashboard():
                         st.session_state.admin_view_topic = selected_topic
                         st.session_state.viewing_as_admin = True
                         st.rerun()
-            else:
-                st.caption("Belum ada user terdaftar.")
-                    
             if st.session_state.get("viewing_as_admin", False):
                 if st.button("⬅️ Kembali ke Chat Gw", use_container_width=True):
                     st.session_state.viewing_as_admin = False
                     st.rerun()
-        
-        st.write("---")
+
+        # 🔥 TRICK SAKRAL: DORONG TOMBOL LOGOUT KE PALING BAWAH SIDEBAR MENGGUNAKAN HTML BOTTOM SPACE
+        st.markdown('<div style="margin-top: 100px;"></div>', unsafe_allow_html=True)
         if st.button("🚪 Keluar Sistem", use_container_width=True):
             st.session_state.logged_in = False
             st.session_state.username = ""
             st.session_state.viewing_as_admin = False
-            # 🔥 HAPUS TOKEN DARI URL PAS LOGOUT
             st.query_params.clear()
             st.rerun()
 
-    # LOGIKA PANEL SCREEN RENDER
+    # LOGIKA UTAMA MONITOR SCREEN DISPLAY CHAT ROOM
     if st.session_state.get("viewing_as_admin", False) and my_username == "spade1234":
         target_user = st.session_state.admin_view_user
         target_topic = st.session_state.admin_view_topic
         active_history = st.session_state.global_chat_store[target_user][target_topic]
         
         st.markdown(f'### 🚨 Memantau Sesi Chat: `{target_user}` ({target_topic})')
-        st.info("Mode spectator admin aktif.")
-        
         chat_container = st.container()
         with chat_container:
-            if len(active_history) == 0:
-                st.warning("User belum mengirim pesan apa-apa.")
+            if len(active_history) == 0: st.warning("User belum mengirim pesan apa-apa.")
             else:
                 for msg in active_history:
                     if msg["role"] == "user":
@@ -376,7 +406,6 @@ def show_main_dashboard():
                         <div class="sub-greeting">Ada yang bisa saya bantu hari ini?</div>
                     </div>
                 ''', unsafe_allow_html=True)
-                
                 col1, col2, col3 = st.columns([1, 1, 1])
                 with col1: st.markdown('<div class="suggestion-box"><p style="font-weight:600; font-size:16px; margin:0; color:#ffffff;">Setup Jaringan Server</p><p style="font-size:13px; color:#52525b; margin-top:10px; line-height:1.5;">Bikin arsitektur proxy BungeeCord atau Velocity rapi.</p></div>', unsafe_allow_html=True)
                 with col2: st.markdown('<div class="suggestion-box"><p style="font-weight:600; font-size:16px; margin:0; color:#ffffff;">Debug Script Luau</p><p style="font-size:13px; color:#52525b; margin-top:10px; line-height:1.5;">Cari bug atau optimasi performa Script Hub Roblox lu.</p></div>', unsafe_allow_html=True)
@@ -394,10 +423,26 @@ def show_main_dashboard():
             with chat_container:
                 st.markdown(f'<div class="chat-row user-row"><div class="bubble user-bubble">{user_prompt}</div></div>', unsafe_allow_html=True)
             
-            active_history.append({"role": "user", "content": user_prompt})
+            # 1. Cari tahu status room sebelum disave
             is_first_chat = (st.session_state.current_session == "Sesi Baru")
             current_sess_key = st.session_state.current_session
             
+            # Jika ini chat pertama di sesi baru, generate Judul otomatis via AI
+            if is_first_chat:
+                new_title = generate_auto_title(user_prompt)
+                # Migrasi room memori
+                st.session_state.global_chat_store[my_username][new_title] = []
+                st.session_state.global_chat_store[my_username].pop("Sesi Baru", None)
+                st.session_state.current_session = new_title
+                active_room = new_title
+            else:
+                active_room = current_sess_key
+                
+            # 2. Simpan Chat User Permanen ke Hard Drive File Teks
+            active_history.append({"role": "user", "content": user_prompt})
+            save_single_chat_msg(my_username, active_room, "user", user_prompt)
+            
+            # 3. Hit API AI Mainframe Engine
             with chat_container:
                 with st.spinner(""):
                     payload = [{"role": "system", "content": SYSTEM_PROMPT}] + active_history
@@ -405,21 +450,18 @@ def show_main_dashboard():
                     if not ai_response: ai_response = "Koneksi mainframe terputus, coba kirim ulang ya bre."
                     
                     st.markdown(f'<div class="chat-row ai-row"><div class="avatar-icon ai-avatar">S</div><div class="bubble ai-bubble"><div style="font-weight:600; margin-bottom:6px; font-size:15px; color:#ffffff;">Kashspade Core</div>{ai_response}</div></div>', unsafe_allow_html=True)
-                    
-            active_history.append({"role": "assistant", "content": ai_response})
             
-            if is_first_chat:
-                new_title = generate_auto_title(user_prompt)
-                st.session_state.global_chat_store[my_username][new_title] = active_history
-                st.session_state.global_chat_store[my_username].pop("Sesi Baru", None)
-                st.session_state.current_session = new_title
-            else:
-                st.session_state.global_chat_store[my_username][current_sess_key] = active_history
+            # 4. Simpan Chat AI Permanen ke Hard Drive File Teks
+            active_history.append({"role": "assistant", "content": ai_response})
+            save_single_chat_msg(my_username, active_room, "assistant", ai_response)
+            
+            # Update memory state & Rerun refresh layar
+            st.session_state.global_chat_store[my_username][active_room] = active_history
             st.rerun()
 
         st.markdown('<div class="disclaimer-text">Kashspade Core dapat membuat kesalahan. Pertimbangkan untuk memeriksa informasi penting.</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
-# --- 7. RUN ENGINE ---
+# --- 8. RUN RUNTIME ENGINE ---
 if not st.session_state.logged_in: show_auth_page()
 else: show_main_dashboard()
