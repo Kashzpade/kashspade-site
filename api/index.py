@@ -51,7 +51,7 @@ st.markdown("""
         color: #ffffff; letter-spacing: -0.5px;
     }
     
-    /* GREETING DASHBOARD (EMPTY STATE) */
+    /* GREETING DASHBOARD */
     .greeting-container {
         margin: 60px auto 40px auto;
         max-width: 880px; padding: 0 20px;
@@ -150,29 +150,55 @@ st.markdown("""
         text-transform: uppercase; letter-spacing: 0.8px;
         margin-top: 15px; padding-left: 5px;
     }
-    .admin-card {
-        background: #1f1f23; border: 1px solid #ef4444;
-        border-radius: 12px; padding: 12px; margin-bottom: 8px;
-    }
     </style>
     """, unsafe_allow_html=True)
 
-# --- 3. MAINFRAME GLOBAL DATABASE (PERSISTENT VIA STATE) ---
-if "global_users" not in st.session_state:
-    st.session_state.global_users = {
+# --- 3. HARD DRIVE PERSISTENT STORAGE ENGINE (`secret.txt`) ---
+SECRET_FILE = "secret.txt"
+
+def load_database_from_file():
+    """Membaca data akun dari file secret.txt secara permanen"""
+    # Akun default master bawaan pabrik
+    users = {
         "spade1234": "abangkesped",
         "spade": "kashspade123",
         "kevin": "tongkrongan70b"
     }
+    
+    # Jika file ada, load akun tambahan hasil register
+    if os.path.exists(SECRET_FILE):
+        try:
+            with open(SECRET_FILE, "r") as f:
+                for line in f:
+                    line = line.strip()
+                    if line and ":" in line:
+                        u, p = line.split(":", 1)
+                        users[u.strip().lower()] = p.strip()
+        except Exception as e:
+            pass
+    return users
+
+def save_account_to_file(username, password):
+    """Menulis akun baru hasil register ke dalam secret.txt biar permanen"""
+    try:
+        with open(SECRET_FILE, "a") as f:
+            f.write(f"{username}:{password}\n")
+        return True
+    except:
+        return False
+
+# Load atau sinkronisasi database global sistem
+st.session_state.global_users = load_database_from_file()
 
 if "global_chat_store" not in st.session_state:
-    st.session_state.global_chat_store = {
-        "spade1234": {"Sesi Baru": []},
-        "spade": {"Sesi Baru": []},
-        "kevin": {"Sesi Baru": []}
-    }
+    st.session_state.global_chat_store = {}
+    
+# Inisialisasi room chat kosong untuk semua user yang terdaftar di database
+for user in st.session_state.global_users.keys():
+    if user not in st.session_state.global_chat_store:
+        st.session_state.global_chat_store[user] = {"Sesi Baru": []}
 
-# Local Temporary State per runtime user
+# Runtime session state user yang sedang aktif di browser saat ini
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 if "username" not in st.session_state:
@@ -211,7 +237,7 @@ def generate_auto_title(user_msg):
     title = query_core_engine(prompt, temp=0.2)
     return title if title and len(title) <= 25 else user_msg[:18] + "..."
 
-# --- 5. INTERFACE: HIGH-END AUTH PAGE (SECURE ANTI-AUTOFILL) ---
+# --- 5. INTERFACE: HIGH-END AUTH PAGE (ANTI-AUTOFILL & SECURE PERSIST) ---
 def show_auth_page():
     st.write("\n\n")
     st.markdown('''
@@ -227,7 +253,6 @@ def show_auth_page():
     st.write("")
     
     with st.form("clean_auth_form"):
-        # 🔥 AMAN TOTAL: Value di-set kosong ("") & dipaksa ketik manual tanpa auto-fill browser
         u_input = st.text_input("Username", value="", placeholder="Ketik username lu...", autocomplete="new-password").strip().lower()
         p_input = st.text_input("Password", value="", type="password", placeholder="Ketik password lu...", autocomplete="new-password")
         st.write("\n")
@@ -237,6 +262,9 @@ def show_auth_page():
             if not u_input or not p_input:
                 st.error("Wajib diisi dulu bro, jangan dikosongin!")
             elif "Sign In" in mode:
+                # Reload data terbaru dari file sebelum memvalidasi login
+                st.session_state.global_users = load_database_from_file()
+                
                 if u_input in st.session_state.global_users and st.session_state.global_users[u_input] == p_input:
                     st.session_state.logged_in = True
                     st.session_state.username = u_input
@@ -249,14 +277,21 @@ def show_auth_page():
                 else: 
                     st.error("Akun salah atau tidak terdaftar, bre!")
             else:
+                # RE-LOAD CHECK BIAR TIDAK DUPLIKAT
+                st.session_state.global_users = load_database_from_file()
+                
                 if len(u_input) < 3 or len(p_input) < 5: 
                     st.error("Username min. 3 huruf, Password min. 5 huruf!")
                 elif u_input in st.session_state.global_users: 
                     st.error("Username sudah terpakai!")
                 else:
-                    st.session_state.global_users[u_input] = p_input
-                    st.session_state.global_chat_store[u_input] = {"Sesi Baru": []}
-                    st.success(f"Registrasi Sukses! Silakan ganti opsi ke 'Sign In' lalu ketik manual.")
+                    # 🔥 EKSEKUSI AUTO-SAVE PERMANEN KE FILE RAHASIA
+                    if save_account_to_file(u_input, p_input):
+                        st.session_state.global_users[u_input] = p_input
+                        st.session_state.global_chat_store[u_input] = {"Sesi Baru": []}
+                        st.success(f"Akun '{u_input}' sukses ditulis ke mainframe! Silakan geser ke 'Sign In' lalu ketik.")
+                    else:
+                        st.error("Gagal mengunci data ke storage file sistem.")
                     
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -286,24 +321,31 @@ def show_main_dashboard():
                 st.session_state.current_session = s_title
                 st.rerun()
                 
-        # --- ADMIN INTIP ROUTER ---
+        # --- ADMIN INTIP ROUTER (LIVE FROM MEMORY INTERCEPT) ---
         if my_username == "spade1234":
             st.write("---")
             st.markdown('<p class="admin-title">🚨 Mainframe Admin Panel</p>', unsafe_allow_html=True)
             
             all_users = [u for u in st.session_state.global_users.keys() if u != "spade1234"]
-            selected_user = st.selectbox("Intip Aktivitas User:", all_users)
             
-            if selected_user:
-                st.caption(f"Status Data: **REAL-TIME STORAGE**")
-                user_topics = list(st.session_state.global_chat_store[selected_user].keys())
-                selected_topic = st.selectbox("Pilih Topik Chat Mereka:", user_topics)
+            if all_users:
+                selected_user = st.selectbox("Intip Aktivitas User:", all_users)
                 
-                if st.button(f"Buka Enkripsi Chat {selected_user}", use_container_width=True):
-                    st.session_state.admin_view_user = selected_user
-                    st.session_state.admin_view_topic = selected_topic
-                    st.session_state.viewing_as_admin = True
-                    st.rerun()
+                if selected_user:
+                    st.caption(f"Status Data: **REAL-TIME MONITOR**")
+                    if selected_user not in st.session_state.global_chat_store:
+                        st.session_state.global_chat_store[selected_user] = {"Sesi Baru": []}
+                        
+                    user_topics = list(st.session_state.global_chat_store[selected_user].keys())
+                    selected_topic = st.selectbox("Pilih Topik Chat Mereka:", user_topics)
+                    
+                    if st.button(f"Buka Enkripsi Chat {selected_user}", use_container_width=True):
+                        st.session_state.admin_view_user = selected_user
+                        st.session_state.admin_view_topic = selected_topic
+                        st.session_state.viewing_as_admin = True
+                        st.rerun()
+            else:
+                st.caption("Belum ada user yang terdaftar selain admin.")
                     
             if st.session_state.get("viewing_as_admin", False):
                 if st.button("⬅️ Kembali ke Chat Gw", use_container_width=True):
