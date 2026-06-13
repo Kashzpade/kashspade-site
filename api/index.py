@@ -157,9 +157,8 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- 3. MAINFRAME GLOBAL DATABASE DATABASE (PERSISTENT VIA STATE) ---
+# --- 3. MAINFRAME GLOBAL DATABASE (PERSISTENT VIA STATE) ---
 if "global_users" not in st.session_state:
-    # Akun Master Admin otomatis didaftarkan ke database sistem
     st.session_state.global_users = {
         "spade1234": "abangkesped",
         "spade": "kashspade123",
@@ -167,7 +166,6 @@ if "global_users" not in st.session_state:
     }
 
 if "global_chat_store" not in st.session_state:
-    # Menyimpan database chat semua user secara terpusat untuk diintip admin
     st.session_state.global_chat_store = {
         "spade1234": {"Sesi Baru": []},
         "spade": {"Sesi Baru": []},
@@ -213,7 +211,7 @@ def generate_auto_title(user_msg):
     title = query_core_engine(prompt, temp=0.2)
     return title if title and len(title) <= 25 else user_msg[:18] + "..."
 
-# --- 5. INTERFACE: HIGH-END AUTH PAGE (WITH AUTO PRE-FILL) ---
+# --- 5. INTERFACE: HIGH-END AUTH PAGE (SECURE ANTI-AUTOFILL) ---
 def show_auth_page():
     st.write("\n\n")
     st.markdown('''
@@ -229,42 +227,40 @@ def show_auth_page():
     st.write("")
     
     with st.form("clean_auth_form"):
-        # 🔥 OTOMATIS AUTO-PREFILL Akun Admin Lu di Form Login
-        u_input = st.text_input("Username", value="spade1234", placeholder="Username lu...").strip().lower()
-        p_input = st.text_input("Password", value="abangkesped", type="password", placeholder="Password lu...")
+        # 🔥 AMAN TOTAL: Value di-set kosong ("") & dipaksa ketik manual tanpa auto-fill browser
+        u_input = st.text_input("Username", value="", placeholder="Ketik username lu...", autocomplete="new-password").strip().lower()
+        p_input = st.text_input("Password", value="", type="password", placeholder="Ketik password lu...", autocomplete="new-password")
         st.write("\n")
         submit = st.form_submit_button("Continue Access")
         
         if submit:
-            if "Sign In" in mode:
-                # Cek ke database global sistem
+            if not u_input or not p_input:
+                st.error("Wajib diisi dulu bro, jangan dikosongin!")
+            elif "Sign In" in mode:
                 if u_input in st.session_state.global_users and st.session_state.global_users[u_input] == p_input:
                     st.session_state.logged_in = True
                     st.session_state.username = u_input
                     
-                    # Buatkan wadah history chat baru kalau user ini belum punya chat store
                     if u_input not in st.session_state.global_chat_store:
                         st.session_state.global_chat_store[u_input] = {"Sesi Baru": []}
                     
                     st.session_state.current_session = list(st.session_state.global_chat_store[u_input].keys())[0]
                     st.rerun()
                 else: 
-                    st.error("Akun salah atau belum terdaftar, bre.")
+                    st.error("Akun salah atau tidak terdaftar, bre!")
             else:
-                # REGISTER GATEWAY (Otomatis Tersimpan Ke Database Global)
                 if len(u_input) < 3 or len(p_input) < 5: 
                     st.error("Username min. 3 huruf, Password min. 5 huruf!")
                 elif u_input in st.session_state.global_users: 
                     st.error("Username sudah terpakai!")
                 else:
-                    # Simpan permanen ke database runtime global
                     st.session_state.global_users[u_input] = p_input
                     st.session_state.global_chat_store[u_input] = {"Sesi Baru": []}
-                    st.success(f"Registrasi Akun '{u_input}' Sukses! Silakan ganti ke menu 'Sign In'.")
+                    st.success(f"Registrasi Sukses! Silakan ganti opsi ke 'Sign In' lalu ketik manual.")
                     
     st.markdown('</div>', unsafe_allow_html=True)
 
-# --- 6. INTERFACE: MAIN DASHBOARD CORE (WITH LIVE MONITORING ADMIN PANEL) ---
+# --- 6. INTERFACE: MAIN DASHBOARD CORE ---
 def show_main_dashboard():
     my_username = st.session_state.username
     
@@ -282,7 +278,6 @@ def show_main_dashboard():
         st.write("")
         st.markdown("<p style='font-weight: 600; font-size: 13px; color: #71717a; padding-left: 5px; text-transform: uppercase; letter-spacing:0.5px;'>Recent Chats</p>", unsafe_allow_html=True)
         
-        # Tarik history spesifik milik user yang lagi login
         user_histories = st.session_state.global_chat_store[my_username]
         for s_title in list(user_histories.keys()):
             is_active = s_title == st.session_state.current_session
@@ -291,14 +286,11 @@ def show_main_dashboard():
                 st.session_state.current_session = s_title
                 st.rerun()
                 
-        # ==========================================
-        # 🔥 CRITICAL UPGRADE: PREMIUM ADMIN PANEL ENGINE
-        # ==========================================
+        # --- ADMIN INTIP ROUTER ---
         if my_username == "spade1234":
             st.write("---")
             st.markdown('<p class="admin-title">🚨 Mainframe Admin Panel</p>', unsafe_allow_html=True)
             
-            # Dropdown Real-time buat milih user mana yang mau diintip chat-nya
             all_users = [u for u in st.session_state.global_users.keys() if u != "spade1234"]
             selected_user = st.selectbox("Intip Aktivitas User:", all_users)
             
@@ -307,7 +299,6 @@ def show_main_dashboard():
                 user_topics = list(st.session_state.global_chat_store[selected_user].keys())
                 selected_topic = st.selectbox("Pilih Topik Chat Mereka:", user_topics)
                 
-                # Tombol Trigger Eksekusi Intip Agen
                 if st.button(f"Buka Enkripsi Chat {selected_user}", use_container_width=True):
                     st.session_state.admin_view_user = selected_user
                     st.session_state.admin_view_topic = selected_topic
@@ -318,7 +309,6 @@ def show_main_dashboard():
                 if st.button("⬅️ Kembali ke Chat Gw", use_container_width=True):
                     st.session_state.viewing_as_admin = False
                     st.rerun()
-        # ==========================================
         
         st.write("---")
         if st.button("🚪 Keluar Sistem", use_container_width=True):
@@ -327,9 +317,7 @@ def show_main_dashboard():
             st.session_state.viewing_as_admin = False
             st.rerun()
 
-    # Logika Penentuan Aliran Konten Layar Utama (Apakah Mode Ngobrol atau Mode Ngintip Admin)
     if st.session_state.get("viewing_as_admin", False) and my_username == "spade1234":
-        # MODE ADMIN COCKPIT: Menampilkan obrolan milik target secara Live
         target_user = st.session_state.admin_view_user
         target_topic = st.session_state.admin_view_topic
         active_history = st.session_state.global_chat_store[target_user][target_topic]
@@ -356,7 +344,6 @@ def show_main_dashboard():
                             </div>
                         ''', unsafe_allow_html=True)
     else:
-        # MODE USER NORMAL (Atau Sesi Ngobrol Pribadi Milik Admin Sendiri)
         active_history = st.session_state.global_chat_store[my_username][st.session_state.current_session]
         chat_container = st.container()
 
@@ -416,7 +403,6 @@ def show_main_dashboard():
                     
             active_history.append({"role": "assistant", "content": ai_response})
             
-            # Save balik ke global dictionary secara real-time
             if is_first_chat:
                 new_title = generate_auto_title(user_prompt)
                 st.session_state.global_chat_store[my_username][new_title] = active_history
